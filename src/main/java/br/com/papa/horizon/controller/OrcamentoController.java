@@ -11,10 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
+import br.com.papa.horizon.dao.PecasDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
+import br.com.papa.horizon.entity.Peca;
 
 /**
  * 
@@ -25,11 +27,15 @@ import br.com.papa.horizon.entity.Orcamento;
 @Controller
 public class OrcamentoController {
 	OrcamentoDao orcamentoDao = new OrcamentoDao();
+	
+	/*
+	  Metodos responsaveis por cadastrar e manter 
+	  o cadastro de um novo orcamento	 
+	 */
+	
 
 	@RequestMapping("/novoOrcamento")
 	public ModelAndView novoOrcamento(HttpSession session){
-		//		OrcamentoDao dao = new OrcamentoDao();
-		//		List<Especialidade> especialidades = (List<Especialidade>) dao.localizaEspecialidade();
 		EspecialidadeDao dao = new EspecialidadeDao();
 		List<Especialidade> especialidades = dao.findAll();
 		session.removeAttribute("orcamento");
@@ -37,6 +43,23 @@ public class OrcamentoController {
 		return mv.addObject("especialidades", especialidades);
 	}
 
+	@RequestMapping("/cadastraOrcamento")
+	public String cadastraOrcamento (String relato,String equipamentoDanificado,String categoriaOrcamento, HttpSession session){
+		try{
+			Orcamento orcamento = new Orcamento();
+			orcamento = (Orcamento) session.getAttribute("orcamento");
+			orcamento.setRelato(relato);
+			orcamento.setEquipamentoDanificado(equipamentoDanificado);
+			orcamento.setEspecialidade(categoriaOrcamento);
+			orcamentoDao.adicionaOrcamento(orcamento.getCliente(), orcamento);
+			
+		}catch (Exception e){
+			System.out.println("ERRO AO CADASTRAR O ORCAMENTO" + e);
+		}
+		return "redirect:novoOrcamento";	
+		
+	}
+	
 	@RequestMapping("/orcamento")
 	public ModelAndView orcamento(HttpSession session){	
 		Orcamento orcamento = new Orcamento();
@@ -50,6 +73,19 @@ public class OrcamentoController {
 		mv.addObject("equipamentos", orcamento.getCliente().getEquipamentos());
 		return mv;
 	}
+	
+
+	@RequestMapping("/adicionaOrcamento")
+	public String adicionaOrcamento (Cliente cliente, Orcamento orcamento){
+		orcamentoDao.adicionaOrcamento(cliente, orcamento);
+		return "orcamentoSucesso";
+	}
+	
+	
+	/*
+	 * Metodo responsavel por localizar
+	 * o cliente para o novo orcamento
+	 */
 
 	@RequestMapping("/localizaCliente")
 	public String localizaCliente(String cpf, HttpSession session){
@@ -71,27 +107,39 @@ public class OrcamentoController {
 		}
 		return "redirect:orcamento";			
 	}
-
-	@RequestMapping("/cadastraOrcamento")
-	public String cadastraOrcamento (Equipamento teste,String relato,String equipamentoDanificado, HttpSession session){
-		try{
-			Orcamento orcamento = new Orcamento();
-			orcamento = (Orcamento) session.getAttribute("orcamento");
-			orcamento.setRelato(relato);
-			orcamento.setEquipamentoDanificado(equipamentoDanificado);
-			orcamentoDao.adicionaOrcamento(orcamento.getCliente(), orcamento);
-
-		}catch (Exception e){
-			System.out.println("ERRO AO CADASTRAR O ORCAMENTO" + e);
-		}
-		return "redirect:novoOrcamento";	
-
+	
+	/**
+	 * Inicio dos métodos para MANTER ORCAMENTO
+	 * Tela que o orcamentista irá abrir para
+	 * finalizar o orcamento
+	 */
+	
+	@RequestMapping("/localizarOrcamento")
+	public ModelAndView localizarOrcamento(){
+		OrcamentoDao dao = new OrcamentoDao();	
+		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
+		orcamentos = dao.findAll();
+		ModelAndView mv = new ModelAndView("localizarOrcamento");
+		mv.addObject("orcamentos",orcamentos);
+		return mv;
 	}
-
-	@RequestMapping("/adicionaOrcamento")
-	public String adicionaOrcamento (Cliente cliente, Orcamento orcamento){
-		orcamentoDao.adicionaOrcamento(cliente, orcamento);
-		return "orcamentoSucesso";
+	
+	@RequestMapping("/manterOrcamento")
+	public ModelAndView manterOrcamento(Orcamento orcamento){
+		Cliente cliente = new Cliente();		
+		PecasDao pDao = new PecasDao();
+		OrcamentoDao dao = new OrcamentoDao();
+		orcamento = dao.findById(orcamento.getId_orcamento());
+		List<Peca> pecas =  pDao.findAll();
+		cliente = orcamento.getCliente();
+		ModelAndView mv = new ModelAndView("editarOrcamento");
+		mv.addObject("orcamento", orcamento);
+		mv.addObject("cliente", cliente);
+		mv.addObject("pecas", pecas);
+		
+		return mv;
 	}
+	
+	
 
 }

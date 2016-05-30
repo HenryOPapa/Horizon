@@ -55,10 +55,6 @@ public class ClienteController {
 		return mv;
 	}
 
-
-
-
-
 	/*
 	 * Os métodos abaixo são chamados 
 	 * traves da tag "action" na jsp, 

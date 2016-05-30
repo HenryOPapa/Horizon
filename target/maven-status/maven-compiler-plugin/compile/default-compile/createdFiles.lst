@@ -13,6 +13,7 @@ br\com\papa\horizon\entity\Peca.class
 br\com\papa\horizon\util\Enum.class
 br\com\papa\horizon\entity\Cliente.class
 br\com\papa\horizon\controller\FuncionarioController.class
+br\com\papa\horizon\dao\PecasDao.class
 br\com\papa\horizon\controller\ClienteController.class
 br\com\papa\horizon\dao\ClienteDao.class
 br\com\papa\horizon\entity\Orcamento.class

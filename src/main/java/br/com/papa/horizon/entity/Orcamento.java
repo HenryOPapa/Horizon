@@ -41,14 +41,12 @@ public class Orcamento implements Serializable{
 	@Column(name = "EQUIPAMENTO_DANIFICADO")
 	private String equipamentoDanificado;
 	
+	@Column(name = "ESPECIALIDADE")
+	private String especialidade;
+
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente cliente;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_ESPECIALIDADE")
-	private Especialidade especialidade;
-	
+	private Cliente cliente;	
 	
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Peca> pecas;
@@ -101,12 +99,14 @@ public class Orcamento implements Serializable{
 	public void setPecas(List<Peca> pecas) {
 		this.pecas = pecas;
 	}
-	
-	
+
+	public String getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(String especialidade) {
+		this.especialidade = especialidade;
+	}
 		
-	
-	
-	
-	
 	
 }

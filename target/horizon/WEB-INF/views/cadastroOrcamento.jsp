@@ -20,7 +20,8 @@
 		</div>
 
 		<div>
-			<label>Equipamento</label> <select name="equipamentoDanificado">
+			<label>Equipamento</label>
+			<select name="equipamentoDanificado">
 				<c:forEach items="${equipamentos}" var="equipamento">
 					<option value="${equipamento.marca}| ${equipamento.modelo}">${equipamento.marca}||
 						${equipamento.modelo}</option>
