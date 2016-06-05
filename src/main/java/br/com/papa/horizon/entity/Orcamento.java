@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.papa.horizon.util.Enum.StatusOrcamento;
+
 /**
  * 
  * @author Henry O' Papa
@@ -44,6 +46,12 @@ public class Orcamento implements Serializable{
 	
 	@Column(name = "ESPECIALIDADE")
 	private String especialidade;
+	
+	@Column(name = "VALORTOTAL")
+	private Double valorTotal;
+	
+	@Column(name = "STATUS")
+	private StatusOrcamento statusOrcamento;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
@@ -121,6 +129,24 @@ public class Orcamento implements Serializable{
 	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
 	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public StatusOrcamento getStatusOrcamento() {
+		return statusOrcamento;
+	}
+
+	public void setStatusOrcamento(StatusOrcamento statusOrcamento) {
+		this.statusOrcamento = statusOrcamento;
+	}
+	
+	
 		
 	
 }

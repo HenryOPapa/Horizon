@@ -37,8 +37,12 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 	public Orcamento adicionarPeca(Orcamento orcamento, PecaUtilizada pecaUtilizada){
 		orcamento.addPeca(pecaUtilizada);
 		update(orcamento);
-		return orcamento;
-		
+		return orcamento;	
+	}
+	
+	public Orcamento atualizarOrcamento(Orcamento orcamento){
+		update(orcamento);
+		return orcamento;	
 	}
 	
 	public Especialidade localizaEspecialidade(){

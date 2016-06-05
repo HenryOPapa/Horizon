@@ -39,6 +39,9 @@ public class PecaUtilizada implements Serializable{
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
 	
+	@Column(name = "QUANTIDADE", nullable = false)
+	private int quantidade;
+	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_ORCAMENTO")
 	private Orcamento orcamento;
@@ -74,6 +77,14 @@ public class PecaUtilizada implements Serializable{
 
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 	

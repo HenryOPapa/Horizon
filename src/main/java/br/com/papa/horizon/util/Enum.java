@@ -20,4 +20,12 @@ public class Enum {
 		BAIXO, MEDIO, TOTAL
 	}
 	
+	public enum StatusOrcamento{
+		EM_ABERTO, CONCLUIDO, APROVADO, REPROVADO
+	}
+	
+	public enum StatusOrdemDeServico{
+		BACKLOG, TODO, WIP, IMPEDIMENT, DONE
+	}
+	
 }

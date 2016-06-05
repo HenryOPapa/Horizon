@@ -8,13 +8,18 @@
 <title>Editar Orçamento</title>
 </head>
 <body>
-	
-		<h2>Editar Orcamento</h2>
-	
+
+	<h2>Editar Orcamento</h2>
+
+
+	<div>
+		<label>Número Orçamento</label> <input type="text"
+			name="num_orcamento" value="${orcamento.id_orcamento}" disabled />
+	</div>
 	
 	<div>
-		<label>Número Orçamento</label> <input type="text" name="num_orcamento"
-			value="${orcamento.id_orcamento}" disabled />
+		<label>Status</label> <input type="text"
+			name="statusOrcamento" value="${orcamento.statusOrcamento}" disabled />
 	</div>
 
 	<div>
@@ -38,42 +43,55 @@
 			value="${orcamento.especialidade}" disabled />
 	</div>
 	
-	<form action="manterOrcamento" >
+	
 
-	<div>
-	<div>
-		<input type="text" name="codOrcamento"	value="${orcamento.id_orcamento}" hidden/>
-	</div>
-		<label>Peças</label> <select name="descricao">
-			<c:forEach items="${pecas}" step="1" var="peca">
-				<option value="${peca.descricao}">${peca.descricao} |  R$ ${peca.valor}</option>				
-			</c:forEach>
-		<input type=submit value="Incluir"/>
-		</select>
-		
-		
-		<table>
-			<th>Descricao</th>
-			<c:forEach items="${pecasInclusas}" step="1" var="pecasInclusa">
-			<tr>
-				<td>${pecasInclusa.descricao}</td>
-			</tr>
-			</c:forEach>
-		</table>
-			
-		
-	</div>
+	<form action="manterOrcamento">
+
+		<div>
+			<div>
+				<input type="text" name="codOrcamento"
+					value="${orcamento.id_orcamento}" hidden />
+			</div>
+			<div>
+				<label>Peças</label> <select name="descricao">
+					<c:forEach items="${pecas}" step="1" var="peca">
+						<option value="${peca.descricao}">${peca.descricao}|R$
+							${peca.valor}</option>
+					</c:forEach>
+				</select> <label>Quantidade</label> <input type="text" name="quantidade"
+					value="Quantidade" /> <input type=submit value="Incluir" />
+			</div>
+
+			<table>
+				<th>Descricao</th>
+				<c:forEach items="${pecasInclusas}" step="1" var="pecasInclusa">
+					<tr>
+						<td>${pecasInclusa.descricao}</td>
+						<td></td>
+						<td>R$ ${pecasInclusa.valor}</td>
+						<td></td>
+						<td>Qtd ${pecasInclusa.quantidade}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<br> <br> <label>Total</label><br>
+						${orcamento.valorTotal}
+		</div>
 	</form>
 
-	<div>
-		<label>Observacao</label><br>
-		<textarea rows="8" cols="20" name="observacao">
+	<form action = "finalizarOrcamento">
+
+		<div>
+			<label>Observacao</label><br>
+			<textarea rows="8" cols="20" name="observacao">
 		</textarea>
-	</div>
+		</div>
 
-	<div></div>
+		<div>
+		<input type="submit" value="Finalizar"/>
+		</div>
 
-
+	</form>
 
 
 

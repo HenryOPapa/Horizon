@@ -19,6 +19,8 @@ import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
 import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.util.Enum;
+import br.com.papa.horizon.util.Enum.StatusOrcamento;
 
 /**
  * 
@@ -52,7 +54,7 @@ public class OrcamentoController {
 	 * para gerar um novo orcamento, aqui é onde localizamos as 
 	 * categorias de trabalho, e os equipamentos vinculados
 	 * ao cliente
-	 */
+	 */ 
 
 	@RequestMapping("/orcamento")
 	public ModelAndView orcamento(HttpSession session){	
@@ -82,6 +84,7 @@ public class OrcamentoController {
 			orcamento.setRelato(relato);
 			orcamento.setEquipamentoDanificado(equipamentoDanificado);
 			orcamento.setEspecialidade(categoriaOrcamento);
+			orcamento.setStatusOrcamento(StatusOrcamento.EM_ABERTO);
 			orcamentoDao.adicionaOrcamento(orcamento.getCliente(), orcamento);
 
 		}catch (Exception e){
@@ -162,31 +165,38 @@ public class OrcamentoController {
 	 */
 
 	@RequestMapping("/manterOrcamento")
-	public ModelAndView manterOrcamento(HttpSession session, String codOrcamento, Peca peca){
+	public ModelAndView manterOrcamento(HttpSession session, String codOrcamento,Integer quantidade, Peca peca){
 		Cliente cliente = new Cliente();	
 		Orcamento orcamento = new Orcamento();
 		PecasDao pecaDao = new PecasDao();
-		
+		PecaUtilizada pecaUtilizada = new PecaUtilizada();
+		orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
 
 
 		try{
 			if(peca.getDescricao() != null){
-				orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
 				peca = pecaDao.localizaPecaPorNome(peca.getDescricao());
-				PecaUtilizada pecaUtilizada = new PecaUtilizada();
 				pecaUtilizada.setDescricao(peca.getDescricao());
 				pecaUtilizada.setValor(peca.getValor());
-				orcamento = orcamentoDao.adicionarPeca(orcamento, pecaUtilizada);		
+				pecaUtilizada.setQuantidade(quantidade);
+				orcamento = orcamentoDao.adicionarPeca(orcamento, pecaUtilizada);
 			}
 
 		}catch(Exception e){
 			System.out.println("ERRO AO INCLUIR PECA: "+e);
 		}
 		
-		orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
+		
+//		if (pecaUtilizada == null){
+//			orcamento = orcamentoDao.atualizarOrcamento(orcamento);		
+//		}else{
+//			orcamento = orcamentoDao.adicionarPeca(orcamento, pecaUtilizada);		
+//		}
 		List<Peca> pecas =  orcamentoDao.localizarPecas();
 		List<PecaUtilizada> pecasInclusas = orcamentoDao.localizaPecasUtilizadas(Long.parseLong(codOrcamento));
+		orcamento.setValorTotal(calculaTotal(pecasInclusas));
 		cliente = orcamento.getCliente();	
+		session.setAttribute("orcamento", orcamento);
 		ModelAndView mv = new ModelAndView("editarOrcamento");
 		mv.addObject("pecasInclusas", pecasInclusas);
 		mv.addObject("pecas", pecas);
@@ -195,10 +205,45 @@ public class OrcamentoController {
 
 		return mv;
 	}
+	
+	@RequestMapping("/finalizarOrcamento")
+	public String finalizarOrcamento(HttpSession session, String observacao){
+		Orcamento orcamento = new Orcamento();
+		orcamento = (Orcamento) session.getAttribute("orcamento");
+		orcamento.setObservacao(observacao);
+		orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
+		orcamentoDao.atualizarOrcamento(orcamento);
+		session.removeAttribute("orcamento");
+		return "redirect:localizarOrcamento";
+	}
+	
+	@RequestMapping("/reprovarOrcamento")
+	public String reprovarOrcamento(HttpSession session, String codOrcamento){
+		Orcamento orcamento = new Orcamento();
+		orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
+		orcamento.setStatusOrcamento(StatusOrcamento.REPROVADO);
+		orcamentoDao.atualizarOrcamento(orcamento);
+		return "redirect:localizarOrcamento";
+	}
+	
+	@RequestMapping("/aprovarOrcamento")
+	public String aprovarOrcamento(){
+		
+		return null;
+	}
+
+	
+	/**
+	 * Inicio dos metodos privados
+	 */
 
 
-
-
-
+	public Double calculaTotal(List<PecaUtilizada> pecaUtilizadas){
+		double total = 0;
+		for(PecaUtilizada peca : pecaUtilizadas){
+			total = total + peca.getValor() * peca.getQuantidade();
+		}
+		return total;
+	}
 
 }

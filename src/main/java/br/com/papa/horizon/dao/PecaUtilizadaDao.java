@@ -18,13 +18,12 @@ public class PecaUtilizadaDao extends GenericDao<PecaUtilizada>{
 		List<PecaUtilizada> pecas = new ArrayList();
 		for(PecaUtilizada peca : pecasUtilizadas){
 			if(peca.getOrcamento().getId_orcamento() == id_orcamento){
-				pecas.add(peca);
+				pecas.add(peca);				
 			}
 		}
 		return pecas;
 		
-	}
-	
+	}	
 	
 
 }

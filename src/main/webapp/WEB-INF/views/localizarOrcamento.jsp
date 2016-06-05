@@ -16,7 +16,8 @@
 <!-- 			<th>Id Cliente</th> -->
 			<th>Especialidade</th> 
 			<th>Equipamento</th>
-			<th>Ações</th>
+			<th>Status</th>
+			<th colspan="3">Ações</th>
 		</tr>
 
 		<c:forEach items="${orcamentos}" step="1" var="orcamento">
@@ -26,8 +27,11 @@
 				<td>${orcamento.relato}</td>
 				<td>${orcamento.especialidade}</td>
 				<td>${orcamento.equipamentoDanificado}</td>
-				
-				<td><a href="manterOrcamento?codOrcamento=${orcamento.id_orcamento}">Abrir</a></td>
+				<td>${orcamento.statusOrcamento}</td>
+								
+				<td><a href="manterOrcamento?codOrcamento=${orcamento.id_orcamento}">Editar</a></td>
+				<td><a href="reprovarOrcamento?codOrcamento=${orcamento.id_orcamento}">Reprovar</a></td>
+				<td><a href="aprovarOrcamento?codOrcamento=${orcamento.id_orcamento}">Aprovar</a></td>
 			</tr>
 
 		</c:forEach>

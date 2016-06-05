@@ -32,7 +32,6 @@ public class FuncionarioController {
 	@RequestMapping("/adicionaFuncionario")//Método invocado pelo form action da jsp
 	public String adiciona(Funcionario funcionario, Usuario usuario){
 		funcionario.setUsuario(criarUsuario(funcionario, usuario));
-
 		FuncionarioDao dao = new FuncionarioDao();
 		dao.save(funcionario);
 
