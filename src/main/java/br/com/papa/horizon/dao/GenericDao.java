@@ -69,7 +69,7 @@ public abstract class GenericDao <T extends Serializable>{
 		EntityManager manager = getEntityManager();
 		manager.getTransaction().begin();
 		
-		Query query = manager.createQuery(jpql);
+		Query query = manager.createNamedQuery(jpql);//Alterado o createQuery para createNamedQuery por BUG
 		
 		for(int i=0; i < params.length; i++){
 			query.setParameter(i+1, params[i]);

@@ -1,3 +1,4 @@
+
 package br.com.papa.horizon.entity;
 
 import java.io.Serializable;

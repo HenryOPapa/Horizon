@@ -27,7 +27,7 @@
 				<td>${orcamento.especialidade}</td>
 				<td>${orcamento.equipamentoDanificado}</td>
 				
-				<td><a href="manterOrcamento?id_orcamento=${orcamento.id_orcamento}">Abrir</a></td>
+				<td><a href="manterOrcamento?codOrcamento=${orcamento.id_orcamento}">Abrir</a></td>
 			</tr>
 
 		</c:forEach>

@@ -13,25 +13,25 @@
 		<input type="submit" value="Localizar" />
 
 	</form>
-	<form  action="cadastraOrcamento" method="post">
+	<form action="cadastraOrcamento" method="post">
 		<div>
 			<label>Nome Cliente</label> <input type="text" name="nome"
 				value="${orcamento.cliente.nome}" />
 		</div>
 
 		<div>
-			<label>Equipamento</label>
-			<select name="equipamentoDanificado">
+			<label>Equipamento</label> <select name="equipamentoDanificado">
+				<option value="default">Escolha um equipamento</option>
 				<c:forEach items="${equipamentos}" var="equipamento">
 					<option value="${equipamento.marca}| ${equipamento.modelo}">${equipamento.marca}||
 						${equipamento.modelo}</option>
 				</c:forEach>
 			</select>
 		</div>
-		
+
 		<div>
-			<label>Categoria</label> 
-			<select name="categoriaOrcamento">
+			<label>Categoria</label> <select name="categoriaOrcamento">
+				<option value="default">Escolha uma especialidade</option>
 				<c:forEach items="${especialidades}" var="especialidades">
 					<option value="${especialidades.descricao}">${especialidades.descricao}</option>
 				</c:forEach>

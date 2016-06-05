@@ -35,7 +35,7 @@
 	
 			<h2>Endereço</h2>
 			<div>
-				RUA: <input type="text" name="rua" value="${cliente.rua}"/>
+				RUA: <input type="text" name="endereco" value="${cliente.endereco}"/>
 			</div>
 
 			<div>

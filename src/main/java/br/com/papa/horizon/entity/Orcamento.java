@@ -1,6 +1,7 @@
 package br.com.papa.horizon.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,8 +50,21 @@ public class Orcamento implements Serializable{
 	private Cliente cliente;	
 	
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Peca> pecas;
+	private List<PecaUtilizada> pecas;
 	
+	public void  addPeca(PecaUtilizada peca){
+		if (pecas == null){
+			pecas = new ArrayList<PecaUtilizada>();
+		}
+		peca.setOrcamento(this);
+		pecas.add(peca);
+	}
+
+	public void deletePeca(PecaUtilizada peca){
+		if(pecas != null){
+			pecas.remove(peca);
+		}
+	}
 
 	public Long getId_orcamento() {
 		return id_orcamento;
@@ -92,11 +106,11 @@ public class Orcamento implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public List<Peca> getPecas() {
+	public List<PecaUtilizada> getPecas() {
 		return pecas;
 	}
 
-	public void setPecas(List<Peca> pecas) {
+	public void setPecas(List<PecaUtilizada> pecas) {
 		this.pecas = pecas;
 	}
 

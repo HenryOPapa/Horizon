@@ -2,12 +2,14 @@ br\com\papa\horizon\dao\FuncionarioDao.class
 br\com\papa\horizon\controller\EquipamentoController.class
 br\com\papa\horizon\dao\EspecialidadeDao.class
 br\com\papa\horizon\util\Enum$NivelAcesso.class
+br\com\papa\horizon\dao\PecaUtilizadaDao.class
+br\com\papa\horizon\controller\PecaController.class
 br\com\papa\horizon\dao\OrcamentoDao.class
 br\com\papa\horizon\entity\Especialidade.class
 br\com\papa\horizon\controller\OrcamentoController.class
 br\com\papa\horizon\entity\Funcionario.class
-br\com\papa\horizon\dao\EquipamentoDao.class
 br\com\papa\horizon\util\Enum$TipoEnderecos.class
+br\com\papa\horizon\dao\EquipamentoDao.class
 br\com\papa\horizon\util\Util.class
 br\com\papa\horizon\entity\Peca.class
 br\com\papa\horizon\util\Enum.class
@@ -21,4 +23,5 @@ br\com\papa\horizon\controller\EspecialidadeController.class
 br\com\papa\horizon\entity\Usuario.class
 br\com\papa\horizon\entity\Equipamento.class
 br\com\papa\horizon\dao\UsuarioDao.class
+br\com\papa\horizon\entity\PecaUtilizada.class
 br\com\papa\horizon\dao\GenericDao.class

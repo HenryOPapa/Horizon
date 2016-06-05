@@ -34,9 +34,6 @@ public class Peca implements Serializable{
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_ORCAMENTO")
-	private Orcamento orcamento;
 
 	public Long getId() {
 		return id;
@@ -62,14 +59,6 @@ public class Peca implements Serializable{
 		this.valor = valor;
 	}
 
-	public Orcamento getOrcamento() {
-		return orcamento;
-	}
-
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
-	
 	
 	
 	

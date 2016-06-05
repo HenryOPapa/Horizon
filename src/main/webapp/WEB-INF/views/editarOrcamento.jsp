@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,11 +8,12 @@
 <title>Editar Orçamento</title>
 </head>
 <body>
-	<form action="">
+	
 		<h2>Editar Orcamento</h2>
-	</form>
+	
+	
 	<div>
-		<label>Número Orçamento</label> <input type="text" name="id_orcamento"
+		<label>Número Orçamento</label> <input type="text" name="num_orcamento"
 			value="${orcamento.id_orcamento}" disabled />
 	</div>
 
@@ -38,14 +37,33 @@
 		<label>Especialidade</label> <input type="text" name=""
 			value="${orcamento.especialidade}" disabled />
 	</div>
+	
+	<form action="manterOrcamento" >
 
 	<div>
-		<label>Peças</label> <select name="pec">
-			<c:forEach items="${pecas}" var="peca">
-				<option value="${peca.descricao}"></option>
-			</c:forEach>
-		</select>
+	<div>
+		<input type="text" name="codOrcamento"	value="${orcamento.id_orcamento}" hidden/>
 	</div>
+		<label>Peças</label> <select name="descricao">
+			<c:forEach items="${pecas}" step="1" var="peca">
+				<option value="${peca.descricao}">${peca.descricao} |  R$ ${peca.valor}</option>				
+			</c:forEach>
+		<input type=submit value="Incluir"/>
+		</select>
+		
+		
+		<table>
+			<th>Descricao</th>
+			<c:forEach items="${pecasInclusas}" step="1" var="pecasInclusa">
+			<tr>
+				<td>${pecasInclusa.descricao}</td>
+			</tr>
+			</c:forEach>
+		</table>
+			
+		
+	</div>
+	</form>
 
 	<div>
 		<label>Observacao</label><br>

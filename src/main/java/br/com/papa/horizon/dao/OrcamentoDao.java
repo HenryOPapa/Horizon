@@ -7,6 +7,7 @@ import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
+import br.com.papa.horizon.entity.PecaUtilizada;
 
 public class OrcamentoDao extends GenericDao<Orcamento>{
 
@@ -27,16 +28,35 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		
 	}
 	
+	
+	/*
+	 * adicionarPeca, irá receber o atual orcamento, a peca escolhida pelo tecnico
+	 * e irá salvar a mesma dentro do orcamenoto
+	 */
+	
+	public Orcamento adicionarPeca(Orcamento orcamento, PecaUtilizada pecaUtilizada){
+		orcamento.addPeca(pecaUtilizada);
+		update(orcamento);
+		return orcamento;
+		
+	}
+	
 	public Especialidade localizaEspecialidade(){
 		EspecialidadeDao dao = new EspecialidadeDao();
 		List<Especialidade> especialidades = dao.findAll();		
 		return (Especialidade) especialidades;
 	}
 	
-	public Peca localizarPecas(){
+	public List<PecaUtilizada> localizaPecasUtilizadas(Long id_orcamento){
+		PecaUtilizadaDao dao = new PecaUtilizadaDao();
+		return dao.recuperarPecas(id_orcamento);
+		
+	}
+	
+	public List<Peca> localizarPecas(){
 		PecasDao dao = new PecasDao();
 		List<Peca> pecas = dao.findAll();		
-		return (Peca) pecas;
+		return pecas;
 	}
 	
 }
