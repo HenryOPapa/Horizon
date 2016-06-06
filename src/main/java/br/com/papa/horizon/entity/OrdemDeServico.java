@@ -16,7 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.papa.horizon.util.Enum.StatusOrcamento;
+
+
+import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 
 /**
  * 
@@ -24,15 +26,16 @@ import br.com.papa.horizon.util.Enum.StatusOrcamento;
  *
  */
 @Entity
-@Table(name = "orcamento")
-public class Orcamento implements Serializable{
+@Table(name = "ORDEM_DE_SERIVCO")
+public class OrdemDeServico implements Serializable{
 	
-	private static final long serialVersionUID = -4573440496209503089L;
-	
+
+	private static final long serialVersionUID = 3785531877846933514L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_ORCAMENTO")
-	private Long id_orcamento;
+	@Column(name = "ID_ORDEM_DE_SERVICO")
+	private Long id_ordem_de_servico;
 	
 	@Column(name="RELATO")
 	private String relato;
@@ -50,27 +53,28 @@ public class Orcamento implements Serializable{
 	private Double valorTotal;
 	
 	@Column(name = "STATUS")
-	private StatusOrcamento statusOrcamento;
+	private StatusOrdemDeServico statusOrdemDeServico;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;	
 	
-	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<PecaUtilizada> pecas;	
+	@OneToMany(mappedBy = "ordemDeServico" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<PecaOrdemServico> pecas;	
 	
-	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ordemDeServico" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Servico> servicos;
 	
-	public void  addPeca(PecaUtilizada peca){
+	
+	public void  addPeca(PecaOrdemServico peca){
 		if (pecas == null){
-			pecas = new ArrayList<PecaUtilizada>();
+			pecas = new ArrayList<PecaOrdemServico>();
 		}
-		peca.setOrcamento(this);
+		peca.setOrdemDeServico(this);
 		pecas.add(peca);
 	}
 
-	public void deletePeca(PecaUtilizada peca){
+	public void deletePeca(PecaOrdemServico peca){
 		if(pecas != null){
 			pecas.remove(peca);
 		}
@@ -80,7 +84,7 @@ public class Orcamento implements Serializable{
 		if (servicos == null){
 			servicos = new ArrayList<Servico>();
 		}
-		servico.setOrcamento(this);
+		servico.setOrdemDeServico(this);
 		servicos.add(servico);
 	}
 
@@ -90,12 +94,13 @@ public class Orcamento implements Serializable{
 		}
 	}
 
-	public Long getId_orcamento() {
-		return id_orcamento;
+
+	public Long getId_ordem_de_servico() {
+		return id_ordem_de_servico;
 	}
 
-	public void setId_orcamento(Long id_orcamento) {
-		this.id_orcamento = id_orcamento;
+	public void setId_ordem_de_servico(Long id_ordem_de_servico) {
+		this.id_ordem_de_servico = id_ordem_de_servico;
 	}
 
 	public String getRelato() {
@@ -122,22 +127,6 @@ public class Orcamento implements Serializable{
 		this.equipamentoDanificado = equipamentoDanificado;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public List<PecaUtilizada> getPecas() {
-		return pecas;
-	}
-
-	public void setPecas(List<PecaUtilizada> pecas) {
-		this.pecas = pecas;
-	}
-
 	public String getEspecialidade() {
 		return especialidade;
 	}
@@ -154,12 +143,28 @@ public class Orcamento implements Serializable{
 		this.valorTotal = valorTotal;
 	}
 
-	public StatusOrcamento getStatusOrcamento() {
-		return statusOrcamento;
+	public StatusOrdemDeServico getStatusOrdemDeServico() {
+		return statusOrdemDeServico;
 	}
 
-	public void setStatusOrcamento(StatusOrcamento statusOrcamento) {
-		this.statusOrcamento = statusOrcamento;
+	public void setStatusOrdemDeServico(StatusOrdemDeServico statusOrdemDeServico) {
+		this.statusOrdemDeServico = statusOrdemDeServico;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<PecaOrdemServico> getPecas() {
+		return pecas;
+	}
+
+	public void setPecas(List<PecaOrdemServico> pecas) {
+		this.pecas = pecas;
 	}
 
 	public List<Servico> getServicos() {
@@ -170,6 +175,10 @@ public class Orcamento implements Serializable{
 		this.servicos = servicos;
 	}
 	
+	
+	
+	
+
 	
 		
 	

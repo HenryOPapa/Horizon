@@ -11,16 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
-import br.com.papa.horizon.dao.PecaUtilizadaDao;
+import br.com.papa.horizon.dao.OrdemDeServicoDao;
 import br.com.papa.horizon.dao.PecasDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
+import br.com.papa.horizon.entity.OrdemDeServico;
 import br.com.papa.horizon.entity.Peca;
+import br.com.papa.horizon.entity.PecaOrdemServico;
 import br.com.papa.horizon.entity.PecaUtilizada;
-import br.com.papa.horizon.util.Enum;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
+import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 
 /**
  * 
@@ -48,7 +50,7 @@ public class OrcamentoController {
 		return mv.addObject("especialidades", especialidades);
 	}
 
-	
+
 	/*orcamento
 	 * Este método trabalha em conjunto com o novoOrcamento
 	 * para gerar um novo orcamento, aqui é onde localizamos as 
@@ -69,7 +71,7 @@ public class OrcamentoController {
 		mv.addObject("equipamentos", orcamento.getCliente().getEquipamentos());
 		return mv;
 	}
-	
+
 	/*cadastraOrcamento
 	 * Apos selecionada a categoria, o cliente
 	 * e a máquina e o relato, este método
@@ -154,7 +156,7 @@ public class OrcamentoController {
 		mv.addObject("orcamentos",orcamentos);
 		return mv;
 	}
-	
+
 	/*
 	 * manterOrcamento
 	 * Este serviço é responsavel pela
@@ -179,19 +181,14 @@ public class OrcamentoController {
 				pecaUtilizada.setDescricao(peca.getDescricao());
 				pecaUtilizada.setValor(peca.getValor());
 				pecaUtilizada.setQuantidade(quantidade);
+				
 				orcamento = orcamentoDao.adicionarPeca(orcamento, pecaUtilizada);
 			}
 
 		}catch(Exception e){
 			System.out.println("ERRO AO INCLUIR PECA: "+e);
 		}
-		
-		
-//		if (pecaUtilizada == null){
-//			orcamento = orcamentoDao.atualizarOrcamento(orcamento);		
-//		}else{
-//			orcamento = orcamentoDao.adicionarPeca(orcamento, pecaUtilizada);		
-//		}
+
 		List<Peca> pecas =  orcamentoDao.localizarPecas();
 		List<PecaUtilizada> pecasInclusas = orcamentoDao.localizaPecasUtilizadas(Long.parseLong(codOrcamento));
 		orcamento.setValorTotal(calculaTotal(pecasInclusas));
@@ -205,7 +202,7 @@ public class OrcamentoController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping("/finalizarOrcamento")
 	public String finalizarOrcamento(HttpSession session, String observacao){
 		Orcamento orcamento = new Orcamento();
@@ -215,24 +212,31 @@ public class OrcamentoController {
 		orcamentoDao.atualizarOrcamento(orcamento);
 		session.removeAttribute("orcamento");
 		return "redirect:localizarOrcamento";
-	}
-	
+	} 
+
 	@RequestMapping("/reprovarOrcamento")
-	public String reprovarOrcamento(HttpSession session, String codOrcamento){
+	public String reprovarOrcamento(String codOrcamento){
 		Orcamento orcamento = new Orcamento();
 		orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
 		orcamento.setStatusOrcamento(StatusOrcamento.REPROVADO);
 		orcamentoDao.atualizarOrcamento(orcamento);
 		return "redirect:localizarOrcamento";
 	}
-	
+
 	@RequestMapping("/aprovarOrcamento")
-	public String aprovarOrcamento(){
-		
-		return null;
+	public String aprovarOrcamento(String codOrcamento){
+		OrdemDeServico novaOrdem = new OrdemDeServico();
+		Orcamento orcamento = new Orcamento();
+		orcamento = orcamentoDao.findById(Long.parseLong(codOrcamento));
+		orcamento.setStatusOrcamento(StatusOrcamento.APROVADO);
+		orcamentoDao.atualizarOrcamento(orcamento);
+
+		novaOrdem = gerarOrdemDeServico(orcamento, novaOrdem);
+
+		return "redirect:localizarOrcamento";
 	}
 
-	
+
 	/**
 	 * Inicio dos metodos privados
 	 */
@@ -244,6 +248,39 @@ public class OrcamentoController {
 			total = total + peca.getValor() * peca.getQuantidade();
 		}
 		return total;
+	}
+
+
+	public OrdemDeServico gerarOrdemDeServico(Orcamento orcamento, OrdemDeServico novaOrdem){
+		PecaOrdemServico pecaOrdem = new PecaOrdemServico();
+		List<PecaOrdemServico> pecasOrdem = new ArrayList<PecaOrdemServico>();
+		novaOrdem.setCliente(orcamento.getCliente());
+		novaOrdem.setEquipamentoDanificado(orcamento.getEquipamentoDanificado());
+		novaOrdem.setEspecialidade(orcamento.getEspecialidade());
+		novaOrdem.setObservacao(orcamento.getObservacao());
+		
+		for(PecaUtilizada peca : orcamentoDao.localizaPecasUtilizadas(orcamento.getId_orcamento())){
+			pecaOrdem.setDescricao(peca.getDescricao());
+			pecaOrdem.setValor(peca.getValor());
+			pecaOrdem.setQuantidade(peca.getQuantidade());
+			novaOrdem.addPeca(pecaOrdem);
+		}
+		
+		pecasOrdem.add(pecaOrdem);
+		novaOrdem.setRelato(orcamento.getRelato());
+		novaOrdem.setServicos(orcamento.getServicos());
+		novaOrdem.setValorTotal(orcamento.getValorTotal());
+		novaOrdem.setStatusOrdemDeServico(StatusOrdemDeServico.BACKLOG);
+		try{
+			OrdemDeServicoDao dao = new OrdemDeServicoDao();
+			dao.adicionaNovaOrdem(orcamento.getCliente(), novaOrdem);
+			dao.save(novaOrdem);
+		}catch(Exception e){
+			System.out.println("ERRO AO CADASTRAR ORDEM DE SERVICO: "+e);
+		}
+
+
+		return novaOrdem;
 	}
 
 }

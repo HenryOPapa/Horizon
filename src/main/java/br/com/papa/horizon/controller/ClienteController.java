@@ -26,7 +26,7 @@ public class ClienteController {
 	@RequestMapping("/cadastroCliente")//URL de Acesso 
 	public String clienteCadastro(){
 
-		return "clienteCadastro";
+		return "menu";
 	}
 
 	@RequestMapping("/listaClientes")//URL de Acesso 

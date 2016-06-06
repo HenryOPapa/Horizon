@@ -83,7 +83,8 @@
 
 		<div>
 			<label>Observacao</label><br>
-			<textarea rows="8" cols="20" name="observacao">
+			<textarea rows="8" cols="80" name="observacao">
+			${orcamento.observacao}
 		</textarea>
 		</div>
 

@@ -65,6 +65,9 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Orcamento> orcamentos;
 	
+	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<OrdemDeServico> ordemDeServicos;
+	
 	
 	
 	public void  addEquipamento(Equipamento equipamento){
@@ -92,6 +95,20 @@ public class Cliente implements Serializable{
 	public void deleteOrcamento(Orcamento orcamento){
 		if(orcamentos != null){
 			orcamentos.remove(orcamento);
+		}
+	}
+	
+	public void  addOrdemDeServico(OrdemDeServico ordemDeServico){
+		if (ordemDeServicos == null){
+			ordemDeServicos = new ArrayList<OrdemDeServico>();
+		}
+		ordemDeServico.setCliente(this);
+		ordemDeServicos.add(ordemDeServico);
+	}
+
+	public void deleteOrcamento(OrdemDeServico ordemDeServico){
+		if(ordemDeServicos != null){
+			ordemDeServicos.remove(ordemDeServico);
 		}
 	}
 	
@@ -191,6 +208,14 @@ public class Cliente implements Serializable{
 
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public List<OrdemDeServico> getOrdemDeServicos() {
+		return ordemDeServicos;
+	}
+
+	public void setOrdemDeServicos(List<OrdemDeServico> ordemDeServicos) {
+		this.ordemDeServicos = ordemDeServicos;
 	}
 	
 	

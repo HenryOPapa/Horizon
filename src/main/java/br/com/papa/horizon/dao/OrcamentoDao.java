@@ -1,6 +1,5 @@
 package br.com.papa.horizon.dao;
 
-
 import java.util.List;
 
 import br.com.papa.horizon.entity.Cliente;
@@ -8,6 +7,12 @@ import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
 import br.com.papa.horizon.entity.PecaUtilizada;
+
+/**
+ * 
+ * @author Henry O' Papa
+ *
+ */
 
 public class OrcamentoDao extends GenericDao<Orcamento>{
 

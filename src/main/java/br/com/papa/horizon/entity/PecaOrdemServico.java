@@ -20,8 +20,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "peca_utilizada")
-public class PecaUtilizada implements Serializable{
+@Table(name = "peca_ordem_servico")
+public class PecaOrdemServico implements Serializable{
 	
 	/**
 	 * 
@@ -30,8 +30,8 @@ public class PecaUtilizada implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_PECA_UTILIZADA")
-	private Long id_pecaUtilizada;
+	@Column(name = "ID_PECA_ORDEM_SERVICO")
+	private Long id_PecaOrdemServico;
 	
 	@Column(name = "DESCRICAO", nullable = false, length = 30)
 	private String descricao;
@@ -41,18 +41,18 @@ public class PecaUtilizada implements Serializable{
 	
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
-	
+		
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_ORCAMENTO")
-	private Orcamento orcamento;
+	@JoinColumn(name = "ID_ORDEM_DE_SERVICO")
+	private OrdemDeServico ordemDeServico;
 	
-	
-	public Long getId_pecaUtilizada() {
-		return id_pecaUtilizada;
+
+	public Long getId_PecaOrdemServico() {
+		return id_PecaOrdemServico;
 	}
 
-	public void setId_pecaUtilizada(Long id_pecaUtilizada) {
-		this.id_pecaUtilizada = id_pecaUtilizada;
+	public void setId_PecaOrdemServico(Long id_PecaOrdemServico) {
+		this.id_PecaOrdemServico = id_PecaOrdemServico;
 	}
 
 	public String getDescricao() {
@@ -71,14 +71,6 @@ public class PecaUtilizada implements Serializable{
 		this.valor = valor;
 	}
 
-	public Orcamento getOrcamento() {
-		return orcamento;
-	}
-
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
-
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -87,6 +79,15 @@ public class PecaUtilizada implements Serializable{
 		this.quantidade = quantidade;
 	}
 
+	public OrdemDeServico getOrdemDeServico() {
+		return ordemDeServico;
+	}
+
+	public void setOrdemDeServico(OrdemDeServico ordemDeServico) {
+		this.ordemDeServico = ordemDeServico;
+	}
+	
+	
 	
 	
 }
