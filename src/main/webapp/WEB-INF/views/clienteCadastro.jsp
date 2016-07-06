@@ -15,63 +15,79 @@
 <title>.::Cliente::.</title>
 </head>
 <body>
-	<div class="text-center col-sm-6 col-sm-offset-3 panel panel-default center">
-		<div class=" form-control panel-heading">
-			<h3 class="panel-title">Novo Cliente</h3>
+	<div
+		class="text-center col-sm-6 col-sm-offset-3 panel panel-default center">
+		<div class=" panel-heading">
+			<label>Novo Cliente</label>
 		</div>
 		<div class="panel-body">
-			<div class="panel panel-default">
-				<div class=" panel-heading">Dados do Cliente</div>
-				<div class="panel-body">
-					<form action="adicionaCliente" method="post">
+			<form action="adicionaCliente" method="post">
 
-						<h2>Dados Cliente</h2>
-						<div class="text-center">
-							<input type="text" name="nome" />
+				<h2>Dados Cliente</h2>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="pwd"></label>
+					<div class="col-sm-10">
+						<input type="nome" class="form-control" id="nome"
+							placeholder="Nome do Cliente">
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pwd"></label>
+						<div class="col-sm-10">
+							<input type="nascimento" class="form-control" id="nascimento"
+								placeholder="Ano de nascimento">
 						</div>
 
-						<div>
-							Idade: <input type="text" name="idade" />
-						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="pwd">Password:</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" id="pwd"
+									placeholder="Enter password">
+							</div>
 
-						<div>
-							CPF: <input type="text" name="cpf" />
-						</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="pwd">Password:</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" id="pwd"
+										placeholder="Enter password">
+								</div>
 
-						<div>
-							RG: <input type="text" name="rg" />
-						</div>
+								<div class="text-center">
+									<label>Idade</label> <input type="text" name="idade" />
+								</div>
 
-						<h2>Endereço</h2>
-						<div>
-							Endereço: <input type="text" name="endereco" />
-						</div>
+								<div class="text-center">
+									<label>CPF</label> <input type="text" name="cpf" />
+								</div>
 
-						<div>
-							Cidade: <input type="text" name="cidade" />
-						</div>
+								<div class="text-center">
+									<label>RG</label> <input type="text" name="rg" />
+								</div>
 
-						<div>
-							Estado: <input type="text" name="estado" />
-						</div>
+								<h2>Endereço</h2>
+								<div>
+									<label>Endereço</label> <input type="text" name="endereco" />
+								</div>
 
+								<div>
+									<label>Cidade</label> <input type="text" name="cidade" />
+								</div>
 
-						<h2>Contato</h2>
-						<div>
-							Telefone: <input type="text" name="telefone" />
-						</div>
-						<div>
-							Email: <input type="text" name="email" />
-						</div>
-
-
-						<input type="submit" value="Adicionar" />
+								<div>
+									<label>Estado</label> <input type="text" name="estado" />
+								</div>
 
 
-					</form>
-				</div>
-			</div>
+								<h2>Contato</h2>
+								<div>
+									<label>Telefone</label> <input type="text" name="telefone" />
+								</div>
+								<div>
+									<label>Email</label> <input type="text" name="email" />
+								</div>
 
+
+								<input type="submit" value="Adicionar" />
+			</form>
 		</div>
 	</div>
 
