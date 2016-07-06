@@ -44,8 +44,11 @@ public class Cliente implements Serializable{
 	@Column(name = "CPF")
 	private String cpf;
 	
-	@Column(name = "ENDERECO")
-	private String endereco;
+	@Column(name="CEP")
+	private String cep;
+	
+	@Column(name = "LOGRADOURO")
+	private String logradouro;
 	
 	@Column(name = "CIDADE")
 	private String cidade;
@@ -131,18 +134,26 @@ public class Cliente implements Serializable{
 	public String getCpf() {
 		return cpf;
 	}
+	
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
 
-	public String getEndereco() {
-		return endereco;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getCidade() {

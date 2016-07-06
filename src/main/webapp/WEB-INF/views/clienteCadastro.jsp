@@ -11,6 +11,7 @@
 	href="<c:url value="/css/bootstrap.min.css"/>" />
 <script src="<c:url value="/js/bootstrap.min.js"/>" /></script>
 <script src="<c:url value="/js/jquery-2.1.3.min.js"/>" /></script>
+<script src="<c:url value="/js/angular.min.js"/>" /></script>
 
 <title>.::Cliente::.</title>
 </head>
@@ -25,68 +26,79 @@
 
 				<h2>Dados Cliente</h2>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="pwd"></label>
-					<div class="col-sm-10">
+					<div class="col-sm-6">
 						<input type="nome" class="form-control" id="nome"
 							placeholder="Nome do Cliente">
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-2" for="pwd"></label>
-						<div class="col-sm-10">
-							<input type="nascimento" class="form-control" id="nascimento"
-								placeholder="Ano de nascimento">
-						</div>
+				<div class="form-group">
+					<div class="col-sm-6">
+						<input type="dataNascimento" class="form-control" id="nascimento"
+							placeholder="Ano de nascimento">
+					</div>
 
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">Password:</label>
-							<div class="col-sm-10">
-								<input type="password" class="form-control" id="pwd"
-									placeholder="Enter password">
+							<div class="col-sm-6">
+								<input type="cpf" class="form-control" id="cpf"
+									placeholder="CPF">
 							</div>
 
 							<div class="form-group">
-								<label class="control-label col-sm-2" for="pwd">Password:</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="pwd"
-										placeholder="Enter password">
+								<div class="col-sm-6">
+									<input type="rg" class="form-control" id="rg" placeholder="RG">
 								</div>
-
-								<div class="text-center">
-									<label>Idade</label> <input type="text" name="idade" />
-								</div>
-
-								<div class="text-center">
-									<label>CPF</label> <input type="text" name="cpf" />
-								</div>
-
-								<div class="text-center">
-									<label>RG</label> <input type="text" name="rg" />
-								</div>
+								
+								<hr>
 
 								<h2>Endereço</h2>
-								<div>
-									<label>Endereço</label> <input type="text" name="endereco" />
-								</div>
 
-								<div>
-									<label>Cidade</label> <input type="text" name="cidade" />
-								</div>
+								<div class="form-group">
+									<div class="col-sm-6">
+										<input type="logradouro" class="form-control" id="logradouro"
+											placeholder="Logradouro">
+									</div>
 
-								<div>
-									<label>Estado</label> <input type="text" name="estado" />
-								</div>
+									<div class="form-group">
+										<div class="col-sm-6">
+											<input type="cidade" class="form-control" id="cidade"
+												placeholder="Cidade">
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-6">
+												<input type="cep" class="form-control" id="cep"
+													placeholder="CEP">
+											</div>
+											
+											<div class="form-group">
+											<div class="col-sm-6">
+												<input type="estado" class="form-control" id="estado"
+													placeholder="Estado">
+											</div>
+											
+											<hr>
+
+											<h2>Contato</h2>
+											
+											<div class="form-group">
+											<div class="col-sm-6">
+												<input type="estado" class="form-control" id="estado"
+													placeholder="Estado">
+											</div>
+											
+											<div class="form-group">
+											<div class="col-sm-6">
+												<input type="telefone" class="form-control" id="telefone"
+													placeholder="Telefone">
+											</div>
+											
+											<div class="form-group">
+											<div class="col-sm-12">
+												<input type="email" class="form-control" id="email"
+													placeholder="Email">
+											</div>
 
 
-								<h2>Contato</h2>
-								<div>
-									<label>Telefone</label> <input type="text" name="telefone" />
-								</div>
-								<div>
-									<label>Email</label> <input type="text" name="email" />
-								</div>
-
-
-								<input type="submit" value="Adicionar" />
+											<input type="submit" value="Adicionar" />
 			</form>
 		</div>
 	</div>
