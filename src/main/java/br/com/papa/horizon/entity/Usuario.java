@@ -23,6 +23,11 @@ import br.com.papa.horizon.util.Enum.NivelAcesso;
 @Table(name = "usuarios")
 public class Usuario implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -136083046289530896L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID_USUARIO")

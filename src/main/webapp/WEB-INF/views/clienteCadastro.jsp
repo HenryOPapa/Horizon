@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<html>
+<html ng-app>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet"
@@ -25,16 +25,17 @@
 			<form action="adicionaCliente" method="post">
 
 				<h2>Dados Cliente</h2>
-				<div class="form-group">
+				<div ng-show="true" class="form-group">
 					<div class="col-sm-6">
-						<input type="nome" class="form-control" id="nome"
+						<input type="nome" ng-model="nomeHa" class="form-control" id="nome"
 							placeholder="Nome do Cliente">
+							
 					</div>
-				<div class="form-group">
-					<div class="col-sm-6">
-						<input type="dataNascimento" class="form-control" id="nascimento"
-							placeholder="Ano de nascimento">
-					</div>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input type="dataNascimento" class="form-control" id="nascimento"
+								placeholder="Ano de nascimento">
+						</div>
 
 						<div class="form-group">
 							<div class="col-sm-6">
@@ -46,7 +47,7 @@
 								<div class="col-sm-6">
 									<input type="rg" class="form-control" id="rg" placeholder="RG">
 								</div>
-								
+
 								<hr>
 
 								<h2>Endereço</h2>
@@ -68,37 +69,37 @@
 												<input type="cep" class="form-control" id="cep"
 													placeholder="CEP">
 											</div>
-											
-											<div class="form-group">
-											<div class="col-sm-6">
-												<input type="estado" class="form-control" id="estado"
-													placeholder="Estado">
-											</div>
-											
-											<hr>
 
-											<h2>Contato</h2>
-											
 											<div class="form-group">
-											<div class="col-sm-6">
-												<input type="estado" class="form-control" id="estado"
-													placeholder="Estado">
-											</div>
-											
-											<div class="form-group">
-											<div class="col-sm-6">
-												<input type="telefone" class="form-control" id="telefone"
-													placeholder="Telefone">
-											</div>
-											
-											<div class="form-group">
-											<div class="col-sm-12">
-												<input type="email" class="form-control" id="email"
-													placeholder="Email">
-											</div>
+												<div class="col-sm-6">
+													<input type="estado" class="form-control" id="estado"
+														placeholder="Estado">
+												</div>
+
+												<hr>
+
+												<h2>Contato</h2>
+
+												<div class="form-group">
+													<div class="col-sm-6">
+														<input type="estado" class="form-control" id="estado"
+															placeholder="Estado">
+													</div>
+
+													<div class="form-group">
+														<div class="col-sm-6">
+															<input type="telefone" class="form-control" id="telefone"
+																placeholder="Telefone">
+														</div>
+
+														<div class="form-group">
+															<div class="col-sm-12">
+																<input type="email" class="form-control" id="email"
+																	placeholder="Email">
+															</div>
 
 
-											<input type="submit" value="Adicionar" />
+															<input type="submit" value="Adicionar" />
 			</form>
 		</div>
 	</div>
