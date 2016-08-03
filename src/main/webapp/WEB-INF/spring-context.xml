@@ -12,6 +12,9 @@
 	<context:component-scan base-package="br.com.papa.horizon" /> 
 	
 	<mvc:annotation-driven />  
+	
+	<mvc:default-servlet-handler/>
+	
 	<mvc:resources location="/webapp/**" mapping="/webapp/webapp/"/>
 	
 	<bean

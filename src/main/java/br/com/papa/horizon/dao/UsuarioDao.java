@@ -19,5 +19,6 @@ public class UsuarioDao extends GenericDao <Usuario>{
 		String jpql = "from Usuario u where u.login like ?";
 		return (Usuario) findOne(jpql, login);
 	}
+	
 
 }

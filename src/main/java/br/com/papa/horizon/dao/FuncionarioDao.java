@@ -26,6 +26,10 @@ public class FuncionarioDao extends GenericDao<Funcionario>{
 		return find(jpql, nome);
 	}
 	
+	public Funcionario localizarFuncionario(String idUsuario){
+		String jpql = "from Funcionario f where f.usuario = ?";
+		return (Funcionario) findOne(jpql, idUsuario);
+	}
 	
 	
 }
