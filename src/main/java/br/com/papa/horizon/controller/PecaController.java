@@ -45,14 +45,13 @@ public class PecaController {
 	}
 	
 	@RequestMapping(value = "/cadastrarPeca", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> validaAcesso(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
+	public ResponseEntity<?> cadastrarPeca(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
-		PecasDao dao = new PecasDao();
-
+		
 		try{
-			dao.save(peca);
+			pecaDao.save(peca);
 			return new ResponseEntity<String>(gson.toJson(peca), HttpStatus.OK);							
 			
 		}catch(Exception e){

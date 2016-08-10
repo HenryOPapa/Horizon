@@ -37,10 +37,7 @@ public class Cliente implements Serializable{
 	
 	@Column(name = "DATA_NASCIMENTO")
 	private String dataNascimento;
-	
-	@Column(name = "RG")
-	private String rg;
-	
+		
 	@Column(name = "CPF")
 	private String cpf;
 	
@@ -121,14 +118,6 @@ public class Cliente implements Serializable{
 
 	public void setOrcamentos(List<Orcamento> orcamentos) {
 		this.orcamentos = orcamentos;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
 	}
 
 	public String getCpf() {

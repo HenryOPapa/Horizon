@@ -1,9 +1,9 @@
 package br.com.papa.horizon.controller;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,20 +15,31 @@ import br.com.papa.horizon.dao.UsuarioDao;
 import br.com.papa.horizon.entity.Funcionario;
 import br.com.papa.horizon.entity.Usuario;
 
+import com.google.gson.Gson;
+
 /**
  * 
  * @author Henry O' Papa
  *
  */
-@Controller
-public class FuncionarioController {
 
-	@RequestMapping("/cadastroFuncionario")//URL de Acesso 
-	public String funcionarioCadastro(){
+@RequestMapping("cadastroFuncionario")
+public class FuncionarioController extends Exception{
 
-		return "funcionarioCadastro";
+	FuncionarioDao funcionarioDao = new FuncionarioDao();
+	
+	@RequestMapping
+	public ModelAndView cadastroFuncionario(){
+		Gson gson = new Gson();
+		Map<String, Object> retorno = new HashMap<String, Object>();
+		List<Funcionario> funcionarios = funcionarioDao.findAll();
+		
+		retorno.put("funcionarios", funcionarios);
+		
+		return new ModelAndView("funcionario/funcionarioCadastro").addObject("result",gson.toJson(retorno));
 	}
-
+	
+	
 	@RequestMapping("/adicionaFuncionario")//Método invocado pelo form action da jsp
 	public String adiciona(Funcionario funcionario, Usuario usuario){
 		funcionario.setUsuario(criarUsuario(funcionario, usuario));

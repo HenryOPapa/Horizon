@@ -15,6 +15,18 @@ app.controller('LoginController', ['$scope', '$http' , function($scope, $http) {
 				'login': $scope.formData.login,
 				'senha' :$scope.formData.senha,
 		}
+		if($scope.formData.login == undefined){
+			alertLogin.style.display = "block";
+			setTimeout(function(){
+				alertLogin.style.display = "none";
+			},5000);
+		}
+		if($scope.formData.senha == undefined){
+			alertSenha.style.display = "block";
+			setTimeout(function(){
+				alertSenha.style.display = "none";
+			},5000);
+		}
 
 		$http.post($scope.path + 'validarAcesso', params).then(
 				function(response) {
@@ -22,7 +34,11 @@ app.controller('LoginController', ['$scope', '$http' , function($scope, $http) {
 						$scope.screenData.usuario = response.data;
 						window.location.href = "http://localhost:8080/horizon/menu";					
 					}else{
-						window.location.href = "http://localhost:8080/horizon/login";
+						alertInvalido.style.display = "block";
+						setTimeout(function(){
+							alertInvalido.style.display = "none";
+						},5000);
+						
 
 					}
 				}

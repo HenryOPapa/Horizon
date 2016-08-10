@@ -2,6 +2,7 @@ br\com\papa\horizon\entity\Servico.class
 br\com\papa\horizon\controller\LoginController.class
 br\com\papa\horizon\dao\FuncionarioDao.class
 br\com\papa\horizon\controller\EquipamentoController.class
+br\com\papa\horizon\controller\ListaClienteController.class
 br\com\papa\horizon\dao\EspecialidadeDao.class
 br\com\papa\horizon\util\Enum$NivelAcesso.class
 br\com\papa\horizon\dao\PecaUtilizadaDao.class
@@ -27,9 +28,11 @@ br\com\papa\horizon\dao\OrdemDeServicoDao.class
 br\com\papa\horizon\dao\ClienteDao.class
 br\com\papa\horizon\controller\ClienteController.class
 br\com\papa\horizon\entity\Orcamento.class
+br\com\papa\horizon\controller\ListaFuncionarioController.class
 br\com\papa\horizon\controller\EspecialidadeController.class
 br\com\papa\horizon\entity\Usuario.class
 br\com\papa\horizon\entity\Equipamento.class
 br\com\papa\horizon\dao\UsuarioDao.class
 br\com\papa\horizon\entity\PecaUtilizada.class
+br\com\papa\horizon\controller\MenuController.class
 br\com\papa\horizon\dao\GenericDao.class
