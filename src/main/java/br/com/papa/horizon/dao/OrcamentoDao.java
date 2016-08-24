@@ -1,5 +1,6 @@
 package br.com.papa.horizon.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.papa.horizon.entity.Cliente;
@@ -50,10 +51,9 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return orcamento;	
 	}
 	
-	public Especialidade localizaEspecialidade(){
+	public List<Especialidade> localizaEspecialidade(){
 		EspecialidadeDao dao = new EspecialidadeDao();
-		List<Especialidade> especialidades = dao.findAll();		
-		return (Especialidade) especialidades;
+		return dao.findAll();
 	}
 	
 	public List<PecaUtilizada> localizaPecasUtilizadas(Long id_orcamento){

@@ -6,7 +6,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Horizon</title>
 <script src="js/jquery-2.1.3.min.js" /></script>
 <script src="js/jquery.maskedinput.min.js" /></script>
 <script src="js/mask.js" /></script>
@@ -28,7 +28,7 @@ var RETORNO = ${result}
 		<button type="button" class="navbar-toggle collapsed"
 			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 			aria-expanded="false">
-			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="sr-only"></span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		<a class="navbar-brand  glyphicon glyphicon-home" href="menu">
@@ -55,7 +55,7 @@ var RETORNO = ${result}
 				aria-expanded="false"><label>Funcionário</label><span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Novo Funcionário</a></li>
+					<li><a href="cadastroFuncionario">Novo Funcionário</a></li>
 					<li><a href="listaFuncionarios">Lista de Funcionários</a></li>
 				</ul></li>
 
@@ -82,7 +82,7 @@ var RETORNO = ${result}
 
 		<ul class="nav navbar-nav navbar-right">
 
-			<li><a href="#"><label>Novo Orcamento</label></a></li>
+			<li><a href="novoOrcamento"><label>Novo Orcamento</label></a></li>
 
 			<li><span><input type="text" placeholder="Busca Rápida"
 					class="form-control mTop10"></span></li>

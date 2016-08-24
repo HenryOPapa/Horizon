@@ -18,13 +18,13 @@ public class EquipamentoDao extends GenericDao<Equipamento>{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void adicionarEquipamento(Cliente cliente, Equipamento equipamento){
-		ClienteDao dao = new ClienteDao();
-		cliente = dao.findById(cliente.getId_cliente());
-		cliente.addEquipamento(equipamento);
-		dao.update(cliente);
-	}
-	
+//	public void adicionarEquipamento(Cliente cliente, Equipamento equipamento){
+//		ClienteDao dao = new ClienteDao();
+//		cliente = dao.findById(cliente.getId_cliente());
+//		cliente.addEquipamento(equipamento);
+//		dao.update(cliente);
+//	}
+//	
 	public Cliente localizarDonoEquipamento (Cliente cliente){
 		ClienteDao dao = new ClienteDao();
 		Long id = cliente.getId_cliente();

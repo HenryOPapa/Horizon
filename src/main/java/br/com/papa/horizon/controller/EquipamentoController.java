@@ -13,13 +13,13 @@ import br.com.papa.horizon.entity.Equipamento;
 @Controller
 public class EquipamentoController {
 	
-	@RequestMapping("/adicionaEquipamento")
-	public String adicionaEquipamento(Cliente cliente, Equipamento equipamento){
-		EquipamentoDao dao = new EquipamentoDao();
-		dao.adicionarEquipamento(cliente, equipamento);
-		return "redirect:listaClientes";
-		
-	}
+//	@RequestMapping("/adicionaEquipamento")
+//	public String adicionaEquipamento(Cliente cliente, Equipamento equipamento){
+//		EquipamentoDao dao = new EquipamentoDao();
+//		dao.adicionarEquipamento(cliente, equipamento);
+//		return "redirect:listaClientes";
+//		
+//	}
 
 	@RequestMapping("/adicionarEquipamentoAoCliente")
 	public ModelAndView adicionarEquipamentoAoCliente(Cliente cliente){

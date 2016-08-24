@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -59,7 +61,13 @@ public class Cliente implements Serializable{
 	@Column(name = "EMAIL")
 	private String email;
 
-	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	@JoinTable(name="CLIENTE_HAS_EQUIPAMENTO", joinColumns={@JoinColumn(name="ID_CLIENTe", referencedColumnName="id_cliente")},
+//	inverseJoinColumns={@JoinColumn(name="ID_EQUIPAMENTO", referencedColumnName="id_equipamento")})
+//	private List<Equipamento> equipamentos;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="ID_CLIENTE")
 	private List<Equipamento> equipamentos;
 	
 	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -70,13 +78,13 @@ public class Cliente implements Serializable{
 	
 	
 	
-	public void  addEquipamento(Equipamento equipamento){
-		if (equipamentos == null){
-			equipamentos = new ArrayList<Equipamento>();
-		}
-		equipamento.setCliente(this);
-		equipamentos.add(equipamento);
-	}
+//	public void  addEquipamento(Equipamento equipamento){
+//		if (equipamentos == null){
+//			equipamentos = new ArrayList<Equipamento>();
+//		}
+//		equipamento.setCliente(this);
+//		equipamentos.add(equipamento);
+//	}
 
 	public void deleteEquipamento(Equipamento equipamento){
 		if(equipamentos != null){
@@ -201,7 +209,6 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-
 	public String getDataNascimento() {
 		return dataNascimento;
 	}
@@ -217,55 +224,7 @@ public class Cliente implements Serializable{
 	public void setOrdemDeServicos(List<OrdemDeServico> ordemDeServicos) {
 		this.ordemDeServicos = ordemDeServicos;
 	}
-	
-	
-	
-//	public Documento getDocumento() {
-//		return documento;
-//	}
-//
-//	public void setDocumento(Documento documento) {
-//		this.documento = documento;
-//	}
-//
-//	public Contato getContato() {
-//		return contato;
-//	}
-//
-//	public void setContato(Contato contato) {
-//		this.contato = contato;
-//	}
-//
-//
-//	public Endereco getEndereco() {
-//		return endereco;
-//	}
-//
-//	public void setEndereco(Endereco endereco) {
-//		this.endereco = endereco;
-//	}
 
-
-
-
-
-	//	@Override
-	//	public boolean equals(Object obj) {
-	//		if (this == obj)
-	//			return true;
-	//		if (obj == null)
-	//			return false;
-	//		if (getClass() != obj.getClass())
-	//			return false;
-	//		Pessoa other = (Pessoa) obj;
-	//		if (id == null) {
-	//			if (other.id != null)
-	//				return false;
-	//		} else if (!id.equals(other.id))
-	//			return false;
-	//		return true;
-	//	}
-	//
 
 
 }

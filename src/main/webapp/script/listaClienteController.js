@@ -4,6 +4,7 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 	$scope.formData = {};
 	$scope.path = 'listaClientes/';
 	$scope.showAtualizaCliente = false;
+	$scope.showAdicionarEquipamento = false;	
 
 
 	$scope.init = function() {
@@ -14,6 +15,12 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 	$scope.atualizaCliente = function (row){
 		$scope.screenData.clienteSelecionado = row;
 		$scope.showAtualizaCliente = true;		
+		
+	}
+	
+	$scope.addEquipamento = function (row){
+		$scope.screenData.clienteSelecionado = row;
+		$scope.showAdicionarEquipamento = true;		
 		
 	}
 	
@@ -65,6 +72,35 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 		);
 		
 	}
+	
+	
+	$scope.adicionarEquipamento = function (row){
+		var params = {
+				'tipoEquipamento' :$scope.formData.tipoEquipamento,
+				'marca' : $scope.formData.marca,
+				'modelo' : $scope.formData.modelo,
+				'numeroSerie' : $scope.formData.numeroSerie
+		} 
+		
+		$http.post($scope.path + 'adicionarEquipamento?&id='+$scope.screenData.clienteSelecionado.id_cliente, params).then(
+				function(response) {
+					if (response.status === 200) {
+						sucessoAddEquipamento.style.display = "block";
+						setTimeout(function(){			
+							sucessoAddEquipamento.style.display = "none";
+							location.reload();
+						},5000);
+					}else{
+						erroAddEquipamento.style.display = "block";
+						setTimeout(function(){			
+							erroAddEquipamento.style.display = "none";
+							},5000);
+					}
+				}
+		);
+		
+	}
+	
 	
 	/**
 	 * Trata o objeto de envio para o backend

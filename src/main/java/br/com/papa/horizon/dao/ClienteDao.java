@@ -1,7 +1,5 @@
 package br.com.papa.horizon.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 /**

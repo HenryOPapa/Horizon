@@ -5,137 +5,95 @@
 <%@ include file="../../cabecalho.jsp"%>
 <body>
 
-	<div class="container" ng-controller="ListaFuncionarioController">
+	<div class="container">
 
-		<!-- Painel que irá 
-	listar os clientes -->
-		<div ng-init="init()">
-		<div class="input-group">
-					<div class="input-group-addon">
-						<i class="glyphicon glyphicon-search"></i>
-					</div>
-					<input type="text" class="form-control" placeholder="Pesquisar"
-						ng-model="valorFiltro" placeholder="Procurar" id="pesquisa"
-						ng-model="valorFiltro">
-				</div>
-
-
-			<div class="panel panel-default">
-				<div class="panel-heading accordion-heading accordion-heading-sm">
-					Clientes</div>
-
-				<div class="panel-body scrollable">
-
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Nome</th>
-								<th>CPF</th>
-								<th>Telefone</th>
-								<th>Email</th>
-								<th class="text-center">Editar</th>
-								<th class="text-center">Novo Equipamento</th>
-								<th class="text-center">Excluir</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="row in screenData.clientes | filter:valorFiltro">
-								<td scope="row">{{row.nome}}</td>
-								<td>{{row.cpf}}</td>
-								<td>{{row.telefone}}</td>
-								<td>{{row.email}}</td>
-								<td class="text-center"><span
-									class="glyphicon glyphicon-pencil text-primary clickable"
-									ng-click="atualizaCliente(row)"></span></td>
-								<td class="text-center"><span
-									class="glyphicon glyphicon-plus text-primary clickable"></span></td>
-								<td class="text-center"><span
-									class="glyphicon glyphicon-trash text-danger clickable"></span></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!-- 
-		FIM DO PAINEL DE LISTA CLIENTE -->
-
-
-		<!-- PAINEL PARA ALTERACAO DE DADOS -->
-		<div class="panel panel-default" ng-show="showAtualizaCliente">
-
+			<!--Mensagem de Alert -->
+						<div id="sucessoCadastro" class="alert alert-success">
+							<strong>Funcionário adicionado com Sucesso!</strong>
+						</div>
+			<!--End Mensagem de Alert -->
+			
+			
+			<!--Mensagem de Alert -->
+						<div id="erroCadastro" class="alert alert-danger">
+							<strong>Atenção</strong>, Erro ao cadastrar Funcionário.
+						</div>
+			<!--End Mensagem de Alert -->
+			
+		<div ng-controller="FuncionarioController" ng-init="init()" class="panel panel-default">
+		
 			<div class="panel-heading accordion-heading accordion-heading-sm">
-				Atualizar Cliente</div>
+				Novo Funcionario</div>
 			<div class="panel-body">
-
+	
 				<div class="col-sm-4 form-group">
-					<label>Nome</label> <input type="text"
-						value="{{screenData.clienteSelecionado.nome}}"
-						class="form-control" disabled>
+						<label>Nome</label> <input type="text"
+							ng-model="formData.nome" class="form-control">
 				</div>
-
+				
 				<div class="col-sm-3 form-group">
-					<label>CPF</label> <input type="text"
-						value="{{screenData.clienteSelecionado.cpf}}" class="form-control"
-						disabled>
+						<label>CPF</label> <input id="cpf" type="text"
+							ng-model="formData.cpf" class="form-control">
 				</div>
-
+				
+				
 				<div class="col-sm-3 form-group">
-					<label>Data Nascimento</label> <input type="date"
-						value="{{screenData.clienteSelecionado.dataNascimento}}"
-						class="form-control" disabled>
+					<label>Data Nascimento</label>
+					<input type="text"
+							ng-model="formData.dataNascimento" class="form-control">
 				</div>
-
+				
 				<div class="col-sm-2 form-group">
-					<label>Telefone</label> <input type="text"
-						placeholder="{{screenData.clienteSelecionado.telefone}}" id="phone"
-						class="form-control" ng-model="formData.telefone">
+						<label>Telefone</label> <input id="phone" type="text"
+							ng-model="formData.telefone" class="form-control">
 				</div>
-
+				
 				<div class="col-sm-3 form-group">
-					<label>CEP</label> <input type="text" id="cep"
-						placeholder="{{screenData.clienteSelecionado.cep}}" class="form-control"
-						ng-model="formData.cep">
+						<label>CEP</label> <input id="cep" type="text"
+							ng-model="formData.cep" class="form-control"
+							>
 				</div>
-
+				
 				<div class="col-sm-4 form-group">
-					<label>Logradouro</label> <input type="text"
-						placeholder="{{screenData.clienteSelecionado.logradouro}}"
-						class="form-control" ng-model="formData.logradouro">
+						<label>Logradouro</label> <input type="text"
+							ng-model="formData.logradouro" class="form-control" >
 				</div>
-
+				
 				<div class="col-sm-3 form-group">
-					<label>Cidade</label> <input type="text"
-						placeholder="{{screenData.clienteSelecionado.cidade}}"
-						class="form-control" ng-model="formData.cidade">
+						<label>Cidade</label> <input type="text"
+							ng-model="formData.cidade" class="form-control" >
 				</div>
-
+				
 				<div class="col-sm-2 form-group">
-					<label>Estado</label> <input type="text"
-						placeholder="{{screenData.clienteSelecionado.estado}}"
-						class="form-control" ng-model="formData.estado">
+						<label>Estado</label> <input type="text"
+							ng-model="formData.estado" class="form-control" >
 				</div>
-
-
+				
+				
 				<div class="col-sm-4 form-group">
-					<label>Email</label> <input type="text"
-						placeholder="{{screenData.clienteSelecionado.email}}"
-						class="form-control" ng-model="formData.email">
+						<label>Email</label> <input type="text"
+							ng-model="formData.email" class="form-control" >
 				</div>
-
-
+				
+				<div class="col-sm-4 form-group input">
+						<label>Especialidade</label>
+						<select class="form-control" ng-model="formData.especialidade">
+							<option value="">Selecione uma especialidade</option>
+							<option ng-repeat="item in screenData.especialidades" value="{{item.descricao}}">{{item.descricao}}</option>
+						</select>
+					</div>
+				
+	
 				<div class="col-sm-12 form-group text-left" ng-cloak>
 					<input type="button" class="btn btn-danger bt"
-						ng-click="alterarDados()" value="Salvar">
+						ng-click="cadastrarFuncionario()" value="Cadastrar">
+					<input type="button" class="btn btn-default bt"
+						ng-click="cancelar()" value="Cancelar">
 				</div>
-
+	
 			</div>
 		</div>
-
-		<!-- FIM DO PAINEL PARA ALTERACAO DE DADOS -->
-
-
 	</div>
+
 
 	<%@ include file="../../rodape.jsp"%>

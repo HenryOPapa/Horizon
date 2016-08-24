@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.papa.horizon.util.GsonExclude;
+
 /**
  * 
  * @author Henry O' Papa
@@ -29,7 +31,7 @@ public class Equipamento implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_EQUIPAMENTO")
-	private Long id;
+	private Long id_equipamento;
 	
 	@Column(name = "TIPO_EQUIPAMENTO")
 	private String tipoEquipamento;
@@ -42,17 +44,22 @@ public class Equipamento implements Serializable{
 	
 	@Column(name = "NUMERO_SERIE")
 	private String numeroSerie;
+	
+//	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.ALL})
+//	private Cliente cliente;
 
+	@GsonExclude
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 	
-	public Long getId() {
-		return id;
+
+	public Long getId_equipamento() {
+		return id_equipamento;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId_equipamento(Long id_equipamento) {
+		this.id_equipamento = id_equipamento;
 	}
 
 	public String getTipoEquipamento() {
@@ -86,19 +93,14 @@ public class Equipamento implements Serializable{
 	public void setNumeroSerie(String numeroSerie) {
 		this.numeroSerie = numeroSerie;
 	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	
-	
-	
-	
-	
+//
+//	public Cliente getCliente() {
+//		return cliente;
+//	}
+//
+//	public void setCliente(Cliente cliente) {
+//		this.cliente = cliente;
+//	}
+//	
 
 }

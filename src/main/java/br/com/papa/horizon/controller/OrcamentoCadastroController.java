@@ -1,13 +1,21 @@
 package br.com.papa.horizon.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
@@ -31,32 +39,47 @@ import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
  */
 
 @Controller
-public class OrcamentoController {
+@RequestMapping("novoOrcamento")
+public class OrcamentoCadastroController {
 	OrcamentoDao orcamentoDao = new OrcamentoDao();
 
-	/* novoOrcamento
-	 * Primeira tela do orcamento,
-	 * onde a recepcionista ira 
-	 * localizar o cliente pelo CPF	 * 
-	 */
-
-
-	@RequestMapping("/novoOrcamento")
-	public ModelAndView novoOrcamento(HttpSession session){
-		EspecialidadeDao dao = new EspecialidadeDao();
-		List<Especialidade> especialidades = dao.findAll();
-		session.removeAttribute("orcamento");
-		ModelAndView mv = new ModelAndView("cadastroOrcamento");
-		return mv.addObject("especialidades", especialidades);
+	@RequestMapping
+	public ModelAndView cadastroCliente(){
+		Gson gson = new Gson();
+		Map<String, Object> retorno = new HashMap<String, Object>();
+		List<Especialidade> especialidades = new ArrayList<Especialidade>();
+		
+		try{	
+		especialidades = (List<Especialidade>) orcamentoDao.localizaEspecialidade();
+		}catch(Exception e){
+			System.out.println("ERRO AO CONSULTAR ESPECIALIDADES: "+e);
+		}
+		retorno.put("especialidades", especialidades);
+		return new ModelAndView("orcamentoCadastro").addObject("result",
+				gson.toJson(retorno));
 	}
 
 
-	/*orcamento
-	 * Este método trabalha em conjunto com o novoOrcamento
-	 * para gerar um novo orcamento, aqui é onde localizamos as 
-	 * categorias de trabalho, e os equipamentos vinculados
-	 * ao cliente
-	 */ 
+	@RequestMapping(value = "/localizarCliente", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente , HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		try{
+			cliente = orcamentoDao.procuraPorCpf(cliente.getCpf());
+			
+		}catch(Exception e){
+			System.out.println("ERRO AO LOCALIZAR CLIENTE: " +e);
+			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		result.put("cliente", cliente);
+		result.put("equipamentos", cliente.getEquipamentos());
+		
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	}
+
+
 
 	@RequestMapping("/orcamento")
 	public ModelAndView orcamento(HttpSession session){	

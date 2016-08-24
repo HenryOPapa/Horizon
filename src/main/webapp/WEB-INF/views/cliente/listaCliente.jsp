@@ -10,20 +10,14 @@
 		<!-- Painel que irá 
 	listar os clientes -->
 		<div ng-init="init()">
-		<div class="input-group">
-					<div class="input-group-addon">
-						<i class="glyphicon glyphicon-search"></i>
-					</div>
-					<input type="text" class="form-control" placeholder="Pesquisar"
-						ng-model="valorFiltro" placeholder="Procurar" id="pesquisa"
-						ng-model="valorFiltro">
+			<div class="input-group">
+				<div class="input-group-addon">
+					<i class="glyphicon glyphicon-search"></i>
 				</div>
-	<!--Mensagem de Alert -->
-						<div id="sucessoExcluir" class="alert alert-success">
-							<strong>Cliente excluido com sucesso!</strong>
-						</div>
-				<!--End Mensagem de Alert -->
-			
+				<input type="text" class="form-control" placeholder="Pesquisar"
+					ng-model="valorFiltro" placeholder="Procurar" id="pesquisa"
+					ng-model="valorFiltro">
+			</div>
 
 			<div class="panel panel-default">
 				<div class="panel-heading accordion-heading accordion-heading-sm">
@@ -54,10 +48,11 @@
 									class="glyphicon glyphicon-pencil text-primary clickable"
 									ng-click="atualizaCliente(row)"></span></td>
 								<td class="text-center"><span
-									class="glyphicon glyphicon-plus text-primary clickable"></span></td>
+									class="glyphicon glyphicon-plus text-primary clickable"
+									ng-click="addEquipamento(row)"></span></td>
 								<td class="text-center"><span
 									class="glyphicon glyphicon-trash text-danger clickable"
-										ng-click="excluirCliente(row)"></span></td>
+									ng-click="excluirCliente(row)"></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -69,20 +64,20 @@
 
 
 		<!-- PAINEL PARA ALTERACAO DE DADOS -->
-				
-					<!--Mensagem de Alert -->
-						<div id="sucessoAtualizacao" class="alert alert-success">
-							<strong>Cliente atualizado com sucesso!</strong>
-						</div>
-				<!--End Mensagem de Alert -->
-			
-			
-			<!--Mensagem de Alert -->
-						<div id="erroAtualizacao" class="alert alert-danger">
-							<strong>Atenção</strong>, Erro ao atualizar Cliente.
-						</div>
-			<!--End Mensagem de Alert -->
-		
+
+		<!--Mensagem de Alert -->
+		<div id="sucessoAtualizacao" class="alert alert-success">
+			<strong>Cliente atualizado com sucesso!</strong>
+		</div>
+		<!--End Mensagem de Alert -->
+
+
+		<!--Mensagem de Alert -->
+		<div id="erroAtualizacao" class="alert alert-danger">
+			<strong>Atenção</strong>, Erro ao atualizar Cliente.
+		</div>
+		<!--End Mensagem de Alert -->
+
 		<div class="panel panel-default" ng-show="showAtualizaCliente">
 
 			<div class="panel-heading accordion-heading accordion-heading-sm">
@@ -109,14 +104,13 @@
 
 				<div class="col-sm-2 form-group">
 					<label>Telefone</label> <input type="text"
-						value="{{formData.telefone}}" id="phone"
-						class="form-control">
+						value="{{formData.telefone}}" id="phone" class="form-control">
 				</div>
 
 				<div class="col-sm-3 form-group">
 					<label>CEP</label> <input type="text" id="cep"
-						placeholder="{{screenData.clienteSelecionado.cep}}" class="form-control"
-						ng-model="formData.cep">
+						placeholder="{{screenData.clienteSelecionado.cep}}"
+						class="form-control" ng-model="formData.cep">
 				</div>
 
 				<div class="col-sm-4 form-group">
@@ -154,6 +148,53 @@
 		</div>
 
 		<!-- FIM DO PAINEL PARA ALTERACAO DE DADOS -->
+		
+		<!-- PAINEL ADICIONAR EQUIPAMENTO -->
+		
+		<div id="sucessoAddEquipamento" class="alert alert-success">
+			<strong>Novo equipamento adicionado!</strong>
+		</div>
+		
+		<div id="erroAddEquipamento" class="alert alert-success">
+			<strong>Erro ao adicionar novo equipamento!</strong>
+		</div>
+
+
+		<div class="panel panel-default" ng-show="showAdicionarEquipamento">
+
+			<div class="panel-heading accordion-heading accordion-heading-sm">
+				Adicionar Equipamento</div>
+			<div class="panel-body">
+
+				<div class="col-sm-4 form-group">
+					<label>Tipo do Equipamento</label> <input type="text"
+						ng-model="formData.tipoEquipamento" class="form-control">
+				</div>
+
+				<div class="col-sm-3 form-group">
+					<label>Marca</label> <input type="text" class="form-control"
+						ng-model="formData.marca">
+				</div>
+
+				<div class="col-sm-3 form-group">
+					<label>Modelo</label> <input type="text" ng-model="formData.modelo"
+						class="form-control">
+				</div>
+
+				<div class="col-sm-2 form-group">
+					<label>Número Série </label> <input type="text"
+						ng-model="formData.numeroSerie" class="form-control">
+				</div>
+
+				<div class="col-sm-12 form-group text-left" ng-cloak>
+					<input type="button" class="btn btn-danger bt"
+						ng-click="adicionarEquipamento()" value="Salvar">
+				</div>
+
+			</div>
+		</div>
+
+		<!-- FIM DO PAINEL ADICIONAR EQUIPAMENTO -->
 
 
 	</div>

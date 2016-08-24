@@ -2,11 +2,15 @@
     pageEncoding="ISO-8859-1"%>
     
 <!-- Mapeamento dos javascripts utilizados na aplicação -->
+
 <script src="script/maskFront.js"/></script>
 <script src="script/pecaController.js"/></script>
 <script src="script/clienteController.js"/></script>
 <script src="script/listaClienteController.js"/></script>
 <script src="script/listaFuncionarioController.js"/></script>
+<script src="script/orcamentoCadastroController.js"/></script>
+
+<!-- FIM Mapeamento dos javascripts utilizados na aplicação -->
 
 
 
