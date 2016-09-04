@@ -32,7 +32,7 @@
 				</div>
 				
 				<div class="col-sm-3 form-group">
-						<label>CPF</label> <input id="cpf" type="text"
+						<label>CPF</label> <input type="text"
 							ng-model="formData.cpf" class="form-control">
 				</div>
 				

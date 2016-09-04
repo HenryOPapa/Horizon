@@ -1,3 +1,4 @@
+br\com\papa\horizon\util\GsonExclude.class
 br\com\papa\horizon\entity\Servico.class
 br\com\papa\horizon\controller\LoginController.class
 br\com\papa\horizon\dao\FuncionarioDao.class
@@ -11,12 +12,13 @@ br\com\papa\horizon\util\Filter.class
 br\com\papa\horizon\dao\OrcamentoDao.class
 br\com\papa\horizon\util\Enum$StatusOrdemDeServico.class
 br\com\papa\horizon\entity\Especialidade.class
-br\com\papa\horizon\controller\OrcamentoController.class
+br\com\papa\horizon\controller\OrcamentoCadastroController.class
 br\com\papa\horizon\entity\PecaOrdemServico.class
 br\com\papa\horizon\entity\Funcionario.class
 br\com\papa\horizon\util\Enum$TipoEnderecos.class
 br\com\papa\horizon\dao\EquipamentoDao.class
 br\com\papa\horizon\util\Util.class
+br\com\papa\horizon\util\GsonExclusionStrategy.class
 br\com\papa\horizon\util\Enum$StatusOrcamento.class
 br\com\papa\horizon\entity\Peca.class
 br\com\papa\horizon\entity\OrdemDeServico.class

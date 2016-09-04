@@ -12,8 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
@@ -26,42 +27,53 @@ import br.com.papa.horizon.util.Enum.StatusOrcamento;
 @Entity
 @Table(name = "orcamento")
 public class Orcamento implements Serializable{
-	
+
 	private static final long serialVersionUID = -4573440496209503089L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_ORCAMENTO")
 	private Long id_orcamento;
-	
+
 	@Column(name="RELATO")
 	private String relato;
-	
+
 	@Column(name = "OBSERVACAO")
 	private String observacao;
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_EQUIPAMENTO")
+	private Equipamento equipamento;
 	
-	@Column(name = "EQUIPAMENTO_DANIFICADO")
-	private String equipamentoDanificado;
-	
-	@Column(name = "ESPECIALIDADE")
-	private String especialidade;
-	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_ESPECIALIDADE")
+	private Especialidade especialidade;
+
 	@Column(name = "VALORTOTAL")
 	private Double valorTotal;
-	
+
+
 	@Column(name = "STATUS")
 	private StatusOrcamento statusOrcamento;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente cliente;	
-	
+	private String numSerieEquipamento;
+	private String idEspecialidade;
+
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PecaUtilizada> pecas;	
-	
+
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Servico> servicos;
-	
+
+	/*	@GsonExclude
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;	*/
+
 	public void  addPeca(PecaUtilizada peca){
 		if (pecas == null){
 			pecas = new ArrayList<PecaUtilizada>();
@@ -75,7 +87,7 @@ public class Orcamento implements Serializable{
 			pecas.remove(peca);
 		}
 	}
-	
+
 	public void  addServico(Servico servico){
 		if (servicos == null){
 			servicos = new ArrayList<Servico>();
@@ -84,9 +96,9 @@ public class Orcamento implements Serializable{
 		servicos.add(servico);
 	}
 
-	public void deleteServico(Servico servico){
-		if(servicos != null){
-			servicos.remove(servico);
+	public void deleteEquipamento(PecaUtilizada peca){
+		if(pecas != null){
+			pecas.remove(peca);
 		}
 	}
 
@@ -114,36 +126,16 @@ public class Orcamento implements Serializable{
 		this.observacao = observacao;
 	}
 
-	public String getEquipamentoDanificado() {
-		return equipamentoDanificado;
+	public Equipamento getEquipamento() {
+		return equipamento;
 	}
 
-	public void setEquipamentoDanificado(String equipamentoDanificado) {
-		this.equipamentoDanificado = equipamentoDanificado;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public List<PecaUtilizada> getPecas() {
-		return pecas;
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
 	}
 
 	public void setPecas(List<PecaUtilizada> pecas) {
 		this.pecas = pecas;
-	}
-
-	public String getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(String especialidade) {
-		this.especialidade = especialidade;
 	}
 
 	public Double getValorTotal() {
@@ -169,8 +161,50 @@ public class Orcamento implements Serializable{
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-	
-	
-		
-	
+
+	public String getNumSerieEquipamento() {
+		return numSerieEquipamento;
+	}
+
+	public void setNumSerieEquipamento(String numSerieEquipamento) {
+		this.numSerieEquipamento = numSerieEquipamento;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	public List<PecaUtilizada> getPecas() {
+		return pecas;
+	}
+
+	public String getIdEspecialidade() {
+		return idEspecialidade;
+	}
+
+	public void setIdEspecialidade(String idEspecialidade) {
+		this.idEspecialidade = idEspecialidade;
+	}
+
+
+
+
+
+
+
+
+
+
 }

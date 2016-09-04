@@ -60,31 +60,27 @@ public class Cliente implements Serializable{
 	
 	@Column(name = "EMAIL")
 	private String email;
-
-//	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//	@JoinTable(name="CLIENTE_HAS_EQUIPAMENTO", joinColumns={@JoinColumn(name="ID_CLIENTe", referencedColumnName="id_cliente")},
-//	inverseJoinColumns={@JoinColumn(name="ID_EQUIPAMENTO", referencedColumnName="id_equipamento")})
-//	private List<Equipamento> equipamentos;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_CLIENTE")
 	private List<Equipamento> equipamentos;
 	
-	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Orcamento> orcamentos;
+//	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	@JoinColumn(name="ID_ORCAMENTO")
+//	private List<Orcamento> orcamentos;
 	
 	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<OrdemDeServico> ordemDeServicos;
 	
 	
 	
-//	public void  addEquipamento(Equipamento equipamento){
-//		if (equipamentos == null){
-//			equipamentos = new ArrayList<Equipamento>();
-//		}
-//		equipamento.setCliente(this);
-//		equipamentos.add(equipamento);
-//	}
+	public void  addEquipamento(Equipamento equipamento){
+		if (equipamentos == null){
+			equipamentos = new ArrayList<Equipamento>();
+		}
+		equipamento.setCliente(this);
+		equipamentos.add(equipamento);
+	}
 
 	public void deleteEquipamento(Equipamento equipamento){
 		if(equipamentos != null){
@@ -92,19 +88,19 @@ public class Cliente implements Serializable{
 		}
 	}
 	
-	public void  addOrcamento(Orcamento orcamento){
-		if (orcamentos == null){
-			orcamentos = new ArrayList<Orcamento>();
-		}
-		orcamento.setCliente(this);
-		orcamentos.add(orcamento);
-	}
-
-	public void deleteOrcamento(Orcamento orcamento){
-		if(orcamentos != null){
-			orcamentos.remove(orcamento);
-		}
-	}
+//	public void  addOrcamento(Orcamento orcamento){
+//		if (orcamentos == null){
+//			orcamentos = new ArrayList<Orcamento>();
+//		}
+//		orcamento.setCliente(this);
+//		orcamentos.add(orcamento);
+//	}
+//
+//	public void deleteOrcamento(Orcamento orcamento){
+//		if(orcamentos != null){
+//			orcamentos.remove(orcamento);
+//		}
+//	}
 	
 	public void  addOrdemDeServico(OrdemDeServico ordemDeServico){
 		if (ordemDeServicos == null){
@@ -120,13 +116,13 @@ public class Cliente implements Serializable{
 		}
 	}
 	
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
-	}
-
-	public void setOrcamentos(List<Orcamento> orcamentos) {
-		this.orcamentos = orcamentos;
-	}
+//	public List<Orcamento> getOrcamentos() {
+//		return orcamentos;
+//	}
+//
+//	public void setOrcamentos(List<Orcamento> orcamentos) {
+//		this.orcamentos = orcamentos;
+//	}
 
 	public String getCpf() {
 		return cpf;

@@ -65,6 +65,7 @@ public class LoginController {
 			usu = usuarioDao.localizaUsuario(usuario.getLogin());
 			usuario.setId(usu.getId());
 			usuario.setNivelAcesso(usu.getNivelAcesso());
+			httpSession.setAttribute("usuario", usuario);
 
 		}catch(Exception e){
 			System.out.println("ERRO AO VALIDAR USUARIO: " +e);

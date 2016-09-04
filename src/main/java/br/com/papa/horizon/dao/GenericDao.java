@@ -86,6 +86,28 @@ public abstract class GenericDao <T extends Serializable>{
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<T> find2(String jpql, Object... params){
+		EntityManager manager = getEntityManager();
+		manager.getTransaction().begin();
+		
+		Query query = manager.createQuery(jpql);//Alterado o createQuery para createNamedQuery por BUG
+		
+		for(int i=0; i < params.length; i++){
+			query.setParameter(i+1, params[i]);
+		}
+		
+		
+		List<T> entities = query.getResultList();
+		
+		
+		manager.getTransaction().commit();
+		manager.close();
+		
+		return entities;
+		
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(){

@@ -1,9 +1,9 @@
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\EquipamentoController.java
-C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\OrcamentoController.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\EspecialidadeDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\UsuarioDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\EspecialidadeController.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Especialidade.java
+C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\GsonExclusionStrategy.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\EquipamentoDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\FuncionarioDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\OrdemDeServico.java
@@ -18,10 +18,12 @@ C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\contro
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Filter.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\PecasDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Cliente.java
+C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\OrcamentoCadastroController.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Equipamento.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\LoginController.java
-C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Funcionario.java
+C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\GsonExclude.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ListaFuncionarioController.java
+C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Funcionario.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\OrcamentoDao.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ListaClienteController.java
 C:\Users\Henry O' Papa\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Peca.java

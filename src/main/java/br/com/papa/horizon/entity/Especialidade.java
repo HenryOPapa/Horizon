@@ -18,13 +18,19 @@ public class Especialidade implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "ID_ESPECIALIDADE")
-	private Long id;
+	private Long id_especialidade;
 	
 	@Column (name = "descricao")
 	private String descricao;
 
-	public Long getId() {
-		return id;
+
+
+	public Long getId_especialidade() {
+		return id_especialidade;
+	}
+
+	public void setId_especialidade(Long id_especialidade) {
+		this.id_especialidade = id_especialidade;
 	}
 
 	public String getDescricao() {
@@ -35,9 +41,7 @@ public class Especialidade implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}	
+	
 	
 
 }

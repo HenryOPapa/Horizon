@@ -32,9 +32,9 @@ import com.google.gson.Gson;
 @Controller
 @RequestMapping("listaClientes")
 public class ListaClienteController {
-	
+
 	ClienteDao clienteDao = new ClienteDao();
-	
+
 	/**
 	 * 
 	 * Este método irá direcionar a aplicação 
@@ -45,25 +45,25 @@ public class ListaClienteController {
 	@RequestMapping
 	public ModelAndView listaClientes()throws Exception{
 
-Gson gson = new Gson();
-gson = GsonExclusionStrategy.createGsonFromBuilder(
-			new GsonExclusionStrategy(Equipamento.class));
+		Gson gson = new Gson();
+		gson = GsonExclusionStrategy.createGsonFromBuilder(
+				new GsonExclusionStrategy(Equipamento.class));
 		Map<String, Object> retorno = new HashMap<String, Object>();
-		
+
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		try{
 			clientes = clienteDao.findAll();
-			
+
 		}catch(Exception e){
 			System.out.println("ERRO AO LISTAR OS CLIENTES: "+ e);
 		}	
-		
+
 		retorno.put("clientes", clientes);
-		
+
 		return new ModelAndView("cliente/listaCliente").addObject("result",
 				gson.toJson(retorno));
 	}
-	
+
 	@RequestMapping(value = "/atualizarCliente", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> atualizarCliente(@RequestBody Cliente cliente , HttpSession httpSession) throws Exception { 
 
@@ -74,14 +74,14 @@ gson = GsonExclusionStrategy.createGsonFromBuilder(
 		try{
 			clienteDao.update(cliente);
 			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.OK);							
-			
+
 		}catch(Exception e){
 			System.out.println("ERRO AO ATUALIZAR O CLIENTE: " +e);
 			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value = "/excluirCliente", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> excluirCliente(@RequestBody Cliente cliente , HttpSession httpSession) throws Exception { 
 
@@ -91,31 +91,32 @@ gson = GsonExclusionStrategy.createGsonFromBuilder(
 		try{
 			clienteDao.delete(cliente.getId_cliente());
 			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.OK);							
-			
+
 		}catch(Exception e){
 			System.out.println("ERRO AO ATUALIZAR O CLIENTE: " +e);
 			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@RequestMapping(value = "/adicionarEquipamento", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> adicionarEquipamento(@RequestParam(value = "id") Long id,@RequestBody Equipamento equipamento, HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
+		gson = GsonExclusionStrategy.createGsonFromBuilder(
+				new GsonExclusionStrategy(Equipamento.class));
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Equipamento> equipamentos  = new ArrayList<>();
 		Cliente cliente = new Cliente();
 		try{
 			cliente = clienteDao.findById(id);
-			equipamentos.add(equipamento);
-			cliente.setEquipamentos(equipamentos);
+			cliente.addEquipamento(equipamento);
 			clienteDao.update(cliente);
 			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.OK);							
-			
+
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR EQUIPAMENTO: " +e);
 			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 }
