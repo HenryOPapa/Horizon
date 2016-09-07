@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EnumType;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import br.com.papa.horizon.entity.OrdemDeServico;
 import br.com.papa.horizon.entity.PecaOrdemServico;
 import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Usuario;
+import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 
 import com.google.gson.Gson;
@@ -95,18 +97,12 @@ public class OrcamentoCadastroController {
 		Equipamento equipamento = new Equipamento();
 		Especialidade especialidade = new Especialidade();
 		cliente = (Cliente) httpSession.getAttribute("cliente");
+		orcamento.setIdCliente(cliente.getId_cliente());
+		orcamento.setStatusOrcamento(StatusOrcamento.EM_ABERTO);
 		
 
 		try{
-			equipamento = orcamentoDao.procuraEquipamento(orcamento.getNumSerieEquipamento());
-			especialidade = orcamentoDao.procuraEspecialidade(Long.parseLong(orcamento.getIdEspecialidade()));
-			orcamento.setCliente(cliente);
-			orcamento.setEquipamento(equipamento);
-			orcamento.setEspecialidade(especialidade);
-
-			
-			
-			orcamentoDao.update(orcamento);
+			orcamentoDao.save(orcamento);
 			
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR ORCAMENTO: " +e);
@@ -146,36 +142,6 @@ public class OrcamentoCadastroController {
 	}
 
 
-	public OrdemDeServico gerarOrdemDeServico(Orcamento orcamento, OrdemDeServico novaOrdem){
-		PecaOrdemServico pecaOrdem = new PecaOrdemServico();
-		List<PecaOrdemServico> pecasOrdem = new ArrayList<PecaOrdemServico>();
-		novaOrdem.setCliente(orcamento.getCliente());
-//		novaOrdem.setEquipamentoDanificado(orcamento.getEquipamentoDanificado());
-//		novaOrdem.setEspecialidade(orcamento.getEspecialidade());
-		novaOrdem.setObservacao(orcamento.getObservacao());
-		
-		for(PecaUtilizada peca : orcamentoDao.localizaPecasUtilizadas(orcamento.getId_orcamento())){
-			pecaOrdem.setDescricao(peca.getDescricao());
-			pecaOrdem.setValor(peca.getValor());
-			pecaOrdem.setQuantidade(peca.getQuantidade());
-			novaOrdem.addPeca(pecaOrdem);
-		}
-		
-		pecasOrdem.add(pecaOrdem);
-		novaOrdem.setRelato(orcamento.getRelato());
-		novaOrdem.setServicos(orcamento.getServicos());
-		novaOrdem.setValorTotal(orcamento.getValorTotal());
-		novaOrdem.setStatusOrdemDeServico(StatusOrdemDeServico.BACKLOG);
-		try{
-			OrdemDeServicoDao dao = new OrdemDeServicoDao();
-			dao.adicionaNovaOrdem(orcamento.getCliente(), novaOrdem);
-			dao.save(novaOrdem);
-		}catch(Exception e){
-			System.out.println("ERRO AO CADASTRAR ORDEM DE SERVICO: "+e);
-		}
-
-
-		return novaOrdem;
-	}
+	
 
 }

@@ -47,7 +47,7 @@ app.controller('OrcamentoCadastroController', ['$scope', '$http' , function($sco
 				'relato': $scope.formData.relato,
 				'observacao': $scope.formData.observacao,
 				'idEspecialidade': $scope.formData.id_especialidade,
-				'numSerieEquipamento': $scope.formData.equipamento
+				'idEquipamento': $scope.formData.equipamento
 		}
 		
 
@@ -62,7 +62,7 @@ app.controller('OrcamentoCadastroController', ['$scope', '$http' , function($sco
 						sucessoSalvarOrcamento.style.display = "block";
 						setTimeout(function(){
 							sucessoSalvarOrcamento.style.display = "none";
-
+							location.reload();
 						},5000);
 
 					}else{

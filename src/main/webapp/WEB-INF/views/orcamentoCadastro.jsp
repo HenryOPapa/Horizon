@@ -59,7 +59,7 @@
 						<select class="form-control" ng-model="formData.equipamento">
 							<option value="">Selecione um Equipamento</option>
 							<option ng-repeat="item in screenData.equipamentos"
-								value="{{item.numeroSerie}}">{{item.marca}}</option>
+								value="{{item.id_equipamento}}">{{item.marca}}</option>
 						</select>
 					</div>
 

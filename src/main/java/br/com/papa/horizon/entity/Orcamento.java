@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,27 +43,21 @@ public class Orcamento implements Serializable{
 	@Column(name = "OBSERVACAO")
 	private String observacao;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_EQUIPAMENTO")
-	private Equipamento equipamento;
-	
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente cliente;
-
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_ESPECIALIDADE")
-	private Especialidade especialidade;
-
 	@Column(name = "VALORTOTAL")
 	private Double valorTotal;
 
-
 	@Column(name = "STATUS")
+	@Enumerated(EnumType.STRING)
 	private StatusOrcamento statusOrcamento;
-
-	private String numSerieEquipamento;
-	private String idEspecialidade;
+	
+	@Column(name="ID_CLIENTE")
+	private Long idCliente;
+	
+	@Column(name = "ID_EQUIPAMENTO")
+	private Long idEquipamento;
+	
+	@Column(name = "ID_ESPECIALIDADE")
+	private Long idEspecialidade;
 
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PecaUtilizada> pecas;	
@@ -69,10 +65,6 @@ public class Orcamento implements Serializable{
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Servico> servicos;
 
-	/*	@GsonExclude
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente cliente;	*/
 
 	public void  addPeca(PecaUtilizada peca){
 		if (pecas == null){
@@ -126,13 +118,6 @@ public class Orcamento implements Serializable{
 		this.observacao = observacao;
 	}
 
-	public Equipamento getEquipamento() {
-		return equipamento;
-	}
-
-	public void setEquipamento(Equipamento equipamento) {
-		this.equipamento = equipamento;
-	}
 
 	public void setPecas(List<PecaUtilizada> pecas) {
 		this.pecas = pecas;
@@ -162,41 +147,35 @@ public class Orcamento implements Serializable{
 		this.servicos = servicos;
 	}
 
-	public String getNumSerieEquipamento() {
-		return numSerieEquipamento;
-	}
-
-	public void setNumSerieEquipamento(String numSerieEquipamento) {
-		this.numSerieEquipamento = numSerieEquipamento;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Especialidade getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(Especialidade especialidade) {
-		this.especialidade = especialidade;
-	}
-
 	public List<PecaUtilizada> getPecas() {
 		return pecas;
 	}
 
-	public String getIdEspecialidade() {
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Long getIdEquipamento() {
+		return idEquipamento;
+	}
+
+	public void setIdEquipamento(Long idEquipamento) {
+		this.idEquipamento = idEquipamento;
+	}
+
+	public Long getIdEspecialidade() {
 		return idEspecialidade;
 	}
 
-	public void setIdEspecialidade(String idEspecialidade) {
+	public void setIdEspecialidade(Long idEspecialidade) {
 		this.idEspecialidade = idEspecialidade;
 	}
+
+	
 
 
 

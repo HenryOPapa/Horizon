@@ -4,7 +4,7 @@
 
 <%@ include file="../cabecalho.jsp"%>
 <body>
-	<div class="container" ng-controller="PecaController" ng-init="init()">
+	<div class="container" ng-controller="EspecialidadeController" ng-init="init()">
 		<form>
 
 			<div class="panel panel-default">
@@ -21,18 +21,10 @@
 							ng-model="formData.descricao">
 					</div>
 
-					<div class="col-sm-3 form-group">
-						<strong>Valor: </strong>
-					</div>
-
-					<div class="col-sm-3 form-group">
-						<input type="text" class="form-control" name="valor"
-							ng-model="formData.valor">
-					</div>
 
 					<div class="col-sm-12 form-group text-left" ng-cloak>
 						<input type="button" class="btn btn-default bt"
-							ng-click="adicionaPeca()" value="Confirmar">
+							ng-click="adicionaEspecialidade()" value="Confirmar">
 					</div>
 
 				</div>
@@ -48,19 +40,17 @@
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading accordion-heading accordion-heading-sm">
-					Peças para manutenção</div>
+					Especialidades Cadastradas</div>
 				<div class="panel-body scrollable">
 					<table class="table table table-striped table-hover scrollable">
 						<thead>
 							<tr>
 								<th>Descrição</th>
-								<th>Valor</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="row in screenData.pecas | filter:valorFiltro">
+							<tr ng-repeat="row in screenData.especialidades | filter:valorFiltro">
 								<td scope="row">{{row.descricao}}</td>
-								<td>{{row.valor}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -71,11 +61,11 @@
 
 		<div id="cadastroSucesso"
 			class="col-sm-12 form-group text-left alert alert-success" ng-cloak>
-			Peça cadastrada com sucesso.</div>
+			Especialidade cadastrada com sucesso.</div>
 
 		<div id="cadastroErro"
 			class="col-sm-12 form-group text-left alert alert-danger" ng-cloak>
-			Erro ao cadastrar a peça.</div>
+			Erro ao cadastrar a especialidade.</div>
 
 
 	</div>

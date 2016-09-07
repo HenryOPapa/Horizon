@@ -71,7 +71,7 @@ var RETORNO = ${result}
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false"><label>Controle</label><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Criar especialidade</a></li>
+					<li><a href="especialidade">Especialidades</a></li>
 					<li><a href="cadastroPeca">Adicionar Peça</a></li>
 					<li><a href="#">Adicionar Serviço</a></li>
 					<li><a href="#">Relatórios</a></li>
