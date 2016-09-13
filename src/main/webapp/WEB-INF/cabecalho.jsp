@@ -17,6 +17,8 @@
 <link href="css/main.css" rel="stylesheet">
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">  
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">  
 
 <script>
 var RETORNO = ${result}
@@ -72,8 +74,8 @@ var RETORNO = ${result}
 				aria-expanded="false"><label>Controle</label><span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="especialidade">Especialidades</a></li>
-					<li><a href="cadastroPeca">Adicionar Peça</a></li>
-					<li><a href="#">Adicionar Serviço</a></li>
+					<li><a href="cadastroPeca">Nova Peça</a></li>
+					<li><a href="#">Novo Serviço</a></li>
 					<li><a href="#">Relatórios</a></li>
 				</ul></li>
 		</ul>

@@ -46,6 +46,28 @@ public abstract class GenericDao <T extends Serializable>{
 		EntityManager manager = getEntityManager();
 		manager.getTransaction().begin();
 		
+		Query query = manager.createNamedQuery(jpql);
+		
+		for(int i=0; i < params.length; i++){
+			query.setParameter(i+1, params[i]);
+		}
+		
+		
+		T entity = (T)query.getResultList();
+		
+		
+		manager.getTransaction().commit();
+		manager.close();
+		
+		return entity;
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T findOne2(String jpql, Object... params){
+		EntityManager manager = getEntityManager();
+		manager.getTransaction().begin();
+		
 		Query query = manager.createQuery(jpql);
 		
 		for(int i=0; i < params.length; i++){
@@ -53,7 +75,7 @@ public abstract class GenericDao <T extends Serializable>{
 		}
 		
 		
-		T entity = (T)query.getSingleResult();
+		T entity = (T)query.getResultList();
 		
 		
 		manager.getTransaction().commit();

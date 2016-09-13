@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author Henry O' Papa
+ * @author Diana.Ramos / Felipe.Rodrigo
  *
  */
 @Entity
@@ -25,8 +25,8 @@ public class Peca implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_PECAS")
-	private Long id;
+	@Column(name = "ID_PECA")
+	private Long idPeca;
 
 	@Column(name = "DESCRICAO", nullable = false, length = 30)
 	private String descricao;
@@ -34,13 +34,15 @@ public class Peca implements Serializable{
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
 	
+	@Column(name = "QUANTIDADE_MIN")
+	private Integer quantidadeMinima;
 
-	public Long getId() {
-		return id;
+	public Long getIdPeca() {
+		return idPeca;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdPeca(Long idPeca) {
+		this.idPeca = idPeca;
 	}
 
 	public String getDescricao() {
@@ -59,7 +61,15 @@ public class Peca implements Serializable{
 		this.valor = valor;
 	}
 
+	public Integer getQuantidadeMinima() {
+		return quantidadeMinima;
+	}
+
+	public void setQuantidadeMinima(Integer quantidadeMinima) {
+		this.quantidadeMinima = quantidadeMinima;
+	}
 	
+
 	
 	
 }

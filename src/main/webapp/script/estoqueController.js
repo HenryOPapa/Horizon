@@ -1,8 +1,8 @@
-app.controller('PecaController', ['$scope', '$http' , function($scope, $http) {
+app.controller('EstoqueController', ['$scope', '$http' , function($scope, $http) {
 	window.scope = $scope;
 	$scope.screenData = [];
 	$scope.formData = {};
-	$scope.path = 'cadastroPeca/';
+	$scope.path = 'estoque/';
 
 
 	$scope.init = function() {
@@ -10,24 +10,24 @@ app.controller('PecaController', ['$scope', '$http' , function($scope, $http) {
 
 	}
 
-	$scope.adicionaPeca = function() {
+	$scope.atualizarEstoque = function() {
 		var params = {
-				'descricao': $scope.formData.descricao,
-				'valor' :$scope.formData.valor,
-				'quantidadeMinima' :$scope.formData.quantidadeMinima,
+				'idPeca': $scope.formData.pecaSelecionada,
+				'quantidade' :$scope.formData.quantidade,
+				'notaFiscal' :$scope.formData.notaFiscal,
 		}
 
 
 
-		$http.post($scope.path + 'cadastrarPeca', params).then(
+		$http.post($scope.path + 'atualizarEstoque', params).then(
 				function(response) {
 					if (response.status === 200) {
 						cadastroSucesso.style.display = "block";
 						setTimeout(function(){
 							cadastroSucesso.style.display = "none";
-							location.reload();					
+							$scope.screenData.estoque = response.data.estoque;
 
-						},5000);
+						},3000);
 
 					}else{
 						cadastroErro.style.display = "block";

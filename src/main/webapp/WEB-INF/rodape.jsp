@@ -10,6 +10,8 @@
 <script src="script/listaFuncionarioController.js"/></script>
 <script src="script/orcamentoCadastroController.js"/></script>
 <script src="script/especialidadeController.js"/></script>
+<script src="script/estoqueController.js"/></script>
+
 
 
 <!-- FIM Mapeamento dos javascripts utilizados na aplicação -->
