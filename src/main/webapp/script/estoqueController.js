@@ -25,7 +25,7 @@ app.controller('EstoqueController', ['$scope', '$http' , function($scope, $http)
 						cadastroSucesso.style.display = "block";
 						setTimeout(function(){
 							cadastroSucesso.style.display = "none";
-							$scope.screenData.estoque = response.data.estoque;
+							$scope.screenData.estoque.push(response.data.estoque);
 
 						},3000);
 

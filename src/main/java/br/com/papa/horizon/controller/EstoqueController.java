@@ -106,7 +106,7 @@ public class EstoqueController {
 		List<Estoque> estoqueList = estoqueDao.findAll();
 		
 		result.put("estoque", estoqueList);
-		return new ResponseEntity<String>(gson.toJson(estoque), HttpStatus.OK);							
+		return new ResponseEntity<String>(gson.toJson(result), HttpStatus.OK);							
 	}
 	
 	//Henry é lindo \o\

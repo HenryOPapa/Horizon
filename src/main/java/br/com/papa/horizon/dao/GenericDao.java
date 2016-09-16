@@ -46,14 +46,14 @@ public abstract class GenericDao <T extends Serializable>{
 		EntityManager manager = getEntityManager();
 		manager.getTransaction().begin();
 		
-		Query query = manager.createNamedQuery(jpql);
+		Query query = manager.createQuery(jpql);
 		
 		for(int i=0; i < params.length; i++){
 			query.setParameter(i+1, params[i]);
 		}
 		
 		
-		T entity = (T)query.getResultList();
+		T entity = (T)query.getSingleResult();
 		
 		
 		manager.getTransaction().commit();

@@ -72,19 +72,12 @@
 						<tr>
 							<th>Descrição</th>
 							<th>Quantidade</th>
-							<th class="text-center">Editar</th>
-
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="row in screenData.estoque | filter:valorFiltro">
 							<td scope="row">{{row.descricaoPeca}}</td>
 							<td>{{row.quantidade}}</td>
-
-							<td class="text-center"><span
-								class="glyphicon glyphicon-pencil text-primary clickable"
-								ng-click="editarPeca(row)"></span></td>
-
 						</tr>
 					</tbody>
 				</table>

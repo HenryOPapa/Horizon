@@ -21,6 +21,7 @@ br\com\papa\horizon\entity\PecaOrdemServico.class
 br\com\papa\horizon\entity\Funcionario.class
 br\com\papa\horizon\util\Enum$TipoEnderecos.class
 br\com\papa\horizon\dao\EquipamentoDao.class
+br\com\papa\horizon\controller\ManutencaoOrcamentoController.class
 br\com\papa\horizon\util\Util.class
 br\com\papa\horizon\util\GsonExclusionStrategy.class
 br\com\papa\horizon\util\Enum$StatusOrcamento.class
@@ -31,6 +32,7 @@ br\com\papa\horizon\entity\Cliente.class
 br\com\papa\horizon\dao\log\LOGNotaFiscalDao.class
 br\com\papa\horizon\dao\PecasDao.class
 br\com\papa\horizon\controller\FuncionarioController.class
+br\com\papa\horizon\dao\ManutencaoOrcamentoDao.class
 br\com\papa\horizon\dao\OrdemDeServicoDao.class
 br\com\papa\horizon\dao\ClienteDao.class
 br\com\papa\horizon\controller\ClienteController.class

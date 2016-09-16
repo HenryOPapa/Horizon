@@ -11,6 +11,7 @@
 <script src="script/orcamentoCadastroController.js"/></script>
 <script src="script/especialidadeController.js"/></script>
 <script src="script/estoqueController.js"/></script>
+<script src="script/manutencaoOrcamentoController.js"/></script>
 
 
 

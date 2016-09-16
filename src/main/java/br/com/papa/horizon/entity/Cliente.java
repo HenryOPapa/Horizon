@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.papa.horizon.util.GsonExclude;
+
 /**
  * 
  * @author Henry O' Papa
@@ -61,6 +63,7 @@ public class Cliente implements Serializable{
 	@Column(name = "EMAIL")
 	private String email;
 	
+	@GsonExclude
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_CLIENTE")
 	private List<Equipamento> equipamentos;

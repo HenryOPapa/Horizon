@@ -101,6 +101,7 @@ public class Equipamento implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 	
 
 }

@@ -70,9 +70,9 @@ public class OrcamentoCadastroController {
 		List<Equipamento> equipamentos = new ArrayList<Equipamento>();
 		Map<String, Object> result = new HashMap<String, Object>();
 
-		cliente = orcamentoDao.procuraPorCpf(cliente.getCpf());
 		try{
 			httpSession.setAttribute("cliente", cliente);
+			cliente = orcamentoDao.procuraPorCpf(cliente.getCpf());
 			
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR CLIENTE: " +e);

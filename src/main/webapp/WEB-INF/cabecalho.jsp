@@ -65,7 +65,7 @@ var RETORNO = ${result}
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false"><label>Painéis</label><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="">Orçamento</a></li>
+					<li><a href="manutencaoOrcamento">Orçamento</a></li>
 					<li><a href="#">Ordem de Serviço</a></li>
 				</ul></li>
 
@@ -74,6 +74,7 @@ var RETORNO = ${result}
 				aria-expanded="false"><label>Controle</label><span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="especialidade">Especialidades</a></li>
+					<li><a href="estoque">Estoque</a></li>
 					<li><a href="cadastroPeca">Nova Peça</a></li>
 					<li><a href="#">Novo Serviço</a></li>
 					<li><a href="#">Relatórios</a></li>
