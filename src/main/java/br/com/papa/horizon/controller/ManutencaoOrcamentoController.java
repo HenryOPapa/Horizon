@@ -19,12 +19,13 @@ import br.com.papa.horizon.dao.ClienteDao;
 import br.com.papa.horizon.dao.EquipamentoDao;
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
+import br.com.papa.horizon.dao.PecasDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
+import br.com.papa.horizon.entity.Peca;
 import br.com.papa.horizon.entity.Usuario;
-import br.com.papa.horizon.util.GsonExclusionStrategy;
 
 import com.google.gson.Gson;
 
@@ -36,6 +37,7 @@ public class ManutencaoOrcamentoController {
 	OrcamentoDao orcamentoDao;
 	Usuario usuario;
 	
+	
 	@RequestMapping
 	public ModelAndView manutencaoOrcamento(HttpSession session){
 		Gson gson = new Gson();
@@ -43,6 +45,7 @@ public class ManutencaoOrcamentoController {
 		orcamentoDao = new OrcamentoDao();
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
+		
 		
 		try{		
 		 orcamentos =  orcamentoDao.findAll();
@@ -59,63 +62,99 @@ public class ManutencaoOrcamentoController {
 	public ResponseEntity<?> detalharOrcamento(@RequestBody Orcamento orcamento , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
-		gson = GsonExclusionStrategy.createGsonFromBuilder(
-				new GsonExclusionStrategy(Equipamento.class));
 		usuario = new Usuario();
+		Cliente cliente = new Cliente();
+		Equipamento equipamento = new Equipamento();
+		Especialidade especialidade = new Especialidade();
+		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
+		List<Peca> pecas = new ArrayList<Peca>();
+		
 		usuario = (Usuario) httpSession.getAttribute("usuario");
-		List<Equipamento> equipamentos = new ArrayList<Equipamento>();
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 
 		try{
-			result = localizarItensDeOrcamento(orcamento.getIdCliente(),
-												orcamento.getIdEquipamento(),
-												orcamento.getIdEspecialidade(),
-												result);
+			
+			cliente =  identificarCliente(orcamento.getIdCliente());
+			equipamento = identificarEquipamento(orcamento.getIdEquipamento());
+			especialidade = identificarEspecialidade(orcamento.getIdEspecialidade());
+			pecas = identificarPecas();
+			
+//			result = localizarItensDeOrcamento(orcamento.getIdCliente(),
+//												orcamento.getIdEquipamento(),
+//												orcamento.getIdEspecialidade(),
+//												result);
 			
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR ITENS DE ORCAMENTO: " +e);
 			return new ResponseEntity<String>(gson.toJson(orcamento), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+		result.put("cliente", cliente);
+		result.put("equipamento", equipamento);
+		result.put("especialidade", especialidade);
 		result.put("orcamento", orcamento);
+		result.put("pecas", pecas);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
+
+
 	
 	
+	private List<Peca> identificarPecas() {
+		PecasDao dao = new PecasDao();
+		return dao.findAll();
+	}
+
+
 	/*
 	 * ###############################################################################################
 	 * ################################### INICIO METODOS PRIVADOS ###################################
 	 * ############################################################################################### 
 	 */
 	
-	public Map<String, Object> localizarItensDeOrcamento (Long idCliente,
-															Long idEquipamento,
-															Long idEspecialidade,
-															Map<String, Object> result){//Este método é chamado pelo método detalharOrcamento na linha 66
-		
-		//Aqui encontramos o cliente pelo id
-		ClienteDao clienteDao = new ClienteDao();
-		Cliente cliente = clienteDao.findById(idCliente);
-		cliente.setEquipamentos(new ArrayList());
-		result.put("cliente", cliente);
-		
-		//Aqui ta na cara que encontramos o equipamento.... pelo id 'Óbviu'
-		EquipamentoDao equipamentoDao = new EquipamentoDao();
-		Equipamento equipamento = equipamentoDao.findById(idEquipamento);
-		equipamento.setCliente((Cliente) new Object());
-		result.put("equipamento", equipamento);
-		
-		//Se eu tiver que falar o que estamos procurando aqui, desiste da vida meu amigo(a)
-		EspecialidadeDao especialidadeDao = new EspecialidadeDao();
-		Especialidade especialidade = especialidadeDao.findById(idEspecialidade);
-		result.put("especialidade", especialidade);
-		//é especialidade ¬¬
-		
-		return result; //aqui retornamos o result pro metodo detalharOrcamento, cliente, equipamento e especialidade ta tudo junto e misturado nele
-		
+	private Especialidade identificarEspecialidade(Long idEspecialidade) {
+		EspecialidadeDao dao = new EspecialidadeDao();
+		Especialidade especialidade = new Especialidade();
+		especialidade = dao.findById(idEspecialidade);
+	
+		return especialidade;
 	}
 	
+	
+	private Equipamento identificarEquipamento(Long idEquipamento) {
+		EquipamentoDao dao = new EquipamentoDao();
+		Equipamento equipamento = new Equipamento();
+		Equipamento retorno= new Equipamento();
+		retorno = dao.findById(idEquipamento);
+		equipamento.setId_equipamento(retorno.getId_equipamento());
+		equipamento.setMarca(retorno.getMarca());
+		equipamento.setModelo(retorno.getModelo());
+		equipamento.setNumeroSerie(retorno.getNumeroSerie());
+		equipamento.setTipoEquipamento(retorno.getTipoEquipamento());
+		return equipamento;
+	}
+	
+	
+	private Cliente identificarCliente(Long idCliente) {
+		ClienteDao dao = new ClienteDao();
+		Cliente cliente = new Cliente();
+		Cliente retorno = new Cliente();
+		retorno = dao.findById(idCliente);
+		cliente.setCep(retorno.getCep());
+		cliente.setCidade(retorno.getCidade());
+		cliente.setCpf(retorno.getCpf());
+		cliente.setDataNascimento(retorno.getDataNascimento());
+		cliente.setEmail(retorno.getEmail());
+		cliente.setId_cliente(retorno.getId_cliente());
+		cliente.setNome(retorno.getNome());
+		cliente.setTelefone(retorno.getTelefone());
+		
+		return cliente;
+	}
+	
+	
+
 
 
 

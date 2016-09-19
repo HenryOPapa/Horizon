@@ -3,6 +3,8 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http' , function($s
 	$scope.screenData = [];
 	$scope.formData = {};
 	$scope.path = 'manutencaoOrcamento/';
+	$scope.showListOrcamento = true;
+	$scope.showDetalheOrcamento = false;
 
 
 	$scope.init = function() {
@@ -24,9 +26,14 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http' , function($s
 				function(response) {
 					if (response.status === 200) {
 						$scope.screenData.orcamento = response.data.orcamento,
+						$scope.screenData.pecas = response.data.pecas,
 						$scope.screenData.cliente = response.data.cliente,
 						$scope.screenData.equipamento = response.data.equipamento,
 						$scope.screenData.especialidade = response.data.especialidade
+						$scope.showListOrcamento = false;
+						$scope.showDetalheOrcamento = true;
+					
+
 					}else{
 
 					}
