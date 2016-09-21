@@ -25,6 +25,7 @@ import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
+import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Usuario;
 
 import com.google.gson.Gson;
@@ -79,16 +80,12 @@ public class ManutencaoOrcamentoController {
 			equipamento = identificarEquipamento(orcamento.getIdEquipamento());
 			especialidade = identificarEspecialidade(orcamento.getIdEspecialidade());
 			pecas = identificarPecas();
-			
-//			result = localizarItensDeOrcamento(orcamento.getIdCliente(),
-//												orcamento.getIdEquipamento(),
-//												orcamento.getIdEspecialidade(),
-//												result);
-			
+						
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR ITENS DE ORCAMENTO: " +e);
 			return new ResponseEntity<String>(gson.toJson(orcamento), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
 		
 		result.put("cliente", cliente);
 		result.put("equipamento", equipamento);
@@ -97,14 +94,33 @@ public class ManutencaoOrcamentoController {
 		result.put("pecas", pecas);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
-
-
 	
 	
-	private List<Peca> identificarPecas() {
-		PecasDao dao = new PecasDao();
-		return dao.findAll();
+	@RequestMapping(value = "/adicionarPeca", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> adicionarPeca(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		orcamentoDao = new OrcamentoDao();
+		PecaUtilizada pecaUtilizada = new PecaUtilizada();
+		List<PecaUtilizada> listPecasUtilizadas = new ArrayList<PecaUtilizada>();
+		
+
+		try{
+			pecaUtilizada = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
+
+		}catch(Exception e){
+			System.out.println("ERRO: " +e);
+			return new ResponseEntity<String>(gson.toJson(pecaUtilizada), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		result.put("pecaUtilizada", pecaUtilizada);
+		result.put("listPecasUtilizadas", listPecasUtilizadas);
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
+
+
+	
 
 
 	/*
@@ -112,6 +128,12 @@ public class ManutencaoOrcamentoController {
 	 * ################################### INICIO METODOS PRIVADOS ###################################
 	 * ############################################################################################### 
 	 */
+	
+	
+	private List<Peca> identificarPecas() {
+		PecasDao dao = new PecasDao();
+		return dao.findAll();
+	}
 	
 	private Especialidade identificarEspecialidade(Long idEspecialidade) {
 		EspecialidadeDao dao = new EspecialidadeDao();

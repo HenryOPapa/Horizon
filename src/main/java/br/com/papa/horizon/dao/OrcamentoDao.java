@@ -23,7 +23,7 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 
 	public Cliente procuraPorCpf(String cpf){
 		ClienteDao dao = new ClienteDao();
-		return dao.procuraPorCpf(cpf);
+		return dao.achaCliente(cpf);
 	}
 	
 	public void atualizaCliente(Cliente cliente){
@@ -90,5 +90,15 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		List<Peca> pecas = dao.findAll();		
 		return pecas;
 	}
+	
+	public PecaUtilizada localizarPecaUnica(Long idPeca){
+		PecasDao dao = new PecasDao();
+		Peca peca = dao.findById(idPeca);
+		PecaUtilizada pecaUtilizada = new PecaUtilizada();
+		pecaUtilizada.setDescricao(peca.getDescricao());
+		pecaUtilizada.setValor(peca.getValor());
+		return pecaUtilizada;
+	}
+
 
 }

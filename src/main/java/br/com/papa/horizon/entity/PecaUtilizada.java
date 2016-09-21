@@ -42,7 +42,7 @@ public class PecaUtilizada implements Serializable{
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToOne(cascade = {CascadeType.PERSIST})
 	@JoinColumn(name = "ID_ORCAMENTO")
 	private Orcamento orcamento;
 	

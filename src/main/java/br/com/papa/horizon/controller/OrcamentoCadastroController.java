@@ -71,8 +71,8 @@ public class OrcamentoCadastroController {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		try{
-			httpSession.setAttribute("cliente", cliente);
 			cliente = orcamentoDao.procuraPorCpf(cliente.getCpf());
+			httpSession.setAttribute("cliente", cliente);
 			
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR CLIENTE: " +e);
