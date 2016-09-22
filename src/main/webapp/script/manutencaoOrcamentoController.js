@@ -6,7 +6,7 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 	$scope.showListOrcamento = true;
 	$scope.showDetalheOrcamento = false;
 	$scope.showListPecaServico = false;
-	$scope.screenData.listPecasUtilizadas = [];
+	$scope.screenData.itensPecaServico = [];
 	
 	
 	$scope.valorFinal = 0;
@@ -23,8 +23,8 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 	
 	function atualizaLista(){
 		$scope.valorFinal = 0;
-		for(var i=0; i < $scope.screenData.listPecasUtilizadas.length; i++){
-			$scope.valorFinal += Number($scope.screenData.listPecasUtilizadas[i].valorFinal);
+		for(var i=0; i < $scope.screenData.itensPecaServico.length; i++){
+			$scope.valorFinal += Number($scope.screenData.itensPecaServico[i].valorFinal);
 		}
 	}
 	
@@ -45,6 +45,7 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 					if (response.status == 200) {
 						$scope.screenData.orcamento = response.data.orcamento,
 						$scope.screenData.pecas = response.data.pecas,
+						$scope.screenData.servicos = response.data.servicos,
 						$scope.screenData.cliente = response.data.cliente,
 						$scope.screenData.equipamento = response.data.equipamento,
 						$scope.screenData.especialidade = response.data.especialidade
@@ -67,7 +68,33 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 				'idPeca': $scope.formData.peca,
 		}
 
-		$http.post($scope.path + 'adicionarPeca', params).then(
+		$http.post($scope.path + 'adicionarServico', params).then(
+				function(response) {
+					if (response.status == 200) {
+						$scope.showListPecaServico = true;
+						var itemDeServico = response.data.itemDeServico;
+
+						if($scope.screenData.itensPecaServico == undefined){
+							$scope.screenData.itensPecaServico = response.data.itensPecaServico;
+							$scope.screenData.itensPecaServico.push(itemDeServico);		
+
+						}else{
+							$scope.screenData.itensPecaServico.push(itemDeServico);							
+
+						}
+					}	
+
+				}
+
+		);
+	}
+	
+	$scope.adicionarServico = function() {
+		var params = {
+				'id_servico': $scope.formData.servico,
+		}
+
+		$http.post($scope.path + 'adicionarServico', params).then(
 				function(response) {
 					if (response.status == 200) {
 						$scope.showListPecaServico = true;
@@ -87,7 +114,6 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 
 		);
 	}
-	
 	$scope.limparLista = function (){
 		$scope.screenData.listPecasUtilizadas = undefined;
 		atualizaLista();

@@ -8,6 +8,7 @@ import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
 import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.Servico;
 
 /**
  * 
@@ -98,6 +99,15 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		pecaUtilizada.setDescricao(peca.getDescricao());
 		pecaUtilizada.setValor(peca.getValor());
 		return pecaUtilizada;
+	}
+	
+	public PecaUtilizada localizarServico(Long id){
+		ServicoDao dao = new ServicoDao();
+		Servico servico = new Servico();
+		PecaUtilizada itemDeServico = new PecaUtilizada();
+		itemDeServico.setDescricao(servico.getDescricao());
+		itemDeServico.setValor(servico.getValor());
+		return itemDeServico;
 	}
 
 

@@ -94,25 +94,39 @@
 
 
 
-					<!-- Adicionar Pecas -->
+					<!-- Adicionar Servicos -->
 					<div class="col-sm-4 form-group input">
 						<select class="form-control" ng-model="formData.peca">
-							<option value="">Nova peça de manutenção</option>
+							<option value="">Nova Peça</option>
 							<option ng-repeat="item in screenData.pecas"
 								value="{{item.idPeca}}">{{item.descricao}}</option>
 						</select>
 					</div>
 
-					<div class="col-sm-1 form-grou" ng-cloak>
+					<div class="col-sm-2 form-group" ng-cloak>
 						<input type="button" class="btn btn-default bt"
 							ng-click="adicionarPeca()" value="Adicionar">
 					</div>
 
-					<div class="col-sm-1 form-grou" ng-cloak>
-						<input type="button" class="btn btn-danger bt"
-							ng-click="limparLista()" value="Limpar">
-					</div>
+
 					<!-- FIM Adicionar Pecas -->
+					
+						<!-- Adicionar Pecas -->
+					<div class="col-sm-4 form-group input">
+						<select class="form-control" ng-model="formData.servico">
+							<option value="">Novo Serviço</option>
+							<option ng-repeat="item in screenData.servicos"
+								value="{{item.id_servico}}">{{item.descricao}}</option>
+						</select>
+					</div>
+
+
+
+					<div class="col-sm-2 form-group" ng-cloak>
+						<input type="button" class="btn btn-default bt"
+							ng-click="adicionarServico()" value="Adicionar">
+					</div>
+					<!-- FIM Adicionar Servicos -->
 
 
 					<!-- LISTA PECAS E SERVICOS -->

@@ -33,11 +33,11 @@ public class Servico implements Serializable{
 	@Column(name="ID_SERVICO")
 	private Long id_servico;
 	
-	@Column(name="DESCRICAO_SERVICO")
-	private String descricaoServico;
+	@Column(name="DESCRICAO")
+	private String descricao;
 	
-	@Column(name="VALOR_SERVICO")
-	private double valorServico;
+	@Column(name="VALOR")
+	private double valor;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_ORCAMENTO")
@@ -55,20 +55,22 @@ public class Servico implements Serializable{
 		this.id_servico = id_servico;
 	}
 
-	public String getDescricaoServico() {
-		return descricaoServico;
+
+
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public double getValorServico() {
-		return valorServico;
+	public double getValor() {
+		return valor;
 	}
 
-	public void setValorServico(double valorServico) {
-		this.valorServico = valorServico;
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 
 	public Orcamento getOrcamento() {

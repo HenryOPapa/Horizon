@@ -75,8 +75,7 @@ var RETORNO = ${result}
 				<ul class="dropdown-menu">
 					<li><a href="especialidade">Especialidades</a></li>
 					<li><a href="estoque">Estoque</a></li>
-					<li><a href="cadastroPeca">Nova Peça</a></li>
-					<li><a href="#">Novo Serviço</a></li>
+					<li><a href="itensDeServico">Cadastrar Itens de Serviço</a></li>
 					<li><a href="#">Relatórios</a></li>
 				</ul></li>
 		</ul>

@@ -4,7 +4,7 @@
 <!-- Mapeamento dos javascripts utilizados na aplicação -->
 
 <script src="script/maskFront.js"/></script>
-<script src="script/pecaController.js"/></script>
+<script src="script/itensDeServico.js"/></script>
 <script src="script/clienteController.js"/></script>
 <script src="script/listaClienteController.js"/></script>
 <script src="script/listaFuncionarioController.js"/></script>

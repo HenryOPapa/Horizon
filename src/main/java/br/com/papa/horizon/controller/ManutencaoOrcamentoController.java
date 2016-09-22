@@ -20,12 +20,14 @@ import br.com.papa.horizon.dao.EquipamentoDao;
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
 import br.com.papa.horizon.dao.PecasDao;
+import br.com.papa.horizon.dao.ServicoDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
 import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.entity.Usuario;
 
 import com.google.gson.Gson;
@@ -69,6 +71,7 @@ public class ManutencaoOrcamentoController {
 		Especialidade especialidade = new Especialidade();
 		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
 		List<Peca> pecas = new ArrayList<Peca>();
+		List<Servico> servicos = new ArrayList<Servico>();
 		
 		usuario = (Usuario) httpSession.getAttribute("usuario");
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -80,6 +83,7 @@ public class ManutencaoOrcamentoController {
 			equipamento = identificarEquipamento(orcamento.getIdEquipamento());
 			especialidade = identificarEspecialidade(orcamento.getIdEspecialidade());
 			pecas = identificarPecas();
+			servicos = identificarServicos();
 						
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR ITENS DE ORCAMENTO: " +e);
@@ -92,30 +96,57 @@ public class ManutencaoOrcamentoController {
 		result.put("especialidade", especialidade);
 		result.put("orcamento", orcamento);
 		result.put("pecas", pecas);
+		result.put("servicos", servicos);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	
 	
+
+
 	@RequestMapping(value = "/adicionarPeca", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> adicionarPeca(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();
-		PecaUtilizada pecaUtilizada = new PecaUtilizada();
-		List<PecaUtilizada> listPecasUtilizadas = new ArrayList<PecaUtilizada>();
+		PecaUtilizada itemDeServico = new PecaUtilizada();
+		List<PecaUtilizada> itensDeServico = new ArrayList<PecaUtilizada>();
 		
 
 		try{
-			pecaUtilizada = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
+			itemDeServico = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
 
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
-			return new ResponseEntity<String>(gson.toJson(pecaUtilizada), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		result.put("pecaUtilizada", pecaUtilizada);
-		result.put("listPecasUtilizadas", listPecasUtilizadas);
+		result.put("itemDeServico", itemDeServico);
+		result.put("itensDeServico", itensDeServico);
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/adicionarServico", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> adicionarServico(@RequestBody Servico servico , HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		orcamentoDao = new OrcamentoDao();
+		PecaUtilizada itemDeServico = new PecaUtilizada();
+		List<PecaUtilizada> itensDeServico = new ArrayList<PecaUtilizada>();
+		
+
+		try{
+			itemDeServico = orcamentoDao.localizarServico(servico.getId_servico()); 
+
+		}catch(Exception e){
+			System.out.println("ERRO: " +e);
+			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		result.put("itemDeServico", itemDeServico);
+		result.put("itensDeServico", itensDeServico);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 
@@ -129,6 +160,10 @@ public class ManutencaoOrcamentoController {
 	 * ############################################################################################### 
 	 */
 	
+	private List<Servico> identificarServicos() {
+		ServicoDao dao = new ServicoDao();
+		return dao.findAll();
+	}
 	
 	private List<Peca> identificarPecas() {
 		PecasDao dao = new PecasDao();
