@@ -24,7 +24,7 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 
 	public Cliente procuraPorCpf(String cpf){
 		ClienteDao dao = new ClienteDao();
-		return dao.achaCliente(cpf);
+		return dao.procuraPorCpf(cpf);
 	}
 	
 	public void atualizaCliente(Cliente cliente){
@@ -103,7 +103,7 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 	
 	public PecaUtilizada localizarServico(Long id){
 		ServicoDao dao = new ServicoDao();
-		Servico servico = new Servico();
+		Servico servico = dao.findById(id);
 		PecaUtilizada itemDeServico = new PecaUtilizada();
 		itemDeServico.setDescricao(servico.getDescricao());
 		itemDeServico.setValor(servico.getValor());

@@ -63,22 +63,53 @@
 							name="nome" value="{{screenData.cliente.nome}}" disabled>
 					</div>
 
-					<div class="col-sm-6 form-group">
+					<div class="col-sm-3 form-group">
 						<label>CPF</label> <input type="text" class="form-control"
 							name="cpf" value="{{screenData.cliente.cpf}}" disabled>
 					</div>
 
-					<div class="col-sm-6 form-group">
+					<div class="col-sm-3 form-group">
+						<label>Especialidade</label> <input type="text"
+							class="form-control" name="especialidade"
+							value="{{screenData.especialidade.descricao}}" disabled>
+					</div>
+
+					<div class="col-sm-3 form-group">
+						<label>Modelo Equipamento</label> <input type="text"
+							class="form-control" name="equipamento"
+							value="{{screenData.equipamento.modelo}}" disabled>
+					</div>
+
+					<div class="col-sm-3 form-group">
+						<label>Marca Equipamento</label> <input type="text"
+							class="form-control" name="equipamento"
+							value="{{screenData.equipamento.marca}}" disabled>
+					</div>
+
+					<div class="col-sm-3 form-group">
 						<label>Número Série Equipamento</label> <input type="text"
 							class="form-control" name="equipamento"
 							value="{{screenData.equipamento.numeroSerie}}" disabled>
 					</div>
 
-					<div class="col-sm-6 form-group">
-						<label>Especialidade</label> <input type="text"
-							class="form-control" name="especialidade"
-							value="{{screenData.especialidade.descricao}}" disabled>
+					<div class="col-sm-3 form-group input"	>
+						<label>Pontuação</label> <select class="form-control" ng-model="formData.ponto">
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="5">5</option>
+							<option value="8">8</option>
+							<option value="13">13</option>
+							<option value="20">20</option>
+							<option value="40">40</option>
+							<option value="100">100</option>
+
+						</select>
 					</div>
+
+
+
 
 					<div class="col-sm-6 form-group">
 						<label>Relato</label>
@@ -110,8 +141,8 @@
 
 
 					<!-- FIM Adicionar Pecas -->
-					
-						<!-- Adicionar Pecas -->
+
+					<!-- Adicionar Pecas -->
 					<div class="col-sm-4 form-group input">
 						<select class="form-control" ng-model="formData.servico">
 							<option value="">Novo Serviço</option>
@@ -138,9 +169,10 @@
 							<table class="table">
 								<tbody>
 									<tr class="clickable"
-										ng-repeat="row in screenData.listPecasUtilizadas">
+										ng-repeat="row in screenData.itensDeServico">
 										<td scope="row">{{row.descricao}}</td>
-										<td><input type="number" ng-model="row.quantidade" ng-change="calcula(row)" placeholder="Quantidade"></td>
+										<td><input type="number" ng-model="row.quantidade"
+											ng-change="calcula(row)" placeholder="Quantidade"></td>
 										<td>R$ {{row.valor * row.quantidade}}</td>
 										<td class="text-center"><span
 											class="glyphicon glyphicon-trash text-danger clickable"
@@ -149,10 +181,16 @@
 
 								</tbody>
 							</table>
-									<div class="col-sm-10 text-right">Total: R$ {{valorFinal}}
-									<span ng-model="formData.valorTotal">Total: R$ {{valorFinal}}</span>
-									</div>
+							<div class="col-sm-10 text-right">
+								Total: R$ {{valorFinal}} 
 						</div>
+						<div class="col-sm-12 form-group text-rigth" ng-cloak>
+							<input type="button" class="btn btn-danger bt"
+								ng-click="limparLista()" value="Limpar">
+								<input type="button" class="btn btn-default bt"
+								ng-click="salvarOrcamento()" value="Salvar">
+						</div>
+
 					</div>
 					<!--FIM LISTA PECAS E SERVICOS -->
 

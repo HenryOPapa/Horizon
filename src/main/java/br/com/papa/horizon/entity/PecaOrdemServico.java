@@ -38,9 +38,11 @@ public class PecaOrdemServico implements Serializable{
 
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
-	
+		
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
+	
+	private double valorFinal;
 		
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_ORDEM_DE_SERVICO")
@@ -85,6 +87,14 @@ public class PecaOrdemServico implements Serializable{
 
 	public void setOrdemDeServico(OrdemDeServico ordemDeServico) {
 		this.ordemDeServico = ordemDeServico;
+	}
+
+	public double getValorFinal() {
+		return valorFinal;
+	}
+
+	public void setValorFinal(double valorFinal) {
+		this.valorFinal = valorFinal;
 	}
 	
 	

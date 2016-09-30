@@ -53,6 +53,9 @@ public class Orcamento implements Serializable{
 	@Column(name="ID_CLIENTE")
 	private Long idCliente;
 	
+	@Column(name = "PONTOS")
+	private Integer pontos;
+	
 	@Column(name = "ID_EQUIPAMENTO")
 	private Long idEquipamento;
 	
@@ -174,6 +177,16 @@ public class Orcamento implements Serializable{
 	public void setIdEspecialidade(Long idEspecialidade) {
 		this.idEspecialidade = idEspecialidade;
 	}
+
+	public Integer getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Integer pontos) {
+		this.pontos = pontos;
+	}
+	
+	
 
 	
 

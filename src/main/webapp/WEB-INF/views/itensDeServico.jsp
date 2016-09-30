@@ -46,11 +46,11 @@
 
 		<!-- FIM FORMULARIO CADASTRA PECA -->
 
-		<div id="cadastroSucesso"
+		<div id="pecaCadastroSucesso"
 			class="col-sm-12 form-group text-left alert alert-success" ng-cloak>
 			Peca cadastrada com sucesso.</div>
 
-		<div id="cadastroErro"
+		<div id="pecaCadastroErro"
 			class="col-sm-12 form-group text-left alert alert-danger" ng-cloak>
 			Erro ao cadastrar a peça.</div>
 
@@ -89,13 +89,13 @@
 
 		<!-- FIM FORMULARIO CADASTRO SERVICO -->
 
-		<div id="cadastroSucesso"
+		<div id="servicoCadastroSucesso"
 			class="col-sm-12 form-group text-left alert alert-success" ng-cloak>
-			Peca cadastrada com sucesso.</div>
+			Serviço cadastrado com sucesso.</div>
 
-		<div id="cadastroErro"
+		<div id="servicoCadastroErro"
 			class="col-sm-12 form-group text-left alert alert-danger" ng-cloak>
-			Erro ao cadastrar a peça.</div>
+			Erro ao cadastrar o serviço.</div>
 
 
 	</div>

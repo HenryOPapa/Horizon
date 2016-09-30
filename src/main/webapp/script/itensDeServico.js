@@ -22,17 +22,17 @@ app.controller('ItensDeServicoController', ['$scope', '$http' , function($scope,
 		$http.post($scope.path + 'cadastrarPeca', params).then(
 				function(response) {
 					if (response.status === 200) {
-						cadastroSucesso.style.display = "block";
+						pecaCadastroSucesso.style.display = "block";
 						setTimeout(function(){
-							cadastroSucesso.style.display = "none";
+							pecaCadastroSucesso.style.display = "none";
 							location.reload();					
 
 						},5000);
 
 					}else{
-						cadastroErro.style.display = "block";
+						pecaCadastroErro.style.display = "block";
 						setTimeout(function(){
-							cadastroErro.style.display = "none";
+							pecaCadastroErro.style.display = "none";
 						},5000);
 					}
 				}
@@ -42,8 +42,8 @@ app.controller('ItensDeServicoController', ['$scope', '$http' , function($scope,
 	
 	$scope.adicionaServico = function() {
 		var params = {
-				'descricaoServico': $scope.formData.descricaoServico,
-				'valorServico' :$scope.formData.valorServico,
+				'descricao': $scope.formData.descricaoServico,
+				'valor' :$scope.formData.valorServico,
 		}
 
 
@@ -51,17 +51,17 @@ app.controller('ItensDeServicoController', ['$scope', '$http' , function($scope,
 		$http.post($scope.path + 'cadastrarServico', params).then(
 				function(response) {
 					if (response.status === 200) {
-						cadastroSucesso.style.display = "block";
+						servicoCadastroSucesso.style.display = "block";
 						setTimeout(function(){
-							cadastroSucesso.style.display = "none";
+							servicoCadastroSucesso.style.display = "none";
 							location.reload();					
 
 						},5000);
 
 					}else{
-						cadastroErro.style.display = "block";
+						servicoCadastroErro.style.display = "block";
 						setTimeout(function(){
-							cadastroErro.style.display = "none";
+							servicoCadastroErro.style.display = "none";
 						},5000);
 					}
 				}

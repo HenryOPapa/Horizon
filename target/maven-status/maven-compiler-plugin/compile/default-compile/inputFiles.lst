@@ -1,5 +1,6 @@
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\FuncionarioController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Cliente.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ItensDeServicoController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\GsonExclude.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\GsonExclusionStrategy.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\log\LOGNotaFiscal.java
@@ -8,8 +9,8 @@ C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\C
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ManutencaoOrcamentoController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\PecasDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\UsuarioDao.java
-C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Enum.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Filter.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Enum.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ListaClienteController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\GenericDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\log\LOGNotaFiscalDao.java
@@ -22,9 +23,8 @@ C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\L
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\EstoqueController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\LoginController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Especialidade.java
-C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\PecaOrdemServico.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Orcamento.java
-C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\PecaController.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\PecaOrdemServico.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\ClienteDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\OrdemDeServicoDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\OrdemDeServico.java
@@ -35,6 +35,7 @@ C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Peca.
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Estoque.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\MenuController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\PecaUtilizadaDao.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\ServicoDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Usuario.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\PecaUtilizada.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\EquipamentoDao.java

@@ -9,11 +9,11 @@ br\com\papa\horizon\controller\EstoqueController.class
 br\com\papa\horizon\dao\EspecialidadeDao.class
 br\com\papa\horizon\util\Enum$NivelAcesso.class
 br\com\papa\horizon\dao\PecaUtilizadaDao.class
-br\com\papa\horizon\controller\PecaController.class
 br\com\papa\horizon\util\Filter.class
 br\com\papa\horizon\dao\OrcamentoDao.class
 br\com\papa\horizon\util\Enum$StatusOrdemDeServico.class
 br\com\papa\horizon\entity\Especialidade.class
+br\com\papa\horizon\controller\ItensDeServicoController.class
 br\com\papa\horizon\entity\log\LOGNotaFiscal.class
 br\com\papa\horizon\controller\OrcamentoCadastroController.class
 br\com\papa\horizon\dao\EstoqueDao.class
@@ -29,6 +29,7 @@ br\com\papa\horizon\entity\Peca.class
 br\com\papa\horizon\entity\OrdemDeServico.class
 br\com\papa\horizon\util\Enum.class
 br\com\papa\horizon\entity\Cliente.class
+br\com\papa\horizon\dao\ServicoDao.class
 br\com\papa\horizon\dao\log\LOGNotaFiscalDao.class
 br\com\papa\horizon\dao\PecasDao.class
 br\com\papa\horizon\controller\FuncionarioController.class

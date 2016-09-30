@@ -26,20 +26,23 @@ import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
+import br.com.papa.horizon.entity.PecaOrdemServico;
 import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.entity.Usuario;
 
 import com.google.gson.Gson;
+ 
 
-
+//Este método irá abrir a tela passando a url localhost:8080/horizon/manutencaoOrcamento
 
 @Controller
 @RequestMapping("manutencaoOrcamento")
 public class ManutencaoOrcamentoController {
 	OrcamentoDao orcamentoDao;
 	Usuario usuario;
-	
+	List<Peca> pecasUtilizadasOrcamento = new ArrayList<Peca>();
+	List<Servico> servicosUtilizadosOrcamento = new ArrayList<Servico>();
 	
 	@RequestMapping
 	public ModelAndView manutencaoOrcamento(HttpSession session){
@@ -115,7 +118,6 @@ public class ManutencaoOrcamentoController {
 
 		try{
 			itemDeServico = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
-
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
 			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -127,6 +129,8 @@ public class ManutencaoOrcamentoController {
 	}
 	
 	
+
+
 	@RequestMapping(value = "/adicionarServico", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> adicionarServico(@RequestBody Servico servico , HttpSession httpSession) throws Exception { 
 
@@ -139,7 +143,7 @@ public class ManutencaoOrcamentoController {
 
 		try{
 			itemDeServico = orcamentoDao.localizarServico(servico.getId_servico()); 
-
+			
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
 			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -147,6 +151,26 @@ public class ManutencaoOrcamentoController {
 		
 		result.put("itemDeServico", itemDeServico);
 		result.put("itensDeServico", itensDeServico);
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/salvarOrcamento", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> salvarOrcamento(@RequestBody  List<PecaOrdemServico> itemServico, HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		orcamentoDao = new OrcamentoDao();		
+
+//		try{
+//			itemDeServico = orcamentoDao.localizarServico(servico.getId_servico()); 
+//
+//		}catch(Exception e){
+//			System.out.println("ERRO: " +e);
+//			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		
+//		result.put("itemDeServico", itemDeServico);
+//		result.put("itensDeServico", itensDeServico);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 
@@ -209,8 +233,20 @@ public class ManutencaoOrcamentoController {
 		
 		return cliente;
 	}
-	
-	
+//	
+//	private void adicionarPeca(PecaUtilizada itemDeServico) {
+//		Peca peca = new Peca();
+//		peca.setDescricao(itemDeServico.getDescricao());
+//		peca.setQuantidadeMinima(itemDeServico.getQuantidade());
+//		peca.setValor(itemDeServico.getValor());
+//		this.pecasUtilizadasOrcamento.add(peca);
+//		
+//	}
+//	
+//	private void adicionarServico() {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 
 
