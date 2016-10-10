@@ -177,6 +177,20 @@ public abstract class GenericDao <T extends Serializable>{
 		manager.close();
 	}
 	
+	public void saveList(List<T> entities) {
+		EntityManager manager = getEntityManager();
+		
+		for (int i = 0; i < entities.size(); i++) {
+			manager.getTransaction().begin();
+			manager.persist(entities.get(i));
+			manager.getTransaction().commit();
+			
+		}
+		
+		
+		manager.close();
+	}
+	
 	/*
 	 * O update recebe um Objeto qualquer e salva as alterações
 	 * na tabela referente ao Objeto passado

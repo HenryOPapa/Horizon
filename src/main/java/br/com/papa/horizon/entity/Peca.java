@@ -34,6 +34,8 @@ public class Peca implements Serializable{
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
 	
+	private Integer quantidade;
+	
 	@Column(name = "QUANTIDADE_MIN")
 	private Integer quantidadeMinima;
 
@@ -68,6 +70,15 @@ public class Peca implements Serializable{
 	public void setQuantidadeMinima(Integer quantidadeMinima) {
 		this.quantidadeMinima = quantidadeMinima;
 	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+	
 	
 
 	

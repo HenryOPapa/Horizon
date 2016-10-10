@@ -32,42 +32,25 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		dao.update(cliente);
 	}
 	
-	/**
-	 * procuraEspecialidade
-	 * Método responsavel por localizar a especialidade
-	 * pelo ID
-	 * @param idEspecialidade
-	 * @return
-	 */
+	public Peca localizaPecaUnica(Long id){
+		PecasDao dao = new PecasDao();
+		return dao.findById(id);
+		
+	}
+	
+	public Servico localizarServicoUnico(Long id){
+		ServicoDao dao = new ServicoDao();
+		return dao.findById(id);
+	}
 	
 	public Especialidade procuraEspecialidade(Long idEspecialidade){
 		EspecialidadeDao dao = new EspecialidadeDao();
 		return dao.findEspecialidade(idEspecialidade);
 	}
-	
-	/**
-	 * procuraEquipamento
-	 * Método responsavel por localizar o equipamento
-	 * pelo ID
-	 * @param numSerie
-	 * @return
-	 */
-	
+		
 	public Equipamento procuraEquipamento(String numSerie){
 		EquipamentoDao dao = new EquipamentoDao();
 		return dao.findByNumSerie(numSerie);
-	}
-
-
-	/*
-	 * adicionarPeca, irá receber o atual orcamento, a peca escolhida pelo tecnico
-	 * e irá salvar a mesma dentro do orcamenoto
-	 */
-
-	public Orcamento adicionarPeca(Orcamento orcamento, PecaUtilizada pecaUtilizada){
-		orcamento.addPeca(pecaUtilizada);
-		update(orcamento);
-		return orcamento;	
 	}
 
 	public Orcamento atualizarOrcamento(Orcamento orcamento){
@@ -80,11 +63,7 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return dao.findAll();
 	}
 
-	public List<PecaUtilizada> localizaPecasUtilizadas(Long id_orcamento){
-		PecaUtilizadaDao dao = new PecaUtilizadaDao();
-		return dao.recuperarPecas(id_orcamento);
 
-	}
 
 	public List<Peca> localizarPecas(){
 		PecasDao dao = new PecasDao();
@@ -109,6 +88,10 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		itemDeServico.setValor(servico.getValor());
 		return itemDeServico;
 	}
-
+	
+	public void salvarItensDeOrcamento(List<PecaUtilizada> itensDeOrcamento){
+		PecaUtilizadaDao dao = new PecaUtilizadaDao();
+		dao.saveList(itensDeOrcamento);
+	}
 
 }

@@ -1,7 +1,9 @@
-﻿package br.com.papa.horizon.util;
+package br.com.papa.horizon.util;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+
+import br.com.papa.horizon.entity.Orcamento;
 
 public class Email {
 	
@@ -21,7 +23,31 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "xxxx");
+		   email.setAuthentication("henrynpsii@gmail.com", "");
+		   System.out.println("enviando...");
+		   email.send();
+		   System.out.println("Email enviado!");
+		}
+	
+	public void enviaEmailOrcamento(String emailCliente, Orcamento orcamento) throws EmailException {
+	    
+		   SimpleEmail email = new SimpleEmail();
+		   email.setHostName("smtp.gmail.com");
+		   email.setSmtpPort(465);
+		   //destinatários
+		   email.addTo(emailCliente);
+		   //email do qual enviará
+		   email.setFrom("horizon.com", "Horizon");
+		   //assunto
+		   email.setSubject("Pedido Orcamento");
+		   //Adicione a mensagem do email
+		   email.setMsg("Segue os dados de orcamento:"
+		   		+ "/n Descrição do problema: " + orcamento.getObservacao()
+		   		+ "/n Valor Total: " + orcamento.getValorTotal()); 
+		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
+		   System.out.println("autenticando...");
+		   email.setSSL(true);
+		   email.setAuthentication("henrynpsii@gmail.com", "");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");

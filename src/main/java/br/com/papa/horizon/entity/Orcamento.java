@@ -63,25 +63,8 @@ public class Orcamento implements Serializable{
 	private Long idEspecialidade;
 
 	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<PecaUtilizada> pecas;	
-
-	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Servico> servicos;
 
-
-	public void  addPeca(PecaUtilizada peca){
-		if (pecas == null){
-			pecas = new ArrayList<PecaUtilizada>();
-		}
-		peca.setOrcamento(this);
-		pecas.add(peca);
-	}
-
-	public void deletePeca(PecaUtilizada peca){
-		if(pecas != null){
-			pecas.remove(peca);
-		}
-	}
 
 	public void  addServico(Servico servico){
 		if (servicos == null){
@@ -89,12 +72,6 @@ public class Orcamento implements Serializable{
 		}
 		servico.setOrcamento(this);
 		servicos.add(servico);
-	}
-
-	public void deleteEquipamento(PecaUtilizada peca){
-		if(pecas != null){
-			pecas.remove(peca);
-		}
 	}
 
 	public Long getId_orcamento() {
@@ -121,11 +98,6 @@ public class Orcamento implements Serializable{
 		this.observacao = observacao;
 	}
 
-
-	public void setPecas(List<PecaUtilizada> pecas) {
-		this.pecas = pecas;
-	}
-
 	public Double getValorTotal() {
 		return valorTotal;
 	}
@@ -148,10 +120,6 @@ public class Orcamento implements Serializable{
 
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
-	}
-
-	public List<PecaUtilizada> getPecas() {
-		return pecas;
 	}
 
 	public Long getIdCliente() {

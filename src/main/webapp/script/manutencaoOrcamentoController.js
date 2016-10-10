@@ -115,17 +115,50 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 		);
 	}
 	
-	$scope.salvarOrcamento = function() {
+	$scope.salvarAlteracoesOrcamento = function() {
 		var params = {
 				'pontos' : $scope.formData.ponto,
 				'observacao' :$scope.screenData.orcamento.observacao,
+				'id_orcamento' : $scope.screenData.orcamento.id_orcamento,
 		}
 
-		$http.post($scope.path + 'salvarOrcamento',params, $scope.screenData.itensDeServico).then(
+		$http.post($scope.path + 'salvarAlteracoesOrcamento',params).then(
+				function(response) {
+					if (response.status == 200) {
+						sucessoSalvarAlteracoes.style.display = "block";
+						setTimeout(function(){
+							sucessoSalvarAlteracoes.style.display = "none";
+						},5000);					
+						
+					}else{
+						erroSalvarAlteracoes.style.display = "block";
+						setTimeout(function(){
+							erroSalvarAlteracoes.style.display = "none";
+						},5000);
+					}
+
+				}
+
+		);
+	}
+	
+	$scope.finalizar = function() {
+
+		$http.post($scope.path + 'finalizar?&valorTotal=' + $scope.valorFinal,$scope.screenData.itensDeServico).then(
 				function(response) {
 					if (response.status == 200) {
 						
+						sucessoAtualizaOrcamento.style.display = "block";
+						setTimeout(function(){
+							sucessoAtualizaOrcamento.style.display = "none";
+						},5000);
+						location.reload();
 						
+					}else{
+						erroAtualizaOrcamento.style.display = "block";
+						setTimeout(function(){
+							erroAtualizaOrcamento.style.display = "none";
+						},5000);
 					}	
 
 				}

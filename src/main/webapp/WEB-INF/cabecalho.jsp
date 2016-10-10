@@ -6,6 +6,8 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Horizon</title>
 <script src="js/jquery-2.1.3.min.js" /></script>
 <script src="js/jquery.maskedinput.min.js" /></script>
@@ -17,8 +19,8 @@
 <link href="css/main.css" rel="stylesheet">
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">  
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet">  
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 
 <script>
 var RETORNO = ${result}
@@ -30,11 +32,10 @@ var RETORNO = ${result}
 		<button type="button" class="navbar-toggle collapsed"
 			data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 			aria-expanded="false">
-			<span class="sr-only"></span> <span class="icon-bar"></span>
-			<span class="icon-bar"></span> <span class="icon-bar"></span>
+			<span class="sr-only"></span> <span class="icon-bar"></span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand  glyphicon glyphicon-home" href="menu">
-			<label>Horizon</label>
+		<a class="navbar-brand  glyphicon glyphicon-home" href="menu"> <label>Horizon</label>
 		</a>
 	</div>
 
@@ -102,6 +103,5 @@ var RETORNO = ${result}
 	</div>
 	<!-- /.navbar-collapse -->
 </div>
-<!-- /.container-fluid --> </nav> 
-</header>
+<!-- /.container-fluid --> </nav> </header>
 </head>

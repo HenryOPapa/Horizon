@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "peca_utilizada")
 public class PecaUtilizada implements Serializable{
-	
+
 	/**
 	 * 
 	 */
@@ -32,21 +32,20 @@ public class PecaUtilizada implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_PECA_UTILIZADA")
 	private Long id_pecaUtilizada;
-	
+
 	@Column(name = "DESCRICAO", nullable = false, length = 30)
 	private String descricao;
 
 	@Column(name = "VALOR", nullable = false)
 	private Double valor;
-	
+
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
-	
-	@ManyToOne(cascade = {CascadeType.PERSIST})
-	@JoinColumn(name = "ID_ORCAMENTO")
-	private Orcamento orcamento;
-	
-	
+
+	@Column(name = "ID_ORCAMENTO")
+	private Long idOrcamento;
+
+
 	public Long getId_pecaUtilizada() {
 		return id_pecaUtilizada;
 	}
@@ -71,14 +70,13 @@ public class PecaUtilizada implements Serializable{
 		this.valor = valor;
 	}
 
-	public Orcamento getOrcamento() {
-		return orcamento;
+	public Long getIdOrcamento() {
+		return idOrcamento;
 	}
 
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
+	public void setIdOrcamento(Long idOrcamento) {
+		this.idOrcamento = idOrcamento;
 	}
-
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -87,6 +85,6 @@ public class PecaUtilizada implements Serializable{
 		this.quantidade = quantidade;
 	}
 
-	
-	
+
+
 }

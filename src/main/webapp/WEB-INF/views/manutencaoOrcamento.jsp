@@ -92,8 +92,9 @@
 							value="{{screenData.equipamento.numeroSerie}}" disabled>
 					</div>
 
-					<div class="col-sm-3 form-group input"	>
-						<label>Pontuação</label> <select class="form-control" ng-model="formData.ponto">
+					<div class="col-sm-3 form-group input">
+						<label>Pontuação</label> <select class="form-control"
+							ng-model="formData.ponto">
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -181,32 +182,60 @@
 
 								</tbody>
 							</table>
-							<div class="col-sm-10 text-right">
-								Total: R$ {{valorFinal}} 
+							<div class="col-sm-10 text-right">Total: R$ {{valorFinal}}
+							</div>
+
 						</div>
+						<!--FIM LISTA PECAS E SERVICOS -->
 						<div class="col-sm-12 form-group text-rigth" ng-cloak>
 							<input type="button" class="btn btn-danger bt"
-								ng-click="limparLista()" value="Limpar">
-								<input type="button" class="btn btn-default bt"
-								ng-click="salvarOrcamento()" value="Salvar">
+								ng-click="limparLista()" value="Limpar"> <input
+								type="button" class="btn btn-primary bt"
+								ng-click="salvarAlteracoesOrcamento()" value="Salvar Alterações">
+							<input type="button" class="btn btn-default bt"
+								ng-click="finalizar()" value="Finalizar">
 						</div>
 
+
+
+
 					</div>
-					<!--FIM LISTA PECAS E SERVICOS -->
-
-
-
-
 				</div>
-			</div>
 
+
+
+			</div>
+			<!-- FIM FORMULARIO DETALHE ORCAMENTO -->
+
+
+			<!--Mensagem de Alert -->
+			<div id="sucessoSalvarAlteracoes" class="alert alert-success">
+				<strong>Sucesso ao salvar alterações.</strong>
+			</div>
+			<!--End Mensagem de Alert -->
+
+
+			<!--Mensagem de Alert -->
+			<div id="erroSalvarAlteracoes" class="alert alert-danger">
+				<strong>Erro ao salvar alterações.</strong>
+			</div>
+			<!--End Mensagem de Alert -->
+
+			<!--Mensagem de Alert -->
+			<div id="sucessoAtualizaOrcamento" class="alert alert-success">
+				<strong>Sucesso ao atualizar orcamento</strong>
+			</div>
+			<!--End Mensagem de Alert -->
+
+
+			<!--Mensagem de Alert -->
+			<div id="erroAtualizaOrcamento" class="alert alert-danger">
+				<strong>Erro ao autalizar Orcamento</strong>
+			</div>
+			<!--End Mensagem de Alert -->
 
 
 		</div>
-		<!-- FIM FORMULARIO DETALHE ORCAMENTO -->
 
 
-	</div>
-
-
-	<%@ include file="../rodape.jsp"%>
+		<%@ include file="../rodape.jsp"%>

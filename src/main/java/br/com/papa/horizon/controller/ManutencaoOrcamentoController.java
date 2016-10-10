@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.ClienteDao;
@@ -24,12 +25,13 @@ import br.com.papa.horizon.dao.ServicoDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
+import br.com.papa.horizon.entity.Estoque;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.PecaOrdemServico;
 import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.entity.Usuario;
+import br.com.papa.horizon.util.Enum.StatusOrcamento;
 
 import com.google.gson.Gson;
  
@@ -46,8 +48,8 @@ public class ManutencaoOrcamentoController {
 	
 	@RequestMapping
 	public ModelAndView manutencaoOrcamento(HttpSession session){
-		Gson gson = new Gson();
-		usuario = (Usuario) session.getAttribute("usuario");
+		Gson gson = new Gson();		usuario = (Usuario) session.getAttribute("usuario");
+
 		orcamentoDao = new OrcamentoDao();
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
@@ -118,6 +120,8 @@ public class ManutencaoOrcamentoController {
 
 		try{
 			itemDeServico = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
+			peca = orcamentoDao.localizaPecaUnica(peca.getIdPeca());
+			this.pecasUtilizadasOrcamento.add(peca);
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
 			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -143,7 +147,8 @@ public class ManutencaoOrcamentoController {
 
 		try{
 			itemDeServico = orcamentoDao.localizarServico(servico.getId_servico()); 
-			
+			servico = orcamentoDao.localizarServicoUnico(servico.getId_servico());
+			this.servicosUtilizadosOrcamento.add(servico);
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
 			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -154,23 +159,55 @@ public class ManutencaoOrcamentoController {
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/salvarOrcamento", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> salvarOrcamento(@RequestBody  List<PecaOrdemServico> itemServico, HttpSession httpSession) throws Exception { 
+	@RequestMapping(value = "/salvarAlteracoesOrcamento", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> salvarOrcamento(@RequestBody Orcamento orcamento, HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();		
 
-//		try{
-//			itemDeServico = orcamentoDao.localizarServico(servico.getId_servico()); 
-//
-//		}catch(Exception e){
-//			System.out.println("ERRO: " +e);
-//			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//		
-//		result.put("itemDeServico", itemDeServico);
-//		result.put("itensDeServico", itensDeServico);
+		try{
+			Integer ponto = orcamento.getPontos();
+			String observacao = orcamento.getObservacao();
+			orcamento = orcamentoDao.findById(orcamento.getId_orcamento()); 
+			orcamento.setPontos(ponto);
+			orcamento.setObservacao(observacao);
+			orcamentoDao.update(orcamento);
+			httpSession.setAttribute("orcamento", orcamento);
+
+		}catch(Exception e){
+			System.out.println("ERRO: " +e);
+			return new ResponseEntity<String>(gson.toJson(orcamento), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> finalizar(@RequestBody List<PecaUtilizada> itensDeServico,
+										@RequestParam(value = "valorTotal") Double valorTotal, HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		orcamentoDao = new OrcamentoDao();	
+		Orcamento orcamento = new Orcamento();
+		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
+
+		try{
+			
+			for (int i = 0; i < itensDeServico.size(); i++) {
+				itensDeServico.get(i).setIdOrcamento(orcamento.getId_orcamento());
+				orcamento.setValorTotal(valorTotal);
+			}	
+			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
+			orcamentoDao.update(orcamento);
+			orcamentoDao.salvarItensDeOrcamento(itensDeServico);
+
+		}catch(Exception e){
+			System.out.println("ERRO: " +e);
+			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 
@@ -233,6 +270,8 @@ public class ManutencaoOrcamentoController {
 		
 		return cliente;
 	}
+	
+
 //	
 //	private void adicionarPeca(PecaUtilizada itemDeServico) {
 //		Peca peca = new Peca();
