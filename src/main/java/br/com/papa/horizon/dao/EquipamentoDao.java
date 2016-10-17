@@ -1,6 +1,7 @@
 package br.com.papa.horizon.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
@@ -11,6 +12,7 @@ import br.com.papa.horizon.entity.Equipamento;
  */
 
 @Repository
+@Transactional(readOnly = true)
 public class EquipamentoDao extends GenericDao<Equipamento>{
 	
 	public EquipamentoDao() {

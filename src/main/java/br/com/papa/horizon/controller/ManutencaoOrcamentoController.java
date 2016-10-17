@@ -83,7 +83,6 @@ public class ManutencaoOrcamentoController {
 		
 
 		try{
-			
 			cliente =  identificarCliente(orcamento.getIdCliente());
 			equipamento = identificarEquipamento(orcamento.getIdEquipamento());
 			especialidade = identificarEspecialidade(orcamento.getIdEspecialidade());
@@ -96,6 +95,7 @@ public class ManutencaoOrcamentoController {
 		}
 		
 		
+		httpSession.setAttribute("cliente", cliente);
 		result.put("cliente", cliente);
 		result.put("equipamento", equipamento);
 		result.put("especialidade", especialidade);
@@ -192,6 +192,8 @@ public class ManutencaoOrcamentoController {
 		orcamentoDao = new OrcamentoDao();	
 		Orcamento orcamento = new Orcamento();
 		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
+		Cliente cliente = new Cliente();
+		cliente = (Cliente) httpSession.getAttribute("cliente");
 
 		try{
 			
@@ -201,7 +203,9 @@ public class ManutencaoOrcamentoController {
 			}	
 			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
 			orcamentoDao.update(orcamento);
+			orcamentoDao.enviarEmailCliente(cliente, orcamento);
 			orcamentoDao.salvarItensDeOrcamento(itensDeServico);
+			httpSession.removeAttribute("cliente");
 
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);

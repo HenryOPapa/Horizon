@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 
 
 
+
+import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 
 /**
@@ -26,81 +30,59 @@ import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
  *
  */
 @Entity
-@Table(name = "ORDEM_DE_SERIVCO")
+@Table(name = "ORDEM_DE_SERVICO")
 public class OrdemDeServico implements Serializable{
-	
 
-	private static final long serialVersionUID = 3785531877846933514L;
+	private static final long serialVersionUID = -4573440496209503089L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_ORDEM_DE_SERVICO")
-	private Long id_ordem_de_servico;
-	
+	@Column(name = "ID_ORDEM_SERVICO")
+	private Long idOrdemServico;
+
 	@Column(name="RELATO")
 	private String relato;
-	
+
 	@Column(name = "OBSERVACAO")
 	private String observacao;
-	
-	@Column(name = "EQUIPAMENTO_DANIFICADO")
-	private String equipamentoDanificado;
-	
-	@Column(name = "ESPECIALIDADE")
-	private String especialidade;
-	
+
 	@Column(name = "VALORTOTAL")
 	private Double valorTotal;
-	
+
 	@Column(name = "STATUS")
-	private StatusOrdemDeServico statusOrdemDeServico;
+	@Enumerated(EnumType.STRING)
+	private StatusOrdemDeServico statusOrdemServico;
+	
+	@Column(name="ID_CLIENTE")
+	private Long idCliente;
+	
+	@Column(name = "PONTOS")
+	private Integer pontos;
+	
+	@Column(name = "ID_EQUIPAMENTO")
+	private Long idEquipamento;
+	
+	@Column(name = "ID_ESPECIALIDADE")
+	private Long idEspecialidade;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente cliente;	
-	
-	@OneToMany(mappedBy = "ordemDeServico" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<PecaOrdemServico> pecas;	
-	
-	@OneToMany(mappedBy = "ordemDeServico" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Servico> servicos;
-	
-	
-	public void  addPeca(PecaOrdemServico peca){
-		if (pecas == null){
-			pecas = new ArrayList<PecaOrdemServico>();
-		}
-		peca.setOrdemDeServico(this);
-		pecas.add(peca);
-	}
-
-	public void deletePeca(PecaOrdemServico peca){
-		if(pecas != null){
-			pecas.remove(peca);
-		}
-	}
-	
-	public void  addServico(Servico servico){
-		if (servicos == null){
-			servicos = new ArrayList<Servico>();
-		}
-		servico.setOrdemDeServico(this);
-		servicos.add(servico);
-	}
-
-	public void deleteServico(Servico servico){
-		if(servicos != null){
-			servicos.remove(servico);
-		}
-	}
 
 
-	public Long getId_ordem_de_servico() {
-		return id_ordem_de_servico;
+	public Long getIdOrdemServico() {
+		return idOrdemServico;
 	}
 
-	public void setId_ordem_de_servico(Long id_ordem_de_servico) {
-		this.id_ordem_de_servico = id_ordem_de_servico;
+	public void setIdOrdemServico(Long idOrdemServico) {
+		this.idOrdemServico = idOrdemServico;
+	}
+
+	public StatusOrdemDeServico getStatusOrdemServico() {
+		return statusOrdemServico;
+	}
+
+	public void setStatusOrdemServico(StatusOrdemDeServico statusOrdemServico) {
+		this.statusOrdemServico = statusOrdemServico;
 	}
 
 	public String getRelato() {
@@ -119,52 +101,12 @@ public class OrdemDeServico implements Serializable{
 		this.observacao = observacao;
 	}
 
-	public String getEquipamentoDanificado() {
-		return equipamentoDanificado;
-	}
-
-	public void setEquipamentoDanificado(String equipamentoDanificado) {
-		this.equipamentoDanificado = equipamentoDanificado;
-	}
-
-	public String getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(String especialidade) {
-		this.especialidade = especialidade;
-	}
-
 	public Double getValorTotal() {
 		return valorTotal;
 	}
 
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
-	}
-
-	public StatusOrdemDeServico getStatusOrdemDeServico() {
-		return statusOrdemDeServico;
-	}
-
-	public void setStatusOrdemDeServico(StatusOrdemDeServico statusOrdemDeServico) {
-		this.statusOrdemDeServico = statusOrdemDeServico;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public List<PecaOrdemServico> getPecas() {
-		return pecas;
-	}
-
-	public void setPecas(List<PecaOrdemServico> pecas) {
-		this.pecas = pecas;
 	}
 
 	public List<Servico> getServicos() {
@@ -174,12 +116,50 @@ public class OrdemDeServico implements Serializable{
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-	
-	
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Long getIdEquipamento() {
+		return idEquipamento;
+	}
+
+	public void setIdEquipamento(Long idEquipamento) {
+		this.idEquipamento = idEquipamento;
+	}
+
+	public Long getIdEspecialidade() {
+		return idEspecialidade;
+	}
+
+	public void setIdEspecialidade(Long idEspecialidade) {
+		this.idEspecialidade = idEspecialidade;
+	}
+
+	public Integer getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Integer pontos) {
+		this.pontos = pontos;
+	}
 	
 	
 
 	
-		
-	
+
+
+
+
+
+
+
+
+
+
 }

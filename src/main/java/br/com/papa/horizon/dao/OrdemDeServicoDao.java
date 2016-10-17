@@ -13,12 +13,4 @@ public class OrdemDeServicoDao extends GenericDao<OrdemDeServico>{
 	public OrdemDeServicoDao() {
 		super(OrdemDeServico.class);
 	}
-	
-	public void adicionaNovaOrdem(Cliente cliente, OrdemDeServico ordemDeServico){
-		ClienteDao dao = new ClienteDao();
-		cliente = dao.findById(cliente.getId_cliente());
-		cliente.addOrdemDeServico(ordemDeServico);
-		dao.update(cliente);
-		
-	}
 }

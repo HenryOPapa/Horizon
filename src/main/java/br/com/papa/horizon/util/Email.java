@@ -23,7 +23,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "");
+		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
@@ -37,7 +37,7 @@ public class Email {
 		   //destinatários
 		   email.addTo(emailCliente);
 		   //email do qual enviará
-		   email.setFrom("horizon.com", "Horizon");
+		   email.setFrom("henrynpsii@gmail.com", "Horizon");
 		   //assunto
 		   email.setSubject("Pedido Orcamento");
 		   //Adicione a mensagem do email
@@ -47,7 +47,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "");
+		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");

@@ -21,6 +21,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/kanban.css" rel="stylesheet">
 
 <script>
 var RETORNO = ${result}
@@ -67,6 +68,7 @@ var RETORNO = ${result}
 				aria-expanded="false"><label>Painéis</label><span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="manutencaoOrcamento">Orçamento</a></li>
+					<li><a href="aprovarReprovarOrcamento">Aprovar / Reprovar Orçamento</a></li>
 					<li><a href="#">Ordem de Serviço</a></li>
 				</ul></li>
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EnumType;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -17,17 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.OrcamentoDao;
-import br.com.papa.horizon.dao.OrdemDeServicoDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
-import br.com.papa.horizon.entity.OrdemDeServico;
-import br.com.papa.horizon.entity.PecaOrdemServico;
 import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
-import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 
 import com.google.gson.Gson;
 

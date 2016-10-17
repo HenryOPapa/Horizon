@@ -68,15 +68,6 @@ public class Cliente implements Serializable{
 	@JoinColumn(name="ID_CLIENTE")
 	private List<Equipamento> equipamentos;
 	
-//	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//	@JoinColumn(name="ID_ORCAMENTO")
-//	private List<Orcamento> orcamentos;
-	
-	@OneToMany(mappedBy = "cliente" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<OrdemDeServico> ordemDeServicos;
-	
-	
-	
 	public void  addEquipamento(Equipamento equipamento){
 		if (equipamentos == null){
 			equipamentos = new ArrayList<Equipamento>();
@@ -91,41 +82,6 @@ public class Cliente implements Serializable{
 		}
 	}
 	
-//	public void  addOrcamento(Orcamento orcamento){
-//		if (orcamentos == null){
-//			orcamentos = new ArrayList<Orcamento>();
-//		}
-//		orcamento.setCliente(this);
-//		orcamentos.add(orcamento);
-//	}
-//
-//	public void deleteOrcamento(Orcamento orcamento){
-//		if(orcamentos != null){
-//			orcamentos.remove(orcamento);
-//		}
-//	}
-	
-	public void  addOrdemDeServico(OrdemDeServico ordemDeServico){
-		if (ordemDeServicos == null){
-			ordemDeServicos = new ArrayList<OrdemDeServico>();
-		}
-		ordemDeServico.setCliente(this);
-		ordemDeServicos.add(ordemDeServico);
-	}
-
-	public void deleteOrcamento(OrdemDeServico ordemDeServico){
-		if(ordemDeServicos != null){
-			ordemDeServicos.remove(ordemDeServico);
-		}
-	}
-	
-//	public List<Orcamento> getOrcamentos() {
-//		return orcamentos;
-//	}
-//
-//	public void setOrcamentos(List<Orcamento> orcamentos) {
-//		this.orcamentos = orcamentos;
-//	}
 
 	public String getCpf() {
 		return cpf;
@@ -215,15 +171,6 @@ public class Cliente implements Serializable{
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
-	public List<OrdemDeServico> getOrdemDeServicos() {
-		return ordemDeServicos;
-	}
-
-	public void setOrdemDeServicos(List<OrdemDeServico> ordemDeServicos) {
-		this.ordemDeServicos = ordemDeServicos;
-	}
-
 
 
 }

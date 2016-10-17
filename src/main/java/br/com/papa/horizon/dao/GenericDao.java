@@ -2,9 +2,13 @@ package br.com.papa.horizon.dao;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.papa.horizon.util.ConnectionDAO;
 import br.com.papa.horizon.util.Util;
 
 /**
@@ -13,7 +17,7 @@ import br.com.papa.horizon.util.Util;
  *
  * @param <T>
  */
-
+@Transactional(readOnly = true)
 public abstract class GenericDao <T extends Serializable>{
 	
 	private Class<T> aClass;

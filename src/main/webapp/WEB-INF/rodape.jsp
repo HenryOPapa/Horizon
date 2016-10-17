@@ -12,6 +12,10 @@
 <script src="script/especialidadeController.js"/></script>
 <script src="script/estoqueController.js"/></script>
 <script src="script/manutencaoOrcamentoController.js"/></script>
+<script src="script/aprovarReprovarOrcamentoController.js"/></script>
+<script src="script/painelOSController.js"/></script>
+
+
 
 
 
