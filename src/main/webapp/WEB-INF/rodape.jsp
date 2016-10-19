@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -8,6 +9,7 @@
 <script src="script/clienteController.js"/></script>
 <script src="script/listaClienteController.js"/></script>
 <script src="script/listaFuncionarioController.js"/></script>
+<script src="script/funcionarioController.js"/></script>
 <script src="script/orcamentoCadastroController.js"/></script>
 <script src="script/especialidadeController.js"/></script>
 <script src="script/estoqueController.js"/></script>

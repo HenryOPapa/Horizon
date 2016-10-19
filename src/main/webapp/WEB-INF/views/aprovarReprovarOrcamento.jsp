@@ -135,9 +135,9 @@
 
 			<div class="col-sm-12 form-group text-right" ng-cloak>
 				<input type="button" class="btn btn-primary bt"
-					ng-click="aprovarOrcamentoSucesso()" value="Aprovar"> <input
+					ng-click="aprovarOrcamento()" value="Aprovar"> <input
 					type="button" class="btn btn-danger bt"
-					ng-click="reprovarOrcamentoSucesso()" value="Reprovar">
+					ng-click="reprovarOrcamento()" value="Reprovar">
 					<input
 					type="button" class="btn btn-default bt"
 					ng-click="cancelar()" value="Cancelar">

@@ -2,7 +2,7 @@ package br.com.papa.horizon.dao;
 
 import java.util.List;
 
-import br.com.papa.horizon.entity.Cliente;
+import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Funcionario;
 /**
  * 
@@ -31,5 +31,9 @@ public class FuncionarioDao extends GenericDao<Funcionario>{
 		return (Funcionario) findOne(jpql, idUsuario);
 	}
 	
+	public List<Especialidade> localizarEspecialidade(){
+		EspecialidadeDao dao = new EspecialidadeDao();
+		return dao.findAll();
+	}
 	
 }

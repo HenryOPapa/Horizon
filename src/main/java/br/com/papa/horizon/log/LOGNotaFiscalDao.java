@@ -1,4 +1,4 @@
-package br.com.papa.horizon.dao.log;
+package br.com.papa.horizon.log;
 
 import br.com.papa.horizon.dao.GenericDao;
 import br.com.papa.horizon.entity.log.LOGNotaFiscal;

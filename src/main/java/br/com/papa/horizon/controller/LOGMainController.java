@@ -2,9 +2,9 @@ package br.com.papa.horizon.controller;
 
 import java.util.Date;
 
-import br.com.papa.horizon.dao.log.LOGNotaFiscalDao;
 import br.com.papa.horizon.entity.Estoque;
 import br.com.papa.horizon.entity.log.LOGNotaFiscal;
+import br.com.papa.horizon.log.LOGNotaFiscalDao;
 
 public class LOGMainController {
 	

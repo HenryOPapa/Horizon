@@ -3,17 +3,28 @@ package br.com.papa.horizon.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.FuncionarioDao;
 import br.com.papa.horizon.dao.UsuarioDao;
+import br.com.papa.horizon.entity.Cliente;
+import br.com.papa.horizon.entity.Especialidade;
 //import br.com.papa.horizon.entity.Contato;
 //import br.com.papa.horizon.entity.Documento;
 //import br.com.papa.horizon.entity.Endereco;
 import br.com.papa.horizon.entity.Funcionario;
 import br.com.papa.horizon.entity.Usuario;
+import br.com.papa.horizon.util.Email;
 
 import com.google.gson.Gson;
 
@@ -22,54 +33,44 @@ import com.google.gson.Gson;
  * @author Henry O' Papa
  *
  */
-
+@SuppressWarnings("serial")
+@Controller
 @RequestMapping("cadastroFuncionario")
 public class FuncionarioController extends Exception{
 
-	FuncionarioDao funcionarioDao = new FuncionarioDao();
-	
+	private FuncionarioDao funcionarioDao;
+
 	@RequestMapping
 	public ModelAndView cadastroFuncionario(){
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
-		List<Funcionario> funcionarios = funcionarioDao.findAll();
-		
-		retorno.put("funcionarios", funcionarios);
-		
+		funcionarioDao = new FuncionarioDao();
+		List<Especialidade> especialidades = funcionarioDao.localizarEspecialidade();
+		retorno.put("especialidades", especialidades);
 		return new ModelAndView("funcionario/funcionarioCadastro").addObject("result",gson.toJson(retorno));
 	}
-	
-	
-	@RequestMapping("/adicionaFuncionario")//Método invocado pelo form action da jsp
-	public String adiciona(Funcionario funcionario, Usuario usuario){
-		funcionario.setUsuario(criarUsuario(funcionario, usuario));
-		FuncionarioDao dao = new FuncionarioDao();
-		dao.save(funcionario);
 
-		return "contaAdicionadaSucesso";
+
+	@RequestMapping(value = "/cadastrarFuncionario", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> cadastrarFuncionario(@RequestBody Funcionario funcionario , HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		funcionarioDao = new FuncionarioDao();
+
+		try{
+			funcionarioDao.save(funcionario);
+			criarUsuario(funcionario);
+		}catch(Exception e){
+			System.out.println("ERRO AO CADASTRAR NOVO FUNCIONARIO: " +e);
+			return new ResponseEntity<String>(gson.toJson(funcionario), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping("/listaFuncionarios")//URL de Acesso 
-	public ModelAndView lista(){
 
-		FuncionarioDao dao = new FuncionarioDao();
-		List<Funcionario> funcionarios = dao.findAll();
-
-		ModelAndView mv = new ModelAndView("listaFuncionario");
-		mv.addObject("funcionarios", funcionarios);
-
-		return mv;
-
-	}
-	
-	@RequestMapping("/removeFuncionario")//URL de Acesso 
-	public String remover(Funcionario funcionario){
-		
-		FuncionarioDao dao = new FuncionarioDao();
-		dao.delete(funcionario);
-
-		return "redirect:listaFuncionarios";
-	}
 
 
 	/*
@@ -77,22 +78,27 @@ public class FuncionarioController extends Exception{
 	 * coletar o nome do funcionario adicionado
 	 * e criar automaticamente um usuario de acesso
 	 */
-	public Usuario criarUsuario(Funcionario funcionario, Usuario usuario){
+	public void criarUsuario(Funcionario funcionario){
 
-		String nomeCompleto = funcionario.getNome();
-		String[] split = nomeCompleto.split(" ");
+		UUID uuid = UUID.randomUUID();  
+		Usuario usuario = new Usuario();
+		UsuarioDao dao = new UsuarioDao();
+		Email email = new Email();
+		String[] split = funcionario.getNome().split(" ");
 		if (split != null && split.length > 0){
-			String primeiroNome = split[0];
-			String ultimoNome = split[split.length - 1];
-			String login = primeiroNome + "." +ultimoNome;
-
-			UsuarioDao dao = new UsuarioDao();
+			String login =  split[0] + "." + split[split.length - 1];
+			login.toLowerCase();
 			usuario.setLogin(login);
-			usuario.setSenha("senha");
-						
-
+			usuario.setSenha(uuid.toString().substring(0,6));
+			usuario.setIdFuncionario(funcionario.getId());
 		}
-		return usuario;
+
+		try{
+			dao.save(usuario);
+			email.enviaEmailCadastroFuncionario(usuario.getSenha(), funcionario);
+		}catch(Exception e){
+			System.out.println("ERRO AO CADASTRAR USUARIO: " + e);
+		}
 	}
 
 }

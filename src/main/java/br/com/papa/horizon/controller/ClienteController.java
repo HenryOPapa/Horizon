@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.papa.horizon.dao.ClienteDao;
 //import br.com.papa.horizon.dao.EnderecoDao;
 import br.com.papa.horizon.entity.Cliente;
+import br.com.papa.horizon.util.Email;
 
 import com.google.gson.Gson;
 //import br.com.papa.horizon.entity.Contato;
@@ -65,11 +66,11 @@ public class ClienteController {
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
-//		Email email = new Email();
+		Email email = new Email();
 
 		try{
 			clienteDao.save(cliente);
-//			email.enviaEmailCadastroCliente(cliente.getEmail());
+			email.enviaEmailCadastroCliente(cliente.getEmail());
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR NOVO CLIENTE: " +e);
 			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.INTERNAL_SERVER_ERROR);

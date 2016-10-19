@@ -59,6 +59,7 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 						$scope.screenData.itensDeServico = response.data.itensDeServico,
 						$scope.showListOrcamento = false;
 						$scope.showOrcamento = true;
+//						location.reload();
 
 					}else{
 						erroDetalharOrcamento.style.display = "block";

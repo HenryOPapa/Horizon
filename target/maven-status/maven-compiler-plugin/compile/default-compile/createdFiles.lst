@@ -2,6 +2,7 @@ br\com\papa\horizon\entity\Servico.class
 br\com\papa\horizon\controller\EquipamentoController.class
 br\com\papa\horizon\controller\EstoqueController.class
 br\com\papa\horizon\dao\EspecialidadeDao.class
+br\com\papa\horizon\log\LOGNotaFiscalDao.class
 br\com\papa\horizon\util\Enum$NivelAcesso.class
 br\com\papa\horizon\util\Email.class
 br\com\papa\horizon\dao\OrcamentoDao.class
@@ -18,7 +19,6 @@ br\com\papa\horizon\util\Enum$StatusOrcamento.class
 br\com\papa\horizon\util\Enum.class
 br\com\papa\horizon\dao\ServicoDao.class
 br\com\papa\horizon\entity\Cliente.class
-br\com\papa\horizon\dao\log\LOGNotaFiscalDao.class
 br\com\papa\horizon\util\ConnectionDAO.class
 br\com\papa\horizon\dao\PecasDao.class
 br\com\papa\horizon\dao\ManutencaoOrcamentoDao.class

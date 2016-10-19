@@ -39,6 +39,8 @@ public class Usuario implements Serializable{
 	@Column(name = "SENHA", nullable=false)
 	private String senha;
 	
+	private long idFuncionario;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "NIVEL_ACESSO", nullable=false)
 	private NivelAcesso nivelAcesso;
@@ -73,6 +75,14 @@ public class Usuario implements Serializable{
 
 	public void setNivelAcesso(NivelAcesso nivelAcesso) {
 		this.nivelAcesso = nivelAcesso;
+	}
+
+	public long getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(long idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 	
 	
