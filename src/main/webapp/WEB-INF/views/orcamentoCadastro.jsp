@@ -56,10 +56,10 @@
 					</div>
 
 					<div class="col-sm-4 form-group input">
-						<select class="form-control" ng-model="formData.equipamento">
+						<select class="form-control" ng-model="equipamento">
 							<option value="">Selecione um Equipamento</option>
 							<option ng-repeat="item in screenData.equipamentos"
-								value="{{item.id_equipamento}}">{{item.marca}} | {{item.modelo}}</option>
+								value="{{item}}">{{item.marca}} | {{item.modelo}}</option>
 						</select>
 					</div>
 
@@ -76,10 +76,10 @@
 
 					<div class="col-sm-6 form-group input">
 						<label>Especialidade</label> <select class="form-control"
-							ng-model="formData.id_especialidade">
+							ng-model="especialidade">
 							<option value="">Selecione uma especialidade</option>
 							<option ng-repeat="item in screenData.especialidades"
-								value="{{item.id_especialidade}}">{{item.descricao}}</option>
+								value="{{item}}">{{item.descricao}}</option>
 						</select>
 					</div>
 					

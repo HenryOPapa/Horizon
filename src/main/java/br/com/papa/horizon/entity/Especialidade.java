@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +24,19 @@ public class Especialidade implements Serializable{
 	@Column (name = "descricao")
 	private String descricao;
 
+	@OneToOne
+	Orcamento orcamento;
+	
+	
+	
 
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
+	}
 
 	public Long getId_especialidade() {
 		return id_especialidade;

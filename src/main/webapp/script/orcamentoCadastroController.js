@@ -43,13 +43,10 @@ app.controller('OrcamentoCadastroController', ['$scope', '$http' , function($sco
 	
 
 	$scope.salvarOrcamento = function() {
-		var params = {
-				'relato': $scope.formData.relato,
-				'observacao': $scope.formData.observacao,
-				'idEspecialidade': $scope.formData.id_especialidade,
-				'idEquipamento': $scope.formData.equipamento
-		}
-		
+		var params = {};
+		params.equipamento =  $.parseJSON($scope.equipamento);
+		params.especialidade =  $.parseJSON($scope.especialidade);
+		params.orcamento = $scope.formData;		
 
 		$http.post($scope.path + 'salvarOrcamento',params).then(
 				function(response) {

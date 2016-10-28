@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.papa.horizon.util.GsonExclude;
@@ -45,14 +46,25 @@ public class Equipamento implements Serializable{
 	@Column(name = "NUMERO_SERIE")
 	private String numeroSerie;
 	
-//	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.ALL})
-//	private Cliente cliente;
+	@OneToOne
+	private Orcamento orcamento;
+	
 
 	@GsonExclude
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 	
+	
+	
+
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
+	}
 
 	public Long getId_equipamento() {
 		return id_equipamento;

@@ -49,31 +49,22 @@ public class Orcamento implements Serializable{
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
 	private StatusOrcamento statusOrcamento;
-	
-	@Column(name="ID_CLIENTE")
-	private Long idCliente;
-	
+		
 	@Column(name = "PONTOS")
 	private Integer pontos;
 	
-	@Column(name = "ID_EQUIPAMENTO")
-	private Long idEquipamento;
+    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_EQUIPAMENTO") //@JoinColumn(name = "pessoa_id")
+    private Equipamento equipamento;
+    
+    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_ESPECIALIDADE") //@JoinColumn(name = "pessoa_id")
+    private Especialidade especialidade;
+    
+    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CLIENTE") //@JoinColumn(name = "pessoa_id") 
+    private Cliente cliente;
 	
-	@Column(name = "ID_ESPECIALIDADE")
-	private Long idEspecialidade;
-
-	@OneToMany(mappedBy = "orcamento" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Servico> servicos;
-
-
-	public void  addServico(Servico servico){
-		if (servicos == null){
-			servicos = new ArrayList<Servico>();
-		}
-		servico.setOrcamento(this);
-		servicos.add(servico);
-	}
-
 	public Long getId_orcamento() {
 		return id_orcamento;
 	}
@@ -114,36 +105,28 @@ public class Orcamento implements Serializable{
 		this.statusOrcamento = statusOrcamento;
 	}
 
-	public List<Servico> getServicos() {
-		return servicos;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setServicos(List<Servico> servicos) {
-		this.servicos = servicos;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Equipamento getEquipamento() {
+		return equipamento;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
 	}
 
-	public Long getIdEquipamento() {
-		return idEquipamento;
+	public Especialidade getEspecialidade() {
+		return especialidade;
 	}
 
-	public void setIdEquipamento(Long idEquipamento) {
-		this.idEquipamento = idEquipamento;
-	}
-
-	public Long getIdEspecialidade() {
-		return idEspecialidade;
-	}
-
-	public void setIdEspecialidade(Long idEspecialidade) {
-		this.idEspecialidade = idEspecialidade;
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
 	}
 
 	public Integer getPontos() {
