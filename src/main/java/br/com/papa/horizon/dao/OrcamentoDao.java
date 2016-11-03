@@ -1,5 +1,6 @@
 package br.com.papa.horizon.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -16,10 +17,11 @@ import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.util.Email;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
+import br.com.papa.horizon.vo.OrcamentoVO;
 
 /**
  * 
@@ -32,6 +34,11 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 
 	public OrcamentoDao() {
 		super(Orcamento.class);
+	}
+	
+	public List<OrcamentoVO> buscarOrcamentos(){
+		List<Orcamento> orcamento = findAll();
+		return populateOrcamentoVO(orcamento);
 	}
 
 	public Cliente procuraPorCpf(String cpf){
@@ -83,25 +90,25 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return pecas;
 	}
 	
-	public PecaUtilizada localizarPecaUnica(Long idPeca){
+	public ItensOrcamento localizarPecaUnica(Long idPeca){
 		PecasDao dao = new PecasDao();
 		Peca peca = dao.findById(idPeca);
-		PecaUtilizada pecaUtilizada = new PecaUtilizada();
+		ItensOrcamento pecaUtilizada = new ItensOrcamento();
 		pecaUtilizada.setDescricao(peca.getDescricao());
 		pecaUtilizada.setValor(peca.getValor());
 		return pecaUtilizada;
 	}
 	
-	public PecaUtilizada localizarServico(Long id){
+	public ItensOrcamento localizarServico(Long id){
 		ServicoDao dao = new ServicoDao();
 		Servico servico = dao.findById(id);
-		PecaUtilizada itemDeServico = new PecaUtilizada();
+		ItensOrcamento itemDeServico = new ItensOrcamento();
 		itemDeServico.setDescricao(servico.getDescricao());
 		itemDeServico.setValor(servico.getValor());
 		return itemDeServico;
 	}
 	
-	public void salvarItensDeOrcamento(List<PecaUtilizada> itensDeOrcamento){
+	public void salvarItensDeOrcamento(List<ItensOrcamento> itensDeOrcamento){
 		PecaUtilizadaDao dao = new PecaUtilizadaDao();
 		dao.saveList(itensDeOrcamento);
 	}
@@ -122,14 +129,37 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		
 	}
 	
-	public List<PecaUtilizada> getItensDeServico(Long idOrcamento){
+	public List<ItensOrcamento> getItensDeServico(Long idOrcamento){
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<PecaUtilizada> criteria = builder.createQuery(PecaUtilizada.class);
-		Root<PecaUtilizada> from = criteria.from(PecaUtilizada.class);
+		CriteriaQuery<ItensOrcamento> criteria = builder.createQuery(ItensOrcamento.class);
+		Root<ItensOrcamento> from = criteria.from(ItensOrcamento.class);
 		criteria.where(builder.equal(from.get("idOrcamento"), idOrcamento));
 		Query query = getEntityManager().createQuery(criteria);
 		return query.getResultList();
 		
+	}
+	
+	
+	/**
+	 * Métodos de populacao
+	 */
+	
+	public List<OrcamentoVO> populateOrcamentoVO(List<Orcamento> orcamentos){
+		List<OrcamentoVO> orcamentosVO = new ArrayList<OrcamentoVO>();
+		OrcamentoVO orcamentoVO;
+		
+		for(Orcamento orcamento: orcamentos){
+			orcamentoVO = new OrcamentoVO();
+			orcamentoVO.setObservacao(orcamento.getObservacao());
+			orcamentoVO.setPontos(orcamento.getPontos());
+			orcamentoVO.setRelato(orcamento.getRelato());
+			orcamentoVO.setStatusOrcamento(orcamento.getStatusOrcamento());
+			orcamentoVO.setValorTotal(orcamento.getValorTotal());
+			orcamentoVO.setId_orcamento(orcamento.getId_orcamento());
+			orcamentosVO.add(orcamentoVO);
+		}
+		
+		return orcamentosVO;
 	}
 
 }

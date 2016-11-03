@@ -15,8 +15,6 @@ public class BaseServicoVO {
 	private String observacao;
 
 	private Double valorTotal;
-
-	private StatusOrdemDeServico statusOrdemServico;
 	
 	private Integer pontos;
 	
@@ -53,14 +51,5 @@ public class BaseServicoVO {
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
-	public StatusOrdemDeServico getStatusOrdemServico() {
-		return statusOrdemServico;
-	}
-
-	public void setStatusOrdemServico(StatusOrdemDeServico statusOrdemServico) {
-		this.statusOrdemServico = statusOrdemServico;
-	}
-
 
 }

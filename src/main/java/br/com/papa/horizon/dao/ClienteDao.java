@@ -5,15 +5,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-
 /**
  * 
  * @author Henry O' Papa
  *
  */
 import br.com.papa.horizon.entity.Cliente;
-import br.com.papa.horizon.entity.Estoque;
 import br.com.papa.horizon.util.Util;
+import br.com.papa.horizon.vo.ClienteVO;
 
 public class ClienteDao extends GenericDao<Cliente>{
 	
@@ -42,6 +41,39 @@ public class ClienteDao extends GenericDao<Cliente>{
 		result =  (List<Cliente>) findOne2(jpql,cpf);
 			
 		return result.get(0);
+	}
+	
+	public List<ClienteVO> buscarClientes(){
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes = findAll();
+		return populateClienteVO(clientes);
+	}
+	
+	
+	
+	/**
+	 * Inicio dos Metodos de Populaçao
+	 */
+	
+	public List<ClienteVO> populateClienteVO(List<Cliente> clientes){
+		List<ClienteVO> clientesVO = new ArrayList<ClienteVO>();
+		ClienteVO clienteVO;
+		for(Cliente cliente : clientes){
+			clienteVO = new ClienteVO();
+			clienteVO.setCep(cliente.getCep());
+			clienteVO.setCidade(cliente.getCidade());
+			clienteVO.setCpf(cliente.getCpf());
+			clienteVO.setDataNascimento(cliente.getDataNascimento());
+			clienteVO.setEmail(cliente.getEmail());
+			clienteVO.setEstado(cliente.getEstado());
+			clienteVO.setId(cliente.getId_cliente());
+			clienteVO.setLogradouro(cliente.getLogradouro());
+			clienteVO.setNome(cliente.getNome());
+			clienteVO.setTelefone(cliente.getTelefone());
+			clientesVO.add(clienteVO);
+		}
+		
+		return clientesVO;
 	}
 	
 	

@@ -43,7 +43,7 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 		$http.post($scope.path + 'detalharOrcamento', params).then(
 				function(response) {
 					if (response.status == 200) {
-						$scope.screenData.orcamento = response.data.orcamento,
+						$scope.formData.orcamento = response.data.orcamento,
 						$scope.screenData.pecas = response.data.pecas,
 						$scope.screenData.servicos = response.data.servicos,
 						$scope.screenData.cliente = response.data.cliente,
@@ -143,8 +143,11 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 	}
 	
 	$scope.finalizar = function() {
+		var params = {};
+		params.itensDeServico = $scope.screenData.itensDeServico;
+		params.orcamento = $scope.formData.orcamento;
 
-		$http.post($scope.path + 'finalizar?&valorTotal=' + $scope.valorFinal,$scope.screenData.itensDeServico).then(
+		$http.post($scope.path + 'finalizar?&valorTotal=' + $scope.valorFinal,params).then(
 				function(response) {
 					if (response.status == 200) {
 						

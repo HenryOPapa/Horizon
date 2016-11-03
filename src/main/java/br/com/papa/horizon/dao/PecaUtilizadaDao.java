@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.papa.horizon.entity.Cliente;
-import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.ItensOrcamento;
 
-public class PecaUtilizadaDao extends GenericDao<PecaUtilizada>{
+public class PecaUtilizadaDao extends GenericDao<ItensOrcamento>{
 
 	public PecaUtilizadaDao() {
-		super(PecaUtilizada.class);
+		super(ItensOrcamento.class);
 	}
 	
 }

@@ -20,7 +20,6 @@ import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Orcamento;
-import br.com.papa.horizon.entity.PecaUtilizada;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.vo.ClienteVO;
@@ -93,14 +92,15 @@ public class OrcamentoCadastroController {
 		Cliente cliente = new Cliente();
 		cliente = (Cliente) httpSession.getAttribute("cliente");
 		Orcamento orcamento = orcamentoAuxiliarVO.getOrcamento();
-		orcamento.setCliente(cliente);
+		cliente.addOrcamento(orcamento);
 		orcamento.setEquipamento(orcamentoAuxiliarVO.getEquipamento());
 		orcamento.setEspecialidade(orcamentoAuxiliarVO.getEspecialidade());
 		orcamento.setStatusOrcamento(StatusOrcamento.EM_ABERTO);
+		
 
 
 		try{
-			orcamentoDao.save(orcamento);
+			orcamentoDao.update(orcamento);
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR ORCAMENTO: " +e);
 			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -23,7 +23,7 @@ import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.ItensOrdemServico;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.OrdemDeServico;
-import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
@@ -73,15 +73,15 @@ public class AprovarReprovarOrcamentoController {
 		usuario = new Usuario();
 		Cliente cliente = new Cliente();
 		Equipamento equipamento = new Equipamento();
-		List<PecaUtilizada> itensDeServico = new ArrayList<PecaUtilizada>();
+		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
 		usuario = (Usuario) httpSession.getAttribute("usuario");
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 
 		try{
 			itensDeServico = orcamentoDao.getItensDeServico(orcamento.getId_orcamento()); //Recurando as pecas utilizadas atraves do id do orcamento
-			cliente =  identificarCliente(orcamento.getIdCliente()); 
-			equipamento = identificarEquipamento(orcamento.getIdEquipamento());	
+//			cliente =  identificarCliente(orcamento.getIdCliente()); 
+//			equipamento = identificarEquipamento(orcamento.getIdEquipamento());	
 			orcamento = orcamentoDao.findById(orcamento.getId_orcamento());
 			
 		}catch(Exception e){
@@ -197,13 +197,13 @@ public class AprovarReprovarOrcamentoController {
 	
 	private List<ItensOrdemServico> adicionarItensDeServico(Orcamento orcamento, OrdemDeServico ordemServico) {
 		orcamentoDao = new OrcamentoDao();
-		List<PecaUtilizada> itensOrcamento = new ArrayList<PecaUtilizada>();
+		List<ItensOrcamento> itensOrcamento = new ArrayList<ItensOrcamento>();
 		ItensOrdemServico itemServico = new ItensOrdemServico();
 		List<ItensOrdemServico> itensServico = new ArrayList<ItensOrdemServico>();
 		
 		itensOrcamento = orcamentoDao.getItensDeServico(orcamento.getId_orcamento());
 		
-		for(PecaUtilizada item : itensOrcamento ){
+		for(ItensOrcamento item : itensOrcamento ){
 			itemServico.setDescricao(item.getDescricao());
 			itemServico.setQuantidade(item.getQuantidade());
 			itemServico.setValor(item.getValor());

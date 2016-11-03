@@ -51,7 +51,7 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 	
 	$scope.excluirCliente = function(row){
 		var params = {
-				'id_cliente' : row.id_cliente,			
+				'id_cliente' : row.id,			
 			}
 		
 		$http.post($scope.path + 'excluirCliente', params).then(
@@ -82,7 +82,7 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 				'numeroSerie' : $scope.formData.numeroSerie
 		} 
 		
-		$http.post($scope.path + 'adicionarEquipamento?&id='+$scope.screenData.clienteSelecionado.id_cliente, params).then(
+		$http.post($scope.path + 'adicionarEquipamento?&id='+$scope.screenData.clienteSelecionado.id, params).then(
 				function(response) {
 					if (response.status === 200) {
 						sucessoAddEquipamento.style.display = "block";
@@ -115,7 +115,7 @@ app.controller('ListaClienteController', ['$scope', '$http' , function($scope, $
 		if($scope.formData.telefone == undefined)$scope.formData.telefone = $scope.screenData.clienteSelecionado.telefone;
 
 		var params = {
-				'id_cliente' : $scope.screenData.clienteSelecionado.id_cliente,
+				'id_cliente' : $scope.screenData.clienteSelecionado.id,
 				'cep' : $scope.formData.cep,
 				'nome' : $scope.screenData.clienteSelecionado.nome,
 				'cidade' : $scope.formData.cidade,

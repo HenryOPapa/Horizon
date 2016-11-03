@@ -6,17 +6,7 @@ app.controller('ClienteController', ['$scope', '$http' , function($scope, $http)
 
 
 	$scope.cadastrarCliente = function() {
-		var params = {
-				'nome' :$scope.formData.nome,
-				'dataNascimento' :$scope.formData.dataNascimento,
-				'cpf' :$scope.formData.cpf,
-				'cep' :$scope.formData.cep,
-				'logradouro' :$scope.formData.logradouro,
-				'String' :$scope.formData.String,
-				'estado' :$scope.formData.estado,
-				'telefone' :$scope.formData.telefone,
-				'email' :$scope.formData.email,
-		}
+		var params = $scope.formData;
 		
 
 		$http.post($scope.path + 'cadastrarCliente', params).then(

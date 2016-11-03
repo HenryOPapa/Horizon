@@ -13,11 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import br.com.papa.horizon.util.GsonExclude;
 
 /**
  * 
@@ -63,10 +61,29 @@ public class Cliente implements Serializable{
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@GsonExclude
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_CLIENTE")
 	private List<Equipamento> equipamentos;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="ID_CLIENTE")
+	private List<Orcamento> orcamentos;
+	
+	public void  addOrcamento(Orcamento orcamento){
+		if (orcamentos == null){
+			orcamentos = new ArrayList<Orcamento>();
+		}
+		orcamento.setCliente(this);
+		orcamentos.add(orcamento);
+	}
+
+	public void deleteOrcamento(Orcamento orcamento){
+		if(orcamentos != null){
+			orcamentos.remove(orcamento);
+		}
+	}
+
+		
 	
 	public void  addEquipamento(Equipamento equipamento){
 		if (equipamentos == null){
@@ -82,7 +99,6 @@ public class Cliente implements Serializable{
 		}
 	}
 	
-
 	public String getCpf() {
 		return cpf;
 	}
@@ -172,5 +188,17 @@ public class Cliente implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
+	public List<Orcamento> getOrcamentos() {
+		return orcamentos;
+	}
 
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+		this.orcamentos = orcamentos;
+	}
+
+
+
+
+	
+	
 }

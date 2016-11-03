@@ -20,6 +20,7 @@ import br.com.papa.horizon.dao.ClienteDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.util.GsonExclusionStrategy;
+import br.com.papa.horizon.vo.ClienteVO;
 
 import com.google.gson.Gson;
 
@@ -50,9 +51,9 @@ public class ListaClienteController {
 				new GsonExclusionStrategy(Equipamento.class));
 		Map<String, Object> retorno = new HashMap<String, Object>();
 
-		List<Cliente> clientes = new ArrayList<Cliente>();
+		List<ClienteVO> clientes = new ArrayList<ClienteVO>();
 		try{
-			clientes = clienteDao.findAll();
+			clientes = clienteDao.buscarClientes();
 
 		}catch(Exception e){
 			System.out.println("ERRO AO LISTAR OS CLIENTES: "+ e);

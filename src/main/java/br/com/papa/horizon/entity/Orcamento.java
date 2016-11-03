@@ -14,9 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
@@ -49,22 +49,24 @@ public class Orcamento implements Serializable{
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
 	private StatusOrcamento statusOrcamento;
-		
+
 	@Column(name = "PONTOS")
 	private Integer pontos;
+
+	@OneToOne
+	@JoinColumn(name="ID_ESPECIALIDADE")
+	private Especialidade especialidade;
+
+	@OneToOne
+	@JoinColumn(name="ID_EQUIPAMENTO")
+	private Equipamento equipamento;
+
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "ID_CLIENTE")
+	private Cliente cliente;
 	
-    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_EQUIPAMENTO") //@JoinColumn(name = "pessoa_id")
-    private Equipamento equipamento;
-    
-    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_ESPECIALIDADE") //@JoinColumn(name = "pessoa_id")
-    private Especialidade especialidade;
-    
-    @OneToOne(cascade = CascadeType.MERGE, optional=false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CLIENTE") //@JoinColumn(name = "pessoa_id") 
-    private Cliente cliente;
 	
+
 	public Long getId_orcamento() {
 		return id_orcamento;
 	}
@@ -105,14 +107,6 @@ public class Orcamento implements Serializable{
 		this.statusOrcamento = statusOrcamento;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	public Equipamento getEquipamento() {
 		return equipamento;
 	}
@@ -136,17 +130,16 @@ public class Orcamento implements Serializable{
 	public void setPontos(Integer pontos) {
 		this.pontos = pontos;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	
 	
-
-	
-
-
-
-
-
-
-
 
 
 

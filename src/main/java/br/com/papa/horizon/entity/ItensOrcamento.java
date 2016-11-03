@@ -14,6 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * ATENCAO   ATENCAO
+ * ATENCAO ATENCAO
+ * ATENCAO ATENCAO
+ * ATENCAO ATENCAO
+ * ATENCAO ATENCAO
+ * ATENCAO ATENCAO
+ * ESTA É A ANTIGA CLASSE PECA_UTILIZADA
+ * 
+ * 
  * 
  * @author Henry O' Papa
  *
@@ -21,7 +30,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "peca_utilizada")
-public class PecaUtilizada implements Serializable{
+public class ItensOrcamento implements Serializable{
 
 	/**
 	 * 

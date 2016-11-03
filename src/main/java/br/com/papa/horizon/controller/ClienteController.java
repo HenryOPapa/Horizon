@@ -70,7 +70,7 @@ public class ClienteController {
 
 		try{
 			clienteDao.save(cliente);
-			email.enviaEmailCadastroCliente(cliente.getEmail());
+//			email.enviaEmailCadastroCliente(cliente.getEmail());
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR NOVO CLIENTE: " +e);
 			return new ResponseEntity<String>(gson.toJson(cliente), HttpStatus.INTERNAL_SERVER_ERROR);

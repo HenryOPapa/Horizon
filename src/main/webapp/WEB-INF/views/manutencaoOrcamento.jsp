@@ -94,7 +94,7 @@
 
 					<div class="col-sm-3 form-group input">
 						<label>Pontuação</label> <select class="form-control"
-							ng-model="formData.ponto">
+							ng-model="formData.orcamento.ponto">
 							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -115,13 +115,13 @@
 					<div class="col-sm-6 form-group">
 						<label>Relato</label>
 						<textarea rows="6" class="form-control" name="relato"
-							ng-model="screenData.orcamento.relato" disabled></textarea>
+							ng-model="formData.orcamento.relato" disabled></textarea>
 					</div>
 
 					<div class="col-sm-6 form-group">
 						<label>Observações</label>
 						<textarea rows="6" placeholder="OBSERVAÇÕES" class="form-control"
-							name="observacao" ng-model="screenData.orcamento.observacao"></textarea>
+							name="observacao" ng-model="formData.orcamento.observacao"></textarea>
 					</div>
 
 
@@ -174,7 +174,7 @@
 										<td scope="row">{{row.descricao}}</td>
 										<td><input type="number" ng-model="row.quantidade"
 											ng-change="calcula(row)" placeholder="Quantidade"></td>
-										<td>R$ {{row.valor * row.quantidade}}</td>
+										<td value="formData.orcamento.valorTotal">R$ {{row.valor * row.quantidade}}</td>
 										<td class="text-center"><span
 											class="glyphicon glyphicon-trash text-danger clickable"
 											ng-click="deletarItemLista($index)"></span></td>

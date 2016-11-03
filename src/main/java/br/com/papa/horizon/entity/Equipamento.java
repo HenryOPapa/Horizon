@@ -45,27 +45,12 @@ public class Equipamento implements Serializable{
 	
 	@Column(name = "NUMERO_SERIE")
 	private String numeroSerie;
-	
-	@OneToOne
-	private Orcamento orcamento;
-	
 
-	@GsonExclude
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 	
 	
-	
-
-	public Orcamento getOrcamento() {
-		return orcamento;
-	}
-
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
-
 	public Long getId_equipamento() {
 		return id_equipamento;
 	}

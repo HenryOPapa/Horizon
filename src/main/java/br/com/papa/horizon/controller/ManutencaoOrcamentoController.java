@@ -16,28 +16,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.papa.horizon.dao.ClienteDao;
-import br.com.papa.horizon.dao.EquipamentoDao;
-import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.dao.OrcamentoDao;
 import br.com.papa.horizon.dao.PecasDao;
 import br.com.papa.horizon.dao.ServicoDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
-import br.com.papa.horizon.entity.Estoque;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.PecaUtilizada;
+import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
+import br.com.papa.horizon.vo.ClienteVO;
+import br.com.papa.horizon.vo.EquipamentoVO;
+import br.com.papa.horizon.vo.EspecialidadeVO;
+import br.com.papa.horizon.vo.OrcamentoAuxiliarVO;
+import br.com.papa.horizon.vo.OrcamentoVO;
 
 import com.google.gson.Gson;
  
 
-//Este método irá abrir a tela passando a url localhost:8080/horizon/manutencaoOrcamento
-
+/****
+ *  @author Drackor
+ *
+ */
 @Controller
 @RequestMapping("manutencaoOrcamento")
 public class ManutencaoOrcamentoController {
@@ -52,11 +55,11 @@ public class ManutencaoOrcamentoController {
 
 		orcamentoDao = new OrcamentoDao();
 		Map<String, Object> retorno = new HashMap<String, Object>();
-		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
+		List<OrcamentoVO> orcamentos = new ArrayList<OrcamentoVO>();
 		
 		
 		try{		
-		 orcamentos =  orcamentoDao.findAll();
+		 orcamentos =  orcamentoDao.buscarOrcamentos();
 		}catch(Exception e){
 			System.out.println("ERRO AO CONSULTAR ORCAMENTOS: "+e);
 		}
@@ -66,47 +69,51 @@ public class ManutencaoOrcamentoController {
 	}
 	
 	
+	/**
+	 * 
+	 * @param orcamento Recebe o objeto orcamento selecionado na lista
+	 * @param httpSession
+	 * @return Atraves do ID irá recuperar os dados de orcamento assim como 
+	 * cliente, equipamento e especialidade vinculadas a ele, ira montar cada objeto
+	 * dentro de seu respectivo VO e enviar para o Front.
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/detalharOrcamento", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> detalharOrcamento(@RequestBody Orcamento orcamento , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
-		usuario = new Usuario();
-		Cliente cliente = new Cliente();
-		Equipamento equipamento = new Equipamento();
-		Especialidade especialidade = new Especialidade();
-		List<Orcamento> orcamentos = new ArrayList<Orcamento>();
-		List<Peca> pecas = new ArrayList<Peca>();
-		List<Servico> servicos = new ArrayList<Servico>();
-		
+		orcamentoDao = new OrcamentoDao();
 		usuario = (Usuario) httpSession.getAttribute("usuario");
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 
 		try{
-			cliente =  identificarCliente(orcamento.getIdCliente());
-			equipamento = identificarEquipamento(orcamento.getIdEquipamento());
-			especialidade = identificarEspecialidade(orcamento.getIdEspecialidade());
-			pecas = identificarPecas();
-			servicos = identificarServicos();
-						
+			orcamento = orcamentoDao.findById(orcamento.getId_orcamento());
+				
 		}catch(Exception e){
 			System.out.println("ERRO AO LOCALIZAR ITENS DE ORCAMENTO: " +e);
 			return new ResponseEntity<String>(gson.toJson(orcamento), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		
-		httpSession.setAttribute("cliente", cliente);
-		result.put("cliente", cliente);
-		result.put("equipamento", equipamento);
-		result.put("especialidade", especialidade);
-		result.put("orcamento", orcamento);
-		result.put("pecas", pecas);
-		result.put("servicos", servicos);
+		result.put("orcamento", createOrcamentoVO(orcamento));
+		result.put("cliente", createClienteVO(orcamento.getCliente()));
+		result.put("equipamento", createEquipamentoVO(orcamento.getEquipamento()));
+		result.put("especialidade", createEspecialidadeVO(orcamento.getEspecialidade()));
+		result.put("pecas", findPecas());
+		result.put("servicos", findServicos());
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	
-	
 
+
+	/**
+	 * 
+	 * @param peca Recebe a peça selecionadas na lista
+	 * @param httpSession
+	 * @return Apos adicionar a peca a lista de pecas utilizadas,
+	 * retorna para a tela as pecas ja cadastradas no orcamento
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "/adicionarPeca", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> adicionarPeca(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
@@ -114,8 +121,8 @@ public class ManutencaoOrcamentoController {
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();
-		PecaUtilizada itemDeServico = new PecaUtilizada();
-		List<PecaUtilizada> itensDeServico = new ArrayList<PecaUtilizada>();
+		ItensOrcamento itemDeServico = new ItensOrcamento();
+		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
 		
 
 		try{
@@ -134,15 +141,23 @@ public class ManutencaoOrcamentoController {
 	
 	
 
-
+	
+	/**
+	 * 
+	 * @param servico Recebe servico selecionado na lista
+	 * @param httpSession
+	 * @return Apos adicionar o servico na lista de servicos utilizados,
+	 * retorna para a tela os servicos ja cadastrados no orcamento
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/adicionarServico", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> adicionarServico(@RequestBody Servico servico , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();
-		PecaUtilizada itemDeServico = new PecaUtilizada();
-		List<PecaUtilizada> itensDeServico = new ArrayList<PecaUtilizada>();
+		ItensOrcamento itemDeServico = new ItensOrcamento();
+		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
 		
 
 		try{
@@ -158,6 +173,8 @@ public class ManutencaoOrcamentoController {
 		result.put("itensDeServico", itensDeServico);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
+	
+	
 	
 	@RequestMapping(value = "/salvarAlteracoesOrcamento", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> salvarOrcamento(@RequestBody Orcamento orcamento, HttpSession httpSession) throws Exception { 
@@ -184,6 +201,38 @@ public class ManutencaoOrcamentoController {
 	}
 	
 	@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> finalizar(@RequestBody OrcamentoAuxiliarVO orcamentoAuxiliarVO,
+										@RequestParam(value = "valorTotal") Double valorTotal, HttpSession httpSession) throws Exception { 
+
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		orcamentoDao = new OrcamentoDao();	
+		Orcamento orcamento = new Orcamento();
+		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
+		Cliente cliente = new Cliente();
+		cliente = (Cliente) httpSession.getAttribute("cliente");
+
+		try{
+			
+			for (int i = 0; i < orcamentoAuxiliarVO.getItensOrcamento().size(); i++) {
+				orcamentoAuxiliarVO.getItensOrcamento().get(i).setIdOrcamento(orcamento.getId_orcamento());
+				orcamento.setValorTotal(valorTotal);
+			}	
+			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
+			orcamentoDao.update(orcamento);
+//			orcamentoDao.enviarEmailCliente(cliente, orcamento);
+			orcamentoDao.salvarItensDeOrcamento(orcamentoAuxiliarVO.getItensOrcamento());
+			httpSession.removeAttribute("cliente");
+
+		}catch(Exception e){
+			System.out.println("ERRO: " +e);
+			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	}
+	
+	/*@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> finalizar(@RequestBody List<PecaUtilizada> itensDeServico,
 										@RequestParam(value = "valorTotal") Double valorTotal, HttpSession httpSession) throws Exception { 
 
@@ -213,7 +262,7 @@ public class ManutencaoOrcamentoController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-	}
+	}*/
 
 
 	
@@ -225,74 +274,55 @@ public class ManutencaoOrcamentoController {
 	 * ############################################################################################### 
 	 */
 	
-	private List<Servico> identificarServicos() {
-		ServicoDao dao = new ServicoDao();
-		return dao.findAll();
-	}
-	
-	private List<Peca> identificarPecas() {
+
+	private Object findPecas() {
 		PecasDao dao = new PecasDao();
 		return dao.findAll();
 	}
 	
-	private Especialidade identificarEspecialidade(Long idEspecialidade) {
-		EspecialidadeDao dao = new EspecialidadeDao();
-		Especialidade especialidade = new Especialidade();
-		especialidade = dao.findById(idEspecialidade);
 	
-		return especialidade;
+	private Object findServicos() {
+		ServicoDao dao = new ServicoDao();
+		return dao.findAll();
 	}
 	
 	
-	private Equipamento identificarEquipamento(Long idEquipamento) {
-		EquipamentoDao dao = new EquipamentoDao();
-		Equipamento equipamento = new Equipamento();
-		Equipamento retorno= new Equipamento();
-		retorno = dao.findById(idEquipamento);
-		equipamento.setId_equipamento(retorno.getId_equipamento());
-		equipamento.setMarca(retorno.getMarca());
-		equipamento.setModelo(retorno.getModelo());
-		equipamento.setNumeroSerie(retorno.getNumeroSerie());
-		equipamento.setTipoEquipamento(retorno.getTipoEquipamento());
-		return equipamento;
+	private Object createEspecialidadeVO(Especialidade especialidade) {
+		EspecialidadeVO especialidadeVO = new EspecialidadeVO();
+		especialidadeVO.setId_especialidade(especialidade.getId_especialidade());
+		especialidadeVO.setDescricao(especialidade.getDescricao());
+		return especialidadeVO;
 	}
 	
 	
-	private Cliente identificarCliente(Long idCliente) {
-		ClienteDao dao = new ClienteDao();
-		Cliente cliente = new Cliente();
-		Cliente retorno = new Cliente();
-		retorno = dao.findById(idCliente);
-		cliente.setCep(retorno.getCep());
-		cliente.setCidade(retorno.getCidade());
-		cliente.setCpf(retorno.getCpf());
-		cliente.setDataNascimento(retorno.getDataNascimento());
-		cliente.setEmail(retorno.getEmail());
-		cliente.setId_cliente(retorno.getId_cliente());
-		cliente.setNome(retorno.getNome());
-		cliente.setTelefone(retorno.getTelefone());
-		
-		return cliente;
+	private Object createEquipamentoVO(Equipamento equipamento) {
+		EquipamentoVO equipamentoVO = new EquipamentoVO();
+		equipamentoVO.setId_equipamento(equipamento.getId_equipamento());
+		equipamentoVO.setMarca(equipamento.getMarca());
+		equipamentoVO.setModelo(equipamento.getModelo());
+		equipamentoVO.setNumeroSerie(equipamento.getNumeroSerie());
+		equipamentoVO.setTipoEquipamento(equipamento.getTipoEquipamento());
+		return equipamentoVO;
 	}
 	
+	
+	private Object createClienteVO(Cliente cliente) {
+		ClienteVO clienteVO = new ClienteVO();
+		clienteVO.setId(cliente.getId_cliente());
+		clienteVO.setNome(cliente.getNome());
+		clienteVO.setCpf(cliente.getCpf());
+		return clienteVO;
+	}
 
-//	
-//	private void adicionarPeca(PecaUtilizada itemDeServico) {
-//		Peca peca = new Peca();
-//		peca.setDescricao(itemDeServico.getDescricao());
-//		peca.setQuantidadeMinima(itemDeServico.getQuantidade());
-//		peca.setValor(itemDeServico.getValor());
-//		this.pecasUtilizadasOrcamento.add(peca);
-//		
-//	}
-//	
-//	private void adicionarServico() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-
-
-
+	private Object createOrcamentoVO(Orcamento orcamento) {
+		OrcamentoVO orcamentoVO = new OrcamentoVO();
+		orcamentoVO.setObservacao(orcamento.getObservacao());
+		orcamentoVO.setPontos(orcamento.getPontos());
+		orcamentoVO.setRelato(orcamento.getRelato());
+		orcamentoVO.setStatusOrcamento(orcamento.getStatusOrcamento());
+		orcamentoVO.setValorTotal(orcamento.getValorTotal());
+		orcamentoVO.setId_orcamento(orcamento.getId_orcamento());
+		return orcamentoVO;
+	}
 
 }
