@@ -46,6 +46,7 @@ import com.google.gson.Gson;
 public class ManutencaoOrcamentoController {
 	OrcamentoDao orcamentoDao;
 	Usuario usuario;
+	
 	List<Peca> pecasUtilizadasOrcamento = new ArrayList<Peca>();
 	List<Servico> servicosUtilizadosOrcamento = new ArrayList<Servico>();
 	
@@ -85,6 +86,8 @@ public class ManutencaoOrcamentoController {
 		orcamentoDao = new OrcamentoDao();
 		usuario = (Usuario) httpSession.getAttribute("usuario");
 		Map<String, Object> result = new HashMap<String, Object>();
+		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
+
 		
 
 		try{
@@ -101,6 +104,7 @@ public class ManutencaoOrcamentoController {
 		result.put("especialidade", createEspecialidadeVO(orcamento.getEspecialidade()));
 		result.put("pecas", findPecas());
 		result.put("servicos", findServicos());
+		result.put("itensDeServico", itensDeServico);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	
@@ -116,26 +120,21 @@ public class ManutencaoOrcamentoController {
 	 */
 
 	@RequestMapping(value = "/adicionarPeca", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> adicionarPeca(@RequestBody Peca peca , HttpSession httpSession) throws Exception { 
+	public ResponseEntity<?> adicionarPeca(@RequestBody ItensOrcamento itemDeServico , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();
-		ItensOrcamento itemDeServico = new ItensOrcamento();
-		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
 		
 
 		try{
-			itemDeServico = orcamentoDao.localizarPecaUnica(peca.getIdPeca()); 
-			peca = orcamentoDao.localizaPecaUnica(peca.getIdPeca());
-			this.pecasUtilizadasOrcamento.add(peca);
+
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);
 			return new ResponseEntity<String>(gson.toJson(itemDeServico), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		result.put("itemDeServico", itemDeServico);
-		result.put("itensDeServico", itensDeServico);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	
@@ -201,8 +200,7 @@ public class ManutencaoOrcamentoController {
 	}
 	
 	@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> finalizar(@RequestBody OrcamentoAuxiliarVO orcamentoAuxiliarVO,
-										@RequestParam(value = "valorTotal") Double valorTotal, HttpSession httpSession) throws Exception { 
+	public ResponseEntity<?> finalizar(@RequestBody OrcamentoAuxiliarVO orcamentoAuxiliarVO, HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -211,17 +209,17 @@ public class ManutencaoOrcamentoController {
 		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
 		Cliente cliente = new Cliente();
 		cliente = (Cliente) httpSession.getAttribute("cliente");
-
+		
+		for (ItensOrcamento item : orcamentoAuxiliarVO.getItensOrcamento()){
+			item.setIdItemOrcamento(orcamentoAuxiliarVO.getOrcamento().getId_orcamento());
+		}
+		
 		try{
 			
-			for (int i = 0; i < orcamentoAuxiliarVO.getItensOrcamento().size(); i++) {
-				orcamentoAuxiliarVO.getItensOrcamento().get(i).setIdOrcamento(orcamento.getId_orcamento());
-				orcamento.setValorTotal(valorTotal);
-			}	
+			orcamentoDao.salvarItensDeOrcamento(orcamentoAuxiliarVO.getItensOrcamento());		
 			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
 			orcamentoDao.update(orcamento);
 //			orcamentoDao.enviarEmailCliente(cliente, orcamento);
-			orcamentoDao.salvarItensDeOrcamento(orcamentoAuxiliarVO.getItensOrcamento());
 			httpSession.removeAttribute("cliente");
 
 		}catch(Exception e){

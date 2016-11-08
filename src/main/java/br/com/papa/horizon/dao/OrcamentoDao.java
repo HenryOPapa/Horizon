@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
+import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.util.Email;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
@@ -43,18 +43,12 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 
 	public Cliente procuraPorCpf(String cpf){
 		ClienteDao dao = new ClienteDao();
-		return dao.procuraPorCpf(cpf);
-	}
-	
-	public void atualizaCliente(Cliente cliente){
-		ClienteDao dao = new ClienteDao();
-		dao.update(cliente);
+		return dao.findByCPF(cpf);
 	}
 	
 	public Peca localizaPecaUnica(Long id){
 		PecasDao dao = new PecasDao();
-		return dao.findById(id);
-		
+		return dao.findById(id);		
 	}
 	
 	public Servico localizarServicoUnico(Long id){
@@ -82,12 +76,15 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return dao.findAll();
 	}
 
-
-
 	public List<Peca> localizarPecas(){
 		PecasDao dao = new PecasDao();
 		List<Peca> pecas = dao.findAll();		
 		return pecas;
+	}
+	
+	public void salvarItensDeOrcamento(List<ItensOrcamento> itensOrcamento){
+		ItensOrcamentoDao dao = new ItensOrcamentoDao();
+		dao.saveList(itensOrcamento);
 	}
 	
 	public ItensOrcamento localizarPecaUnica(Long idPeca){
@@ -108,11 +105,6 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return itemDeServico;
 	}
 	
-	public void salvarItensDeOrcamento(List<ItensOrcamento> itensDeOrcamento){
-		PecaUtilizadaDao dao = new PecaUtilizadaDao();
-		dao.saveList(itensDeOrcamento);
-	}
-	
 	public void enviarEmailCliente(Cliente cliente, Orcamento orcamento) throws EmailException{
 		Email email = new Email();
 		email.enviaEmailOrcamento(cliente.getEmail(), orcamento);
@@ -125,8 +117,7 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		Root<Orcamento> from = criteria.from(Orcamento.class);
 		criteria.where(builder.equal(from.get("statusOrcamento"), statusOrcamento));
 		Query query = getEntityManager().createQuery(criteria);
-		return query.getResultList();
-		
+		return query.getResultList();		
 	}
 	
 	public List<ItensOrcamento> getItensDeServico(Long idOrcamento){
@@ -136,7 +127,6 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		criteria.where(builder.equal(from.get("idOrcamento"), idOrcamento));
 		Query query = getEntityManager().createQuery(criteria);
 		return query.getResultList();
-		
 	}
 	
 	

@@ -186,7 +186,7 @@ public abstract class GenericDao <T extends Serializable>{
 		
 		for (int i = 0; i < entities.size(); i++) {
 			manager.getTransaction().begin();
-			manager.persist(entities.get(i));
+			manager.merge(entities.get(i));
 			manager.getTransaction().commit();
 			
 		}

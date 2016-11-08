@@ -29,7 +29,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "peca_utilizada")
+@Table(name = "ITEM_ORCAMENTO")
 public class ItensOrcamento implements Serializable{
 
 	/**
@@ -39,8 +39,8 @@ public class ItensOrcamento implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_PECA_UTILIZADA")
-	private Long id_pecaUtilizada;
+	@Column(name = "ID_ITEM_ORCAMENTO")
+	private Long idItemOrcamento;
 
 	@Column(name = "DESCRICAO", nullable = false, length = 30)
 	private String descricao;
@@ -50,17 +50,27 @@ public class ItensOrcamento implements Serializable{
 
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
+	
+	@Column(name = "VALOR_TOTAL")
+	private double valorTotal;
 
 	@Column(name = "ID_ORCAMENTO")
 	private Long idOrcamento;
 
-
-	public Long getId_pecaUtilizada() {
-		return id_pecaUtilizada;
+	public double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setId_pecaUtilizada(Long id_pecaUtilizada) {
-		this.id_pecaUtilizada = id_pecaUtilizada;
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Long getIdItemOrcamento() {
+		return idItemOrcamento;
+	}
+
+	public void setIdItemOrcamento(Long idItemOrcamento) {
+		this.idItemOrcamento = idItemOrcamento;
 	}
 
 	public String getDescricao() {

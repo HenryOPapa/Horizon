@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * 
@@ -33,6 +37,16 @@ public class ClienteDao extends GenericDao<Cliente>{
 	public Cliente procuraPorCpf(String cpf){
 		String jpql = "from Cliente c where c.cpf like ?";
 		return (Cliente) findOne(jpql, cpf);
+	}
+	
+	public Cliente findByCPF(String idCliente){
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+		Root<Cliente> from = criteria.from(Cliente.class);
+		criteria.where(builder.equal(from.get("id_cliente"),idCliente ));
+		Query query = getEntityManager().createQuery(criteria);
+		return (Cliente) query.getSingleResult();
+		
 	}
 	
 	public Cliente achaCliente(String cpf){

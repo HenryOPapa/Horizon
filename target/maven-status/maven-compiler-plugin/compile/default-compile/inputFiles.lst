@@ -1,4 +1,5 @@
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Cliente.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\ItensOrcamento.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\vo\EquipamentoVO.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\PecasDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\UsuarioDao.java
@@ -8,9 +9,9 @@ C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\vo\PessoaVO.
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\OrcamentoDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\LOGMainController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\PecaOrdemServico.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Orcamento.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\LoginController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Especialidade.java
-C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Orcamento.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\log\LOGNotaFiscalDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\OrdemDeServico.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\OrdemDeServicoDao.java
@@ -38,14 +39,15 @@ C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\M
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Enum.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Filter.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\GenericDao.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\vo\EspecialidadeVO.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\GsonUtil.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\util\Util.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\ListaFuncionarioController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Funcionario.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\OrcamentoCadastroController.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\controller\EstoqueController.java
-C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\ClienteDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Servico.java
+C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\ClienteDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\dao\EspecialidadeDao.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\entity\Peca.java
 C:\Users\Drackor\NewWorld\horizon\src\main\java\br\com\papa\horizon\vo\OrcamentoAuxiliarVO.java
