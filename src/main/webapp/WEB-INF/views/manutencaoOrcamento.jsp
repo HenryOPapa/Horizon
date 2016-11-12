@@ -95,7 +95,7 @@
 
 				<div class="col-sm-3 form-group input">
 					<label>Pontuação</label> <select class="form-control"
-						ng-model="formData.orcamento.ponto">
+						ng-model="formData.orcamento.pontos">
 						<option value="0">0</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -190,7 +190,7 @@
 
 					</tbody>
 				</table>
-				<div class="col-sm-10 text-right">Total: R$ {{valorFinal}}</div>
+				<div class="col-sm-10 text-right">Total: R$ {{valorTotal}}</div>
 
 			</div>
 			<div class="col-sm-12 form-group text-rigth" ng-cloak>

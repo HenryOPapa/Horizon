@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.OrcamentoDao;
@@ -22,9 +21,9 @@ import br.com.papa.horizon.dao.ServicoDao;
 import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
+import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Servico;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
@@ -206,21 +205,22 @@ public class ManutencaoOrcamentoController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		orcamentoDao = new OrcamentoDao();	
 		Orcamento orcamento = new Orcamento();
-		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
-		Cliente cliente = new Cliente();
-		cliente = (Cliente) httpSession.getAttribute("cliente");
+		orcamento = orcamentoDao.findById(orcamentoAuxiliarVO.getOrcamento().getId_orcamento());
+		double valorTotal = 0;
+		
 		
 		for (ItensOrcamento item : orcamentoAuxiliarVO.getItensOrcamento()){
-			item.setIdItemOrcamento(orcamentoAuxiliarVO.getOrcamento().getId_orcamento());
+			item.setIdOrcamento(orcamento.getId_orcamento());
+			valorTotal += item.getValorTotal();
 		}
-		
+		orcamento.setObservacao(orcamentoAuxiliarVO.getOrcamento().getObservacao());
+		orcamento.setPontos(orcamentoAuxiliarVO.getOrcamento().getPontos());
+		orcamento.setValorTotal(valorTotal);
+		orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
 		try{
-			
 			orcamentoDao.salvarItensDeOrcamento(orcamentoAuxiliarVO.getItensOrcamento());		
-			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
 			orcamentoDao.update(orcamento);
 //			orcamentoDao.enviarEmailCliente(cliente, orcamento);
-			httpSession.removeAttribute("cliente");
 
 		}catch(Exception e){
 			System.out.println("ERRO: " +e);

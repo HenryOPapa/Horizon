@@ -7,7 +7,7 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 	$scope.showDetalheOrcamento = false;
 	$scope.showListPecaServico = false;
 	$scope.screenData.itensDeServico = [];	
-	$scope.valorFinal = 0;
+	$scope.valorTotal = 0.0;
 
 	$scope.init = function() {
 		$scope.screenData = RETORNO;
@@ -15,14 +15,14 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 	}
 	
 	$scope.calcula = function(row){
-		row.valorFinal = Number (row.valor * row.quantidade);
+		row.valorTotal = Number (row.valor * row.quantidade);
 		atualizaLista();
 	}
 	
 	function atualizaLista(){
-		$scope.valorFinal = 0;
+		$scope.valorTotal = 0;
 		for(var i=0; i < $scope.screenData.itensDeServico.length; i++){
-			$scope.valorFinal += Number($scope.screenData.itensDeServico[i].valorFinal);
+			$scope.valorTotal += Number($scope.screenData.itensDeServico[i].valorTotal);
 		}
 	}
 	
@@ -85,7 +85,7 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 				'pontos' : $scope.formData.ponto,
 				'observacao' :$scope.screenData.orcamento.observacao,
 				'id_orcamento' : $scope.screenData.orcamento.id_orcamento,
-				'valorTotal' : $scope.valorFinal
+				'valorTotal' : $scope.valorTotal
 		}
 
 		$http.post($scope.path + 'salvarAlteracoesOrcamento',params).then(
