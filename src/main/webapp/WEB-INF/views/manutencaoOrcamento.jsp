@@ -35,7 +35,8 @@
 					<tbody>
 						<tr class="clickable"
 							ng-repeat="row in screenData.orcamentos | filter:valorFiltro"
-							ng-click="detalharOrcamento(row)">
+							ng-click="detalharOrcamento(row)"
+							ng-show="row.statusOrcamento == 'EM_ABERTO'">
 							<td scope="row">{{row.id_orcamento}}</td>
 							<td>{{row.relato}}</td>
 							<td>{{row.statusOrcamento}}</td>
@@ -195,9 +196,7 @@
 			</div>
 			<div class="col-sm-12 form-group text-rigth" ng-cloak>
 				<input type="button" class="btn btn-danger bt"
-					ng-click="limparLista()" value="Limpar"> <input
-					type="button" class="btn btn-primary bt"
-					ng-click="salvarAlteracoesOrcamento()" value="Salvar Alterações">
+					ng-click="limparLista()" value="Limpar">
 				<input type="button" class="btn btn-default bt"
 					ng-click="finalizar()" value="Finalizar">
 			</div>

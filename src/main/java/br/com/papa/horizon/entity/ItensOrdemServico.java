@@ -40,8 +40,9 @@ public class ItensOrdemServico implements Serializable{
 	@Column(name = "QUANTIDADE", nullable = false)
 	private int quantidade;
 
-	@Column(name = "ID_OS")
-	private Long idOS;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "ID_ORDEM_SERVICO")
+	private OrdemDeServico ordemDeServico;
 
 
 	public Long getIdItemServico() {
@@ -68,12 +69,14 @@ public class ItensOrdemServico implements Serializable{
 		this.valor = valor;
 	}
 
-	public Long getIdOS() {
-		return idOS;
+
+
+	public OrdemDeServico getOrdemDeServico() {
+		return ordemDeServico;
 	}
 
-	public void setIdOS(Long idOS) {
-		this.idOS = idOS;
+	public void setOrdemDeServico(OrdemDeServico ordemDeServico) {
+		this.ordemDeServico = ordemDeServico;
 	}
 
 	public int getQuantidade() {

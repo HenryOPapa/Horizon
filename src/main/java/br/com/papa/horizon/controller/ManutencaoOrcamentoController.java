@@ -173,31 +173,6 @@ public class ManutencaoOrcamentoController {
 	}
 	
 	
-	
-	@RequestMapping(value = "/salvarAlteracoesOrcamento", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> salvarOrcamento(@RequestBody Orcamento orcamento, HttpSession httpSession) throws Exception { 
-
-		Gson gson = new Gson();
-		Map<String, Object> result = new HashMap<String, Object>();
-		orcamentoDao = new OrcamentoDao();		
-
-		try{
-			Integer ponto = orcamento.getPontos();
-			String observacao = orcamento.getObservacao();
-			orcamento = orcamentoDao.findById(orcamento.getId_orcamento()); 
-			orcamento.setPontos(ponto);
-			orcamento.setObservacao(observacao);
-			orcamentoDao.update(orcamento);
-			httpSession.setAttribute("orcamento", orcamento);
-
-		}catch(Exception e){
-			System.out.println("ERRO: " +e);
-			return new ResponseEntity<String>(gson.toJson(orcamento), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-	}
-	
 	@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> finalizar(@RequestBody OrcamentoAuxiliarVO orcamentoAuxiliarVO, HttpSession httpSession) throws Exception { 
 
@@ -229,41 +204,6 @@ public class ManutencaoOrcamentoController {
 
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
-	
-	/*@RequestMapping(value = "/finalizar", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> finalizar(@RequestBody List<PecaUtilizada> itensDeServico,
-										@RequestParam(value = "valorTotal") Double valorTotal, HttpSession httpSession) throws Exception { 
-
-		Gson gson = new Gson();
-		Map<String, Object> result = new HashMap<String, Object>();
-		orcamentoDao = new OrcamentoDao();	
-		Orcamento orcamento = new Orcamento();
-		orcamento = (Orcamento) httpSession.getAttribute("orcamento");
-		Cliente cliente = new Cliente();
-		cliente = (Cliente) httpSession.getAttribute("cliente");
-
-		try{
-			
-			for (int i = 0; i < itensDeServico.size(); i++) {
-				itensDeServico.get(i).setIdOrcamento(orcamento.getId_orcamento());
-				orcamento.setValorTotal(valorTotal);
-			}	
-			orcamento.setStatusOrcamento(StatusOrcamento.CONCLUIDO);
-			orcamentoDao.update(orcamento);
-			orcamentoDao.enviarEmailCliente(cliente, orcamento);
-			orcamentoDao.salvarItensDeOrcamento(itensDeServico);
-			httpSession.removeAttribute("cliente");
-
-		}catch(Exception e){
-			System.out.println("ERRO: " +e);
-			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-	}*/
-
-
-	
 
 
 	/*

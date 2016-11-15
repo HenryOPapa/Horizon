@@ -22,7 +22,7 @@ public class Enum {
 	}
 	
 	public enum StatusOrdemDeServico{
-		BACKLOG, TODO, WIP, IMPEDIMENT, DONE
+		TODO, WIP, DONE
 	}
 	
 }

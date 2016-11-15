@@ -111,13 +111,13 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 	}
 	
 
-	public List<Orcamento> getOrcamentosConcluidos(StatusOrcamento statusOrcamento){
+	public List<OrcamentoVO> getOrcamentosConcluidos(StatusOrcamento statusOrcamento){
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Orcamento> criteria = builder.createQuery(Orcamento.class);
 		Root<Orcamento> from = criteria.from(Orcamento.class);
 		criteria.where(builder.equal(from.get("statusOrcamento"), statusOrcamento));
 		Query query = getEntityManager().createQuery(criteria);
-		return query.getResultList();		
+		return populateOrcamentoVO(query.getResultList());		
 	}
 	
 	public List<ItensOrcamento> getItensDeServico(Long idOrcamento){

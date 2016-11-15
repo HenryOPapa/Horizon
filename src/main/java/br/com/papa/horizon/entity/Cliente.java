@@ -69,6 +69,10 @@ public class Cliente implements Serializable{
 	@JoinColumn(name="ID_CLIENTE")
 	private List<Orcamento> orcamentos;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="ID_CLIENTE")
+	private List<OrdemDeServico> ordensDeServico ;
+	
 	public void  addOrcamento(Orcamento orcamento){
 		if (orcamentos == null){
 			orcamentos = new ArrayList<Orcamento>();
@@ -82,9 +86,21 @@ public class Cliente implements Serializable{
 			orcamentos.remove(orcamento);
 		}
 	}
-
-		
 	
+	public void  addOrdemServico(OrdemDeServico ordemDeServico){
+		if (ordensDeServico == null){
+			ordensDeServico = new ArrayList<OrdemDeServico>();
+		}
+		ordemDeServico.setCliente(this);
+		ordensDeServico.add(ordemDeServico);
+	}
+
+	public void deleteOrdemServico(OrdemDeServico ordemDeServico){
+		if(ordensDeServico != null){
+			ordensDeServico.remove(ordemDeServico);
+		}
+	}
+
 	public void  addEquipamento(Equipamento equipamento){
 		if (equipamentos == null){
 			equipamentos = new ArrayList<Equipamento>();

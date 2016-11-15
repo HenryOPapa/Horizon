@@ -18,10 +18,6 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 	$scope.detalharOrcamento = function(row) {
 		var params = {
 				'id_orcamento': row.id_orcamento,
-				'relato' : row.relato,
-				'observacao' : row.observacao,
-				'idCliente' : row.idCliente,
-				'idEquipamento' : row.idEquipamento,
 		}
 
 		$http.post($scope.path + 'detalharOrcamento', params).then(
@@ -30,7 +26,7 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 						$scope.screenData.orcamento = response.data.orcamento,
 						$scope.screenData.cliente = response.data.cliente,
 						$scope.screenData.equipamento = response.data.equipamento,
-						$scope.screenData.itensDeServico = response.data.itensDeServico,
+						$scope.screenData.itensOrcamento = response.data.itensOrcamento,
 						$scope.showListOrcamento = false;
 						$scope.showOrcamento = true;
 
@@ -53,13 +49,13 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 		$http.post($scope.path + 'aprovarOrcamento', params).then(
 				function(response) {
 					if (response.status == 200) {
-						$scope.screenData.orcamento = response.data.orcamento,
-						$scope.screenData.cliente = response.data.cliente,
-						$scope.screenData.equipamento = response.data.equipamento,
-						$scope.screenData.itensDeServico = response.data.itensDeServico,
+//						$scope.screenData.orcamento = response.data.orcamento,
+//						$scope.screenData.cliente = response.data.cliente,
+//						$scope.screenData.equipamento = response.data.equipamento,
+//						$scope.screenData.itensDeServico = response.data.itensDeServico,
 						$scope.showListOrcamento = false;
 						$scope.showOrcamento = true;
-//						location.reload();
+						location.reload();
 
 					}else{
 						erroDetalharOrcamento.style.display = "block";
@@ -81,18 +77,11 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 			$http.post($scope.path + 'reprovarOrcamento', params).then(
 					function(response) {
 						if (response.status == 200) {
-							reprovarOrcamentoSucesso.style.display = "block";
-							setTimeout(function(){
-								reprovarOrcamentoSucesso.style.display = "none";
-							},5000);
+//							reprovarOrcamentoSucesso.style.display = "block";
+//							setTimeout(function(){
+//								reprovarOrcamentoSucesso.style.display = "none";
+//							},5000);
 							location.reload();
-
-						}else{
-							reprovarOrcamentoErro.style.display = "block";
-							setTimeout(function(){
-								reprovarOrcamentoErro.style.display = "none";
-							},5000);
-
 						}
 					}
 			);	

@@ -80,34 +80,6 @@ app.controller('ManutencaoOrcamentoController', ['$scope', '$http', function($sc
 
 	}
 	
-	$scope.salvarAlteracoesOrcamento = function() {
-		var params = {
-				'pontos' : $scope.formData.ponto,
-				'observacao' :$scope.screenData.orcamento.observacao,
-				'id_orcamento' : $scope.screenData.orcamento.id_orcamento,
-				'valorTotal' : $scope.valorTotal
-		}
-
-		$http.post($scope.path + 'salvarAlteracoesOrcamento',params).then(
-				function(response) {
-					if (response.status == 200) {
-						sucessoSalvarAlteracoes.style.display = "block";
-						setTimeout(function(){
-							sucessoSalvarAlteracoes.style.display = "none";
-						},5000);					
-						
-					}else{
-						erroSalvarAlteracoes.style.display = "block";
-						setTimeout(function(){
-							erroSalvarAlteracoes.style.display = "none";
-						},5000);
-					}
-
-				}
-
-		);
-	}
-	
 	$scope.finalizar = function() {
 		var params = {};
 		params.itensOrcamento = $scope.screenData.itensDeServico;

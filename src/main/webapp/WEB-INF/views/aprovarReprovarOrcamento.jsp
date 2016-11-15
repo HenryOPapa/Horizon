@@ -109,13 +109,13 @@
 						<tr>
 							<th>Descrição</th>
 							<th>Quantidade</th>
-							<th>Valor</th>
-							<th>Total</th>
+							<th>Valor Unitário</th>
+							<th>Valor Total</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="clickable"
-							ng-repeat="row in screenData.itensDeServico | filter:valorFiltro"
+							ng-repeat="row in screenData.itensOrcamento"
 							ng-click="detalharOrcamento(row)">
 							<td scope="row">{{row.descricao}}</td>
 							<td>{{row.quantidade}}</td>
