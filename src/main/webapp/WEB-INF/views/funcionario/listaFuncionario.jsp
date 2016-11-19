@@ -52,7 +52,7 @@
 								<td>{{row.cpf}}</td>
 								<td>{{row.telefone}}</td>
 								<td>{{row.email}}</td>
-								<td>{{row.especialidade}}</td>
+								<td>{{row.especiliadade}}</td>
 								<td class="text-center"><span
 									class="glyphicon glyphicon-pencil text-primary clickable"
 									ng-click="atualizaFuncionario(row)"></span></td>

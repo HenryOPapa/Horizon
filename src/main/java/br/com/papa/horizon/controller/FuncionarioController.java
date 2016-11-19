@@ -25,6 +25,7 @@ import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.Funcionario;
 import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Email;
+import br.com.papa.horizon.vo.DadosPadraoVO;
 
 import com.google.gson.Gson;
 
@@ -41,13 +42,20 @@ public class FuncionarioController extends Exception{
 	private FuncionarioDao funcionarioDao;
 
 	@RequestMapping
-	public ModelAndView cadastroFuncionario(){
+	public ModelAndView cadastroFuncionario(HttpSession session){
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) session.getAttribute("dadosPadraoVO");
+		
 		funcionarioDao = new FuncionarioDao();
 		List<Especialidade> especialidades = funcionarioDao.localizarEspecialidade();
 		retorno.put("especialidades", especialidades);
-		return new ModelAndView("funcionario/funcionarioCadastro").addObject("result",gson.toJson(retorno));
+		
+		if("total".equals(dadosPadraoVO.getUsuario().getNivelAcesso())){
+			return new ModelAndView("funcionario/funcionarioCadastro").addObject("result",gson.toJson(retorno));			
+		}else{
+			return new ModelAndView("onlyAdmin").addObject("result",gson.toJson(retorno));			
+		}
 	}
 
 

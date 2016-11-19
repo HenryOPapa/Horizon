@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.FuncionarioDao;
-import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Funcionario;
+import br.com.papa.horizon.vo.DadosPadraoVO;
+import br.com.papa.horizon.vo.FuncionarioVO;
 
 import com.google.gson.Gson;
 
@@ -35,14 +36,21 @@ public class ListaFuncionarioController {
 	
 	
 	@RequestMapping
-	public ModelAndView cadastroFuncionario(){
+	public ModelAndView cadastroFuncionario(HttpSession session){
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
-		List<Funcionario> funcionarios = funcionarioDao.findAll();
+		List<FuncionarioVO> funcionarios = funcionarioDao.localizarFuncionarios();
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) session.getAttribute("dadosPadraoVO");
+
 		
 		retorno.put("funcionarios", funcionarios);
 		
-		return new ModelAndView("funcionario/listaFuncionario").addObject("result",gson.toJson(retorno));
+		if("total".equals(dadosPadraoVO.getUsuario().getNivelAcesso())){
+			return new ModelAndView("funcionario/listaFuncionario").addObject("result",gson.toJson(retorno));
+		}else{
+			return new ModelAndView("onlyAdmin").addObject("result",gson.toJson(null));			
+		}
+		
 	}
 	
 	

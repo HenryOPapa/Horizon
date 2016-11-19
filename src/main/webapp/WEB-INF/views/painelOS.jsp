@@ -46,7 +46,7 @@
 												ng-click=""></span></td>
 											<td class="text-center"><span
 												class="glyphicon glyphicon-play text-primary clickable"
-												ng-click=""></span></td>
+												ng-click="iniciarTarefa()"></span></td>
 										</tr>
 									</tbody>
 								</table>

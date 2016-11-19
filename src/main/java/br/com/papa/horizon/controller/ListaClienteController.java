@@ -21,6 +21,7 @@ import br.com.papa.horizon.entity.Cliente;
 import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.util.GsonExclusionStrategy;
 import br.com.papa.horizon.vo.ClienteVO;
+import br.com.papa.horizon.vo.DadosPadraoVO;
 
 import com.google.gson.Gson;
 
@@ -44,12 +45,14 @@ public class ListaClienteController {
 	 * http://localhost:8080/horizon/listaClientes
 	 */
 	@RequestMapping
-	public ModelAndView listaClientes()throws Exception{
+	public ModelAndView listaClientes(HttpSession session)throws Exception{
 
 		Gson gson = new Gson();
 		gson = GsonExclusionStrategy.createGsonFromBuilder(
 				new GsonExclusionStrategy(Equipamento.class));
 		Map<String, Object> retorno = new HashMap<String, Object>();
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) session.getAttribute("dadosPadraoVO");
+
 
 		List<ClienteVO> clientes = new ArrayList<ClienteVO>();
 		try{
@@ -61,8 +64,11 @@ public class ListaClienteController {
 
 		retorno.put("clientes", clientes);
 
+
+
 		return new ModelAndView("cliente/listaCliente").addObject("result",
-				gson.toJson(retorno));
+				gson.toJson(retorno));		
+		
 	}
 
 	@RequestMapping(value = "/atualizarCliente", method = RequestMethod.POST, produces = "application/json")
