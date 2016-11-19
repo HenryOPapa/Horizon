@@ -54,7 +54,7 @@ var RETORNO = ${result}
 					<li><a href="listaClientes">Lista de Clientes</a></li>
 				</ul></li>
 
-			<li class="dropdown" ng-show="screenData.dadosPadraoVO.usuario.nivelAcesso == 'total'"><a href="#" class="dropdown-toggle"
+			<li class="dropdown" ng-show=""><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false"><label>Funcionário</label><span
 					class="caret"></span></a>

@@ -4,7 +4,9 @@
 <body>
 	<%@ include file="../cabecalho.jsp"%>
 	<main> 
-	
+	<div class="container" ng-controller="MenuController"
+		ng-init="init()">
+	</div>
 	
 	</main>
 	<%@ include file="../rodape.jsp"%>

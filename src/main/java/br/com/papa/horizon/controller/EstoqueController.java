@@ -73,7 +73,7 @@ public class EstoqueController {
 	 * 
 	 */
 	@RequestMapping(value = "/atualizarEstoque", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> cadastrarPeca(@RequestBody Estoque estoque , HttpSession httpSession) throws Exception { 
+	public ResponseEntity<?> atualizarEstoque(@RequestBody Estoque estoque , HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
