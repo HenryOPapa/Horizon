@@ -1,6 +1,8 @@
 br\com\papa\horizon\entity\Servico.class
 br\com\papa\horizon\vo\OrcamentoAuxiliarVO.class
+br\com\papa\horizon\dao\ItensOrcamentoDao.class
 br\com\papa\horizon\vo\ClienteVO.class
+br\com\papa\horizon\vo\DadosPadraoVO.class
 br\com\papa\horizon\controller\EquipamentoController.class
 br\com\papa\horizon\controller\EstoqueController.class
 br\com\papa\horizon\dao\EspecialidadeDao.class
@@ -8,6 +10,7 @@ br\com\papa\horizon\log\LOGNotaFiscalDao.class
 br\com\papa\horizon\vo\EspecialidadeVO.class
 br\com\papa\horizon\util\Email.class
 br\com\papa\horizon\vo\PessoaVO.class
+br\com\papa\horizon\vo\ItensOrcamentoVO.class
 br\com\papa\horizon\dao\OrcamentoDao.class
 br\com\papa\horizon\controller\PainelOSController.class
 br\com\papa\horizon\controller\ItensDeServicoController.class
@@ -28,6 +31,7 @@ br\com\papa\horizon\dao\ServicoDao.class
 br\com\papa\horizon\util\ConnectionDAO.class
 br\com\papa\horizon\dao\PecasDao.class
 br\com\papa\horizon\vo\FuncionarioVO.class
+br\com\papa\horizon\util\CalculoFibonacci.class
 br\com\papa\horizon\util\GsonUtil$1.class
 br\com\papa\horizon\dao\ManutencaoOrcamentoDao.class
 br\com\papa\horizon\dao\OrdemDeServicoDao.class
@@ -37,6 +41,7 @@ br\com\papa\horizon\entity\Orcamento.class
 br\com\papa\horizon\controller\ListaFuncionarioController.class
 br\com\papa\horizon\controller\EspecialidadeController.class
 br\com\papa\horizon\entity\Usuario.class
+br\com\papa\horizon\dao\ItensOrdemServicoDao.class
 br\com\papa\horizon\controller\LOGMainController.class
 br\com\papa\horizon\entity\Equipamento.class
 br\com\papa\horizon\dao\UsuarioDao.class
@@ -57,10 +62,10 @@ br\com\papa\horizon\entity\Funcionario.class
 br\com\papa\horizon\util\Enum$TipoEnderecos.class
 br\com\papa\horizon\controller\ManutencaoOrcamentoController.class
 br\com\papa\horizon\entity\Peca.class
+br\com\papa\horizon\vo\OrdemDeServicoVO.class
 br\com\papa\horizon\vo\BaseServicoVO.class
 br\com\papa\horizon\controller\FuncionarioController.class
 br\com\papa\horizon\vo\OrdemServicoVO.class
 br\com\papa\horizon\util\ServiceLocator.class
-br\com\papa\horizon\entity\PecaUtilizada.class
 br\com\papa\horizon\entity\ItensOrcamento.class
 br\com\papa\horizon\dao\GenericDao.class

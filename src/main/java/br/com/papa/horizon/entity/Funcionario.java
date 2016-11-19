@@ -1,6 +1,8 @@
 package br.com.papa.horizon.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -66,26 +69,34 @@ public class Funcionario implements Serializable{
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "ID_DOCUMENTO")
-//	private Documento documento;
-//	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "ID_CONTATO")
-//	private Contato contato;
-//	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "ID_ENDERECO")
-//	private Endereco endereco;
-
-//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinTable(name = "FUNCIONARIO_ENDERECO", 
-//	joinColumns = @JoinColumn(name = "ID_FUNCIONARIO"),
-//	inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO")
-//			)
-
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="ID_FUNCIONARIO")
+	private List<OrdemDeServico> ordensDeServico ;
 	
+	public void  addOrdemServico(OrdemDeServico ordemDeServico){
+		if (ordensDeServico == null){
+			ordensDeServico = new ArrayList<OrdemDeServico>();
+		}
+		ordemDeServico.setFuncionario(this);
+		ordensDeServico.add(ordemDeServico);
+	}
 
+	public void deleteOrdemServico(OrdemDeServico ordemDeServico){
+		if(ordensDeServico != null){
+			ordensDeServico.remove(ordemDeServico);
+		}
+	}
+
+
+		
+	
+	public List<OrdemDeServico> getOrdensDeServico() {
+		return ordensDeServico;
+	}
+
+	public void setOrdensDeServico(List<OrdemDeServico> ordensDeServico) {
+		this.ordensDeServico = ordensDeServico;
+	}
 
 	public Long getId() {
 		return id;

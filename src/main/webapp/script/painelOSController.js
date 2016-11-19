@@ -10,7 +10,6 @@ app.controller('PainelOSController', ['$scope', '$http' , function($scope, $http
 
 	}
 	
-	
 	function allowDrop(ev) {
 	    ev.preventDefault();
 	}

@@ -24,6 +24,7 @@ import br.com.papa.horizon.entity.ItensOrdemServico;
 import br.com.papa.horizon.entity.Orcamento;
 import br.com.papa.horizon.entity.OrdemDeServico;
 import br.com.papa.horizon.entity.Usuario;
+import br.com.papa.horizon.util.CalculoFibonacci;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 import br.com.papa.horizon.vo.ClienteVO;
@@ -210,9 +211,11 @@ public class AprovarReprovarOrcamentoController {
 		orcamentoDao = new OrcamentoDao();
 		
 		List<ItensOrcamento> itensOrcamento = new ArrayList<ItensOrcamento>();
+		itensOrcamento = orcamentoDao.getItensDeServico(orcamento.getId_orcamento());
 		ItensOrdemServico itemServico = new ItensOrdemServico();
 		
 		for(ItensOrcamento item : itensOrcamento ){
+			itemServico = new ItensOrdemServico();
 			itemServico.setDescricao(item.getDescricao());
 			itemServico.setQuantidade(item.getQuantidade());
 			itemServico.setValor(item.getValor());
@@ -224,6 +227,7 @@ public class AprovarReprovarOrcamentoController {
 	
 	//Método responsavel por criar a Ordem de Servico a partir do Orcamento
 	private OrdemDeServico gerarOS(Orcamento orcamento, OrdemDeServico ordemServico){
+		CalculoFibonacci fibonacci = new CalculoFibonacci();
 		Cliente cliente = orcamento.getCliente();
 		ordemServico.setEquipamento(orcamento.getEquipamento());
 		ordemServico.setEspecialidade(orcamento.getEspecialidade());
@@ -234,6 +238,6 @@ public class AprovarReprovarOrcamentoController {
 		ordemServico.setRelato(orcamento.getRelato());
 		cliente.addOrdemServico(ordemServico);
 		
-		return ordemServico;
+		return fibonacci.vincularOS(ordemServico);
 	}
 }

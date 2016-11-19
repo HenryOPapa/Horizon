@@ -45,30 +45,10 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		ClienteDao dao = new ClienteDao();
 		return dao.findByCPF(cpf);
 	}
-	
-	public Peca localizaPecaUnica(Long id){
-		PecasDao dao = new PecasDao();
-		return dao.findById(id);		
-	}
-	
+
 	public Servico localizarServicoUnico(Long id){
 		ServicoDao dao = new ServicoDao();
 		return dao.findById(id);
-	}
-	
-	public Especialidade procuraEspecialidade(Long idEspecialidade){
-		EspecialidadeDao dao = new EspecialidadeDao();
-		return dao.findEspecialidade(idEspecialidade);
-	}
-		
-	public Equipamento procuraEquipamento(String numSerie){
-		EquipamentoDao dao = new EquipamentoDao();
-		return dao.findByNumSerie(numSerie);
-	}
-
-	public Orcamento atualizarOrcamento(Orcamento orcamento){
-		update(orcamento);
-		return orcamento;	
 	}
 
 	public List<Especialidade> localizaEspecialidade(){
@@ -76,24 +56,9 @@ public class OrcamentoDao extends GenericDao<Orcamento>{
 		return dao.findAll();
 	}
 
-	public List<Peca> localizarPecas(){
-		PecasDao dao = new PecasDao();
-		List<Peca> pecas = dao.findAll();		
-		return pecas;
-	}
-	
 	public void salvarItensDeOrcamento(List<ItensOrcamento> itensOrcamento){
 		ItensOrcamentoDao dao = new ItensOrcamentoDao();
 		dao.saveList(itensOrcamento);
-	}
-	
-	public ItensOrcamento localizarPecaUnica(Long idPeca){
-		PecasDao dao = new PecasDao();
-		Peca peca = dao.findById(idPeca);
-		ItensOrcamento pecaUtilizada = new ItensOrcamento();
-		pecaUtilizada.setDescricao(peca.getDescricao());
-		pecaUtilizada.setValor(peca.getValor());
-		return pecaUtilizada;
 	}
 	
 	public ItensOrcamento localizarServico(Long id){

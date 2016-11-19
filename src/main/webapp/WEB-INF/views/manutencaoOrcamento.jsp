@@ -104,8 +104,9 @@
 						<option value="5">5</option>
 						<option value="8">8</option>
 						<option value="13">13</option>
-						<option value="20">20</option>
-						<option value="40">40</option>
+						<option value="21">21</option>
+						<option value="34">34</option>
+						<option value="55">55</option>
 						<option value="100">100</option>
 
 					</select>

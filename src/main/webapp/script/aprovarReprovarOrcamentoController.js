@@ -49,10 +49,6 @@ app.controller('AprovarReprovarOrcamentoController', ['$scope', '$http', functio
 		$http.post($scope.path + 'aprovarOrcamento', params).then(
 				function(response) {
 					if (response.status == 200) {
-//						$scope.screenData.orcamento = response.data.orcamento,
-//						$scope.screenData.cliente = response.data.cliente,
-//						$scope.screenData.equipamento = response.data.equipamento,
-//						$scope.screenData.itensDeServico = response.data.itensDeServico,
 						$scope.showListOrcamento = false;
 						$scope.showOrcamento = true;
 						location.reload();

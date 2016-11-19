@@ -65,6 +65,10 @@ public class OrdemDeServico implements Serializable{
 	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente cliente;
 	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name = "ID_FUNCIONARIO")
+	private Funcionario funcionario;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_ORDEM_SERVICO")
 	private List<ItensOrdemServico> itensOrdemServico;
@@ -84,7 +88,15 @@ public class OrdemDeServico implements Serializable{
 	}
 
 	
+	
 
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
 
 	public List<ItensOrdemServico> getItensOrdemServico() {
 		return itensOrdemServico;

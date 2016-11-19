@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.UsuarioDao;
 import br.com.papa.horizon.entity.Usuario;
+import br.com.papa.horizon.vo.DadosPadraoVO;
+import br.com.papa.horizon.vo.FuncionarioVO;
 
 import com.google.gson.Gson;
 
@@ -60,12 +62,12 @@ public class LoginController {
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		Usuario usu = new Usuario();
+		DadosPadraoVO dadosPadraoVO = new DadosPadraoVO();
 
 		try{
 			usu = usuarioDao.localizaUsuario(usuario.getLogin());
 			usuario.setId(usu.getId());
 			usuario.setNivelAcesso(usu.getNivelAcesso());
-			httpSession.setAttribute("usuario", usuario);
 
 		}catch(Exception e){
 			System.out.println("ERRO AO VALIDAR USUARIO: " +e);
@@ -73,6 +75,12 @@ public class LoginController {
 		}
 		if(usuario.getSenha().equals(usu.getSenha())){
 			if(usuario.getLogin().equals(usu.getLogin())){
+				
+				FuncionarioVO funcionario = usuarioDao.localizaFuncionario(usu.getIdFuncionario());
+				dadosPadraoVO.setFuncionario(funcionario);
+				dadosPadraoVO.setUsuario(usu);
+				httpSession.setAttribute("dadosPadraoVO", dadosPadraoVO);
+				
 				return new ResponseEntity<String>(gson.toJson(usuario), HttpStatus.OK);							
 			}
 		}else{
@@ -80,8 +88,6 @@ public class LoginController {
 
 		}
 
-
-		result.put("usuario",usu);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 
