@@ -64,11 +64,7 @@ public class Funcionario implements Serializable{
 	
 	@Column(name = "ESPECIALIDADE")
 	private String especialidade;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_USUARIO")
-	private Usuario usuario;
-	
+		
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_FUNCIONARIO")
 	private List<OrdemDeServico> ordensDeServico ;
@@ -114,13 +110,6 @@ public class Funcionario implements Serializable{
 		this.nome = nome;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public String getDataNascimento() {
 		return dataNascimento;

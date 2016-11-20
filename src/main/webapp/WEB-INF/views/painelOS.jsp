@@ -46,7 +46,7 @@
 												ng-click=""></span></td>
 											<td class="text-center"><span
 												class="glyphicon glyphicon-play text-primary clickable"
-												ng-click="iniciarTarefa()"></span></td>
+												ng-click="iniciarTarefa(row)"></span></td>
 										</tr>
 									</tbody>
 								</table>
@@ -78,15 +78,21 @@
 										<tr>
 											<th>Código</th>
 											<th>Relato</th>
+											<th>Observação</th>
 											<th>Status</th>
+											<th class="text-center">Detalhar O.S.</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr class="clickable" ng-repeat="row in screenData.ordensDeServico"
 											ng-click="" ng-show="row.statusOrdemServico == 'WIP' && row.idFuncionario === screenData.dadosPadraoVO.funcionario.id">
-											<td scope="row">{{row.id_orcamento}}</td>
+											<td scope="row">{{row.idOrdemServico}}</td>
 											<td>{{row.relato}}</td>
+											<td>{{row.observacao}}</td>
 											<td>{{row.statusOrdemServico}}</td>
+											<td class="text-center"><span
+												class="glyphicon glyphicon-plus text-primary clickable"
+												ng-click=""></span></td>
 										</tr>
 									</tbody>
 								</table>

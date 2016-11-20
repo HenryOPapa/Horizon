@@ -10,11 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.OrdemDeServicoDao;
+import br.com.papa.horizon.entity.OrdemDeServico;
+import br.com.papa.horizon.util.Enum.StatusOrdemDeServico;
 import br.com.papa.horizon.vo.DadosPadraoVO;
 import br.com.papa.horizon.vo.OrdemDeServicoVO;
 
@@ -52,16 +55,20 @@ public class PainelOSController {
 	}
 
 
-	@RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> cadastrarCliente(HttpSession httpSession) throws Exception { 
+	@RequestMapping(value = "/iniciarTarefa", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> iniciarTarefa(@RequestBody OrdemDeServicoVO ordemDeServicoVO, HttpSession httpSession) throws Exception { 
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
+		OrdemDeServico ordemDeServico = new OrdemDeServico();
+		ordemDeServicoDao = new OrdemDeServicoDao();
+		ordemDeServico = ordemDeServicoDao.findById(ordemDeServicoVO.getIdOrdemServico());
 
 		try{
-			
+			ordemDeServico.setStatusOrdemServico(StatusOrdemDeServico.WIP);
+			ordemDeServicoDao.update(ordemDeServico);
 		}catch(Exception e){
-			System.out.println("" +e);
+			System.out.println("ERRO AO INICIAR TAREFA" +e);
 			return new ResponseEntity<String>(gson.toJson(null), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

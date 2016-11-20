@@ -9,7 +9,7 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading accordion-heading accordion-heading-sm">
-					Nova Peça</div>
+					Nova Especialidade</div>
 				<div class="panel-body">
 
 					<div class="col-sm-3 form-group">
