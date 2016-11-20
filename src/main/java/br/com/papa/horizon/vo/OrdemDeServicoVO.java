@@ -20,7 +20,16 @@ public class OrdemDeServicoVO {
 	
 	private Long idFuncionario;
 	
+	private String dataCriacao;
 	
+	
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
 
 	public Long getIdFuncionario() {
 		return idFuncionario;

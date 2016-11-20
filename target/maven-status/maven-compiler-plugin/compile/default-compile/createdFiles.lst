@@ -66,6 +66,7 @@ br\com\papa\horizon\vo\OrdemDeServicoVO.class
 br\com\papa\horizon\vo\BaseServicoVO.class
 br\com\papa\horizon\controller\FuncionarioController.class
 br\com\papa\horizon\vo\OrdemServicoVO.class
+br\com\papa\horizon\vo\ItensOrdemServicoVO.class
 br\com\papa\horizon\util\ServiceLocator.class
 br\com\papa\horizon\entity\ItensOrcamento.class
 br\com\papa\horizon\dao\GenericDao.class

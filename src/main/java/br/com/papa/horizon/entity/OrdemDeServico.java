@@ -53,6 +53,12 @@ public class OrdemDeServico implements Serializable{
 	@Column(name = "PONTOS")
 	private Integer pontos;
 	
+	@Column(name ="DATA_CRIACAO")
+	private String dataCriacao;
+	
+	@Column(name ="DATA_ENCERRAMENTO")
+	private String dataEncerramento;
+	
 	@OneToOne
 	@JoinColumn(name="ID_ESPECIALIDADE")
 	private Especialidade especialidade;
@@ -89,6 +95,22 @@ public class OrdemDeServico implements Serializable{
 
 	
 	
+
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getDataEncerramento() {
+		return dataEncerramento;
+	}
+
+	public void setDataEncerramento(String dataEncerramento) {
+		this.dataEncerramento = dataEncerramento;
+	}
 
 	public Funcionario getFuncionario() {
 		return funcionario;

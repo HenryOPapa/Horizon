@@ -1,6 +1,9 @@
 package br.com.papa.horizon.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,6 +230,8 @@ public class AprovarReprovarOrcamentoController {
 	
 	//Método responsavel por criar a Ordem de Servico a partir do Orcamento
 	private OrdemDeServico gerarOS(Orcamento orcamento, OrdemDeServico ordemServico){
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
 		CalculoFibonacci fibonacci = new CalculoFibonacci();
 		Cliente cliente = orcamento.getCliente();
 		ordemServico.setEquipamento(orcamento.getEquipamento());
@@ -236,6 +241,7 @@ public class AprovarReprovarOrcamentoController {
 		ordemServico.setPontos(orcamento.getPontos());
 		ordemServico.setValorTotal(orcamento.getValorTotal());
 		ordemServico.setRelato(orcamento.getRelato());
+		ordemServico.setDataCriacao(date.toString());
 		cliente.addOrdemServico(ordemServico);
 		
 		return fibonacci.vincularOS(ordemServico);

@@ -84,7 +84,6 @@ var RETORNO = ${result}
 		</ul>
 
 
-
 		<ul class="nav navbar-nav navbar-right">
 
 			<li><a href="novoOrcamento"><label>Novo Orcamento</label></a></li>
@@ -99,6 +98,7 @@ var RETORNO = ${result}
 					<li><a href="teste.jsp">Alterar Senha</a></li>
 					<li><a href="#">Sair do Sistema</a></li>
 				</ul></li>
+			<li><strong>{{screenData.dadosPadraoVO.funcionario.nome}}</strong></li>
 		</ul>
 
 
