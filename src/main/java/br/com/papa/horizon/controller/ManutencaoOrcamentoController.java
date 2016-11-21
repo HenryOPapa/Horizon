@@ -23,11 +23,9 @@ import br.com.papa.horizon.entity.Equipamento;
 import br.com.papa.horizon.entity.Especialidade;
 import br.com.papa.horizon.entity.ItensOrcamento;
 import br.com.papa.horizon.entity.Orcamento;
-import br.com.papa.horizon.entity.Peca;
-import br.com.papa.horizon.entity.Servico;
-import br.com.papa.horizon.entity.Usuario;
 import br.com.papa.horizon.util.Enum.StatusOrcamento;
 import br.com.papa.horizon.vo.ClienteVO;
+import br.com.papa.horizon.vo.DadosPadraoVO;
 import br.com.papa.horizon.vo.EquipamentoVO;
 import br.com.papa.horizon.vo.EspecialidadeVO;
 import br.com.papa.horizon.vo.OrcamentoAuxiliarVO;
@@ -44,14 +42,12 @@ import com.google.gson.Gson;
 @RequestMapping("manutencaoOrcamento")
 public class ManutencaoOrcamentoController {
 	OrcamentoDao orcamentoDao;
-	Usuario usuario;
-	
-	List<Peca> pecasUtilizadasOrcamento = new ArrayList<Peca>();
-	List<Servico> servicosUtilizadosOrcamento = new ArrayList<Servico>();
+
 	
 	@RequestMapping
 	public ModelAndView manutencaoOrcamento(HttpSession session){
-		Gson gson = new Gson();		usuario = (Usuario) session.getAttribute("usuario");
+		Gson gson = new Gson();		
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) session.getAttribute("dadosPadraoVO");
 
 		orcamentoDao = new OrcamentoDao();
 		Map<String, Object> retorno = new HashMap<String, Object>();
@@ -63,6 +59,7 @@ public class ManutencaoOrcamentoController {
 		}catch(Exception e){
 			System.out.println("ERRO AO CONSULTAR ORCAMENTOS: "+e);
 		}
+		retorno.put("dadosPadraoVO", dadosPadraoVO);
 		retorno.put("orcamentos", orcamentos);
 		return new ModelAndView("manutencaoOrcamento").addObject("result",
 				gson.toJson(retorno));
@@ -83,7 +80,7 @@ public class ManutencaoOrcamentoController {
 
 		Gson gson = new Gson();
 		orcamentoDao = new OrcamentoDao();
-		usuario = (Usuario) httpSession.getAttribute("usuario");
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) httpSession.getAttribute("dadosPadraoVO");
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<ItensOrcamento> itensDeServico = new ArrayList<ItensOrcamento>();
 
@@ -104,6 +101,7 @@ public class ManutencaoOrcamentoController {
 		result.put("pecas", findPecas());
 		result.put("servicos", findServicos());
 		result.put("itensDeServico", itensDeServico);
+		result.put("dadosPadraoVO", dadosPadraoVO);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	

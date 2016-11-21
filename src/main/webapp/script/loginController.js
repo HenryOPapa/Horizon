@@ -33,8 +33,12 @@ app.controller('LoginController', ['$scope', '$http' , function($scope, $http) {
 					if (response.status === 200) {
 						
 						if(response.data.validaLogin == true){							
-							$scope.screenData.usuario = response.data.usuario;
-							window.location.href = "http://localhost:8080/horizon/menu";					
+							$scope.screenData.dadosPadraoVO = response.data.dadosPadraoVO;
+							if($scope.screenData.dadosPadraoVO.usuario.primeiroAcesso == true){
+								window.location.href = "http://localhost:8080/horizon/primeiroAcesso";
+							}else{
+								window.location.href = "http://localhost:8080/horizon/menu";													
+							}
 							
 						}else{
 							alertInvalido.style.display = "block";

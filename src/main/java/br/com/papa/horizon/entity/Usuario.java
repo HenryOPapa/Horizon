@@ -41,6 +41,20 @@ public class Usuario implements Serializable{
 
 	@Column(name = "NIVEL_ACESSO", nullable=false)
 	private String nivelAcesso;
+	
+	@Column(name = "PRIMEIRO_ACESSO", nullable=false)
+	private boolean primeiroAcesso;
+	
+	
+	
+
+	public boolean isPrimeiroAcesso() {
+		return primeiroAcesso;
+	}
+
+	public void setPrimeiroAcesso(boolean primeiroAcesso) {
+		this.primeiroAcesso = primeiroAcesso;
+	}
 
 	public long getId() {
 		return id;

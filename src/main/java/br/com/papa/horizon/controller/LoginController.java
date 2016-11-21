@@ -47,6 +47,14 @@ public class LoginController {
 		return new ModelAndView("login").addObject("result",
 				gson.toJson(retorno));
 	}
+	
+	@RequestMapping(value="/primeiroAcesso")
+	public ModelAndView primeiroAcesso(HttpSession httpSession) throws Exception {
+		Gson gson = new Gson();
+		Map<String, Object> retorno = new HashMap<String, Object>();
+		return new ModelAndView("primeiroAcesso").addObject("result",
+				gson.toJson(retorno));
+	}
 
 
 	/*
@@ -84,7 +92,7 @@ public class LoginController {
 				httpSession.setAttribute("dadosPadraoVO", dadosPadraoVO);
 				validaLogin = true;
 				
-				result.put("usuario", usuario);
+				result.put("dadosPadraoVO", dadosPadraoVO);
 				result.put("validaLogin", validaLogin);
 				return new ResponseEntity<String>(gson.toJson(result), HttpStatus.OK);							
 			}else{
