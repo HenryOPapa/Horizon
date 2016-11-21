@@ -75,11 +75,11 @@ public class FuncionarioController extends Exception{
 
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
-		funcionarioDao = new FuncionarioDao();
+		funcionarioDao = new FuncionarioDao();//declara objeto de banco
 
 		try{
-			funcionarioDao.save(funcionario);
-			criarUsuario(funcionario, nivelAcesso);
+			funcionarioDao.save(funcionario);//salva o usuario
+			criarUsuario(funcionario, nivelAcesso);//chama o metodo da linha 100 para criar usuario
 		}catch(Exception e){
 			System.out.println("ERRO AO CADASTRAR NOVO FUNCIONARIO: " +e);
 			return new ResponseEntity<String>(gson.toJson(funcionario), HttpStatus.INTERNAL_SERVER_ERROR);
