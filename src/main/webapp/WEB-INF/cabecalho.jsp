@@ -41,7 +41,7 @@ var RETORNO = ${result}
 	</div>
 
 
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="MenuController">
 		<ul class="nav navbar-nav">
 			<!-- 				<li><a href="#"><label>Novo Orcamento</label></a></li> -->
 
@@ -95,8 +95,8 @@ var RETORNO = ${result}
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="teste.jsp">Alterar Senha</a></li>
-					<li><a href="#">Sair do Sistema</a></li>
+					<li ng-click="alterarSenha()"><a>Alterar Senha</a></li>
+					<li ng-click="logout()"><a>Sair do Sistema</a></li>
 				</ul></li>
 			<li><strong>{{screenData.dadosPadraoVO.funcionario.nome}}</strong></li>
 		</ul>

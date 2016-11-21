@@ -17,6 +17,8 @@
 <script src="script/aprovarReprovarOrcamentoController.js"/></script>
 <script src="script/painelOSController.js"/></script>
 <script src="script/menuController.js"/></script>
+<script src="script/alterarSenhaController.js"/></script>
+
 
 
 

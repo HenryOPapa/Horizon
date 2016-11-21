@@ -19,16 +19,9 @@ import br.com.papa.horizon.vo.DadosPadraoVO;
 
 import com.google.gson.Gson;
 
-/**
- * 
- * @author henry.papa
- *
- */
-
-
 @Controller
-@RequestMapping("menu")
-public class MenuController {
+@RequestMapping("alterarSenha")
+public class AlterarSenhaController {
 	
 	@RequestMapping
 	public ModelAndView menu(HttpSession httpSession) throws Exception {
@@ -37,29 +30,12 @@ public class MenuController {
 		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) httpSession.getAttribute("dadosPadraoVO");
 		
 		retorno.put("dadosPadraoVO", dadosPadraoVO);
-		return new ModelAndView("menu").addObject("result",
+		return new ModelAndView("alterarSenha").addObject("result",
 				gson.toJson(retorno));
 	}
-
-	/*
-	 * 
-	 * Método responsavel por deslogar o usuario
-	 */
-	@RequestMapping(value = "/logout", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> logout(HttpSession httpSession) throws Exception { 
-
-		Gson gson = new Gson();
-		httpSession.removeAttribute("dadosPadraoVO");
-		
-		return new ResponseEntity<String>(gson.toJson("{}"), HttpStatus.OK);							
-	}
 	
-	
-	
-	
-	
-	@RequestMapping(value = "/senha", method = RequestMethod.POST, produces = "application/json")
-	public ModelAndView alterarSenha(@RequestParam String senha, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "/atualizarSenha", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> atualizarSenha(@RequestParam String senha, HttpSession httpSession) throws Exception { 
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) httpSession.getAttribute("dadosPadraoVO");
@@ -67,6 +43,7 @@ public class MenuController {
 		UsuarioDao dao = new UsuarioDao();
 		
 		usuario.setSenha(senha);
+		dadosPadraoVO.setUsuario(usuario);
 		try{
 			dao.update(usuario);			
 		}catch(Exception e){
@@ -74,9 +51,11 @@ public class MenuController {
 		}
 		
 		retorno.put("dadosPadraoVO", dadosPadraoVO);
-		return new ModelAndView("alterarSenha").addObject("result",
-				gson.toJson(retorno));
+
+		
+		return new ResponseEntity<String>(gson.toJson(retorno), HttpStatus.OK);							
 	}
+	
 	
 
 }

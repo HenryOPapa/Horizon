@@ -109,7 +109,6 @@ public class EstoqueController {
 		return new ResponseEntity<String>(gson.toJson(result), HttpStatus.OK);							
 	}
 	
-	//Henry é lindo \o\
 	
 	/*
 	 * ###############################################################################################
