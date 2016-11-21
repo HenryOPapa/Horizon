@@ -14,8 +14,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#OSTODO">O.S. na Fila <strong>[
-									{{screenData.ordensDeServicoTODO.length}} ]</strong></a>
+							<a data-toggle="collapse" href="#OSTODO">O.S. na Fila </a>
 						</h4>
 					</div>
 					<div id="OSTODO" class="panel-collapse collapse">
@@ -70,8 +69,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#OSWIP">O.S. em Andamento <strong>[
-									{{screenData.ordensDeServicoWIP.length}} ]</strong></a>
+							<a data-toggle="collapse" href="#OSWIP">O.S. em Andamento</a>
 						</h4>
 					</div>
 					<div id="OSWIP" class="panel-collapse collapse">
@@ -120,8 +118,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#OSDONE">O.S. Finalizadas <strong>[
-									{{screenData.ordensDeServicoDONE.length}} ]</strong></a>
+							<a data-toggle="collapse" href="#OSDONE">O.S. Finalizadas </a>
 						</h4>
 					</div>
 					<div id="OSDONE" class="panel-collapse collapse">

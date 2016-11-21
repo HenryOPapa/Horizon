@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.EspecialidadeDao;
 import br.com.papa.horizon.entity.Especialidade;
+import br.com.papa.horizon.vo.DadosPadraoVO;
 
 import com.google.gson.Gson;
 
@@ -32,16 +33,25 @@ public class EspecialidadeController {
 	private EspecialidadeDao especialidadeDao;
 		
 	@RequestMapping
-	public ModelAndView cadastroPeca(){
+	public ModelAndView cadastroPeca(HttpSession session){
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		especialidadeDao = new EspecialidadeDao();
 		List<Especialidade> especialidades = especialidadeDao.findAll();
+		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) session.getAttribute("dadosPadraoVO");
+		
+
 		
 		retorno.put("especialidades", especialidades);
+		retorno.put("dadosPadraoVO", dadosPadraoVO);
+		if("total".equals(dadosPadraoVO.getUsuario().getNivelAcesso())){
+			return new ModelAndView("especialidadeCadastro").addObject("result",
+					gson.toJson(retorno));			
+		}else{
+			return new ModelAndView("onlyAdmin").addObject("result",gson.toJson(retorno));			
+		}
 		
-		return new ModelAndView("especialidadeCadastro").addObject("result",
-				gson.toJson(retorno));
+
 	}
 	
 	@RequestMapping(value = "/cadastrarEspecialidade", method = RequestMethod.POST, produces = "application/json")

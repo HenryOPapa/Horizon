@@ -31,15 +31,18 @@ app.controller('LoginController', ['$scope', '$http' , function($scope, $http) {
 		$http.post($scope.path + 'validarAcesso', params).then(
 				function(response) {
 					if (response.status === 200) {
-						$scope.screenData.usuario = response.data;
-						window.location.href = "http://localhost:8080/horizon/menu";					
-					}else{
-						alertInvalido.style.display = "block";
-						setTimeout(function(){
-							alertInvalido.style.display = "none";
-						},5000);
 						
-
+						if(response.data.validaLogin == true){							
+							$scope.screenData.usuario = response.data.usuario;
+							window.location.href = "http://localhost:8080/horizon/menu";					
+							
+						}else{
+							alertInvalido.style.display = "block";
+							setTimeout(function(){
+								alertInvalido.style.display = "none";
+							},5000);
+							
+						}
 					}
 				}
 		);

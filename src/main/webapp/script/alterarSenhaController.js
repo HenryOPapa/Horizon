@@ -14,7 +14,7 @@ app.controller('AlterarSenhaController', ['$scope', '$http' , function($scope, $
 		
 		if($scope.formData.senha == $scope.formData.senhaAgain){
 			var params={
-					'novaSenha' : $scope.formData.senha,	
+					'senha' : $scope.formData.senha,	
 		}
 		}else{
 			
@@ -24,7 +24,7 @@ app.controller('AlterarSenhaController', ['$scope', '$http' , function($scope, $
 			},5000);
 		}
 
-		$http.post($scope.path + 'alterarSenha', params).then(
+		$http.post($scope.path + 'atualizarSenha', params).then(
 				function(response) {
 					if (response.status === 200) {
 						

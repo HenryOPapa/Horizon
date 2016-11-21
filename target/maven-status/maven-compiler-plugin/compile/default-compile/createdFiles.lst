@@ -51,6 +51,7 @@ br\com\papa\horizon\controller\LoginController.class
 br\com\papa\horizon\dao\FuncionarioDao.class
 br\com\papa\horizon\entity\Estoque.class
 br\com\papa\horizon\controller\ListaClienteController.class
+br\com\papa\horizon\controller\AlterarSenhaController.class
 br\com\papa\horizon\dao\PecaUtilizadaDao.class
 br\com\papa\horizon\util\Filter.class
 br\com\papa\horizon\controller\AprovarReprovarOrcamentoController.class

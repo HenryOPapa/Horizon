@@ -64,6 +64,7 @@ public class LoginController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Usuario usu = new Usuario();
 		DadosPadraoVO dadosPadraoVO = new DadosPadraoVO();
+		Boolean validaLogin;
 
 		try{
 			usu = usuarioDao.localizaUsuario(usuario.getLogin());
@@ -81,14 +82,16 @@ public class LoginController {
 				dadosPadraoVO.setFuncionario(funcionario);
 				dadosPadraoVO.setUsuario(usu);
 				httpSession.setAttribute("dadosPadraoVO", dadosPadraoVO);
+				validaLogin = true;
 				
-				return new ResponseEntity<String>(gson.toJson(usuario), HttpStatus.OK);							
+				result.put("usuario", usuario);
+				result.put("validaLogin", validaLogin);
+				return new ResponseEntity<String>(gson.toJson(result), HttpStatus.OK);							
+			}else{
 			}
-		}else{
-			return new ResponseEntity<String>(gson.toJson(result), HttpStatus.INTERNAL_SERVER_ERROR);
-
 		}
-
+		validaLogin = false;
+		result.put("validaLogin", validaLogin);
 		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 

@@ -14,12 +14,12 @@
 
 
 				<div class="col-sm-3 form-group">
-					<input type="text" class="form-control" name="notaFiscal"
+					<input type="password" class="form-control" 
 						ng-model="formData.senha" placeholder="Nova senha">
 				</div>
 
 				<div class="col-sm-3 form-group">
-					<input type="text" class="form-control" name="notaFiscal"
+					<input type="password" class="form-control" 
 						ng-model="formData.senhaAgain" placeholder="Nova senha novamente">
 				</div>
 

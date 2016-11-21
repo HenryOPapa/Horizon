@@ -8,9 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.papa.horizon.dao.UsuarioDao;
@@ -35,14 +35,14 @@ public class AlterarSenhaController {
 	}
 	
 	@RequestMapping(value = "/atualizarSenha", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> atualizarSenha(@RequestParam String senha, HttpSession httpSession) throws Exception { 
+	public ResponseEntity<?> atualizarSenha(@RequestBody Usuario usuarioNovaSenha, HttpSession httpSession) throws Exception { 
 		Gson gson = new Gson();
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		DadosPadraoVO dadosPadraoVO = (DadosPadraoVO) httpSession.getAttribute("dadosPadraoVO");
 		Usuario usuario = dadosPadraoVO.getUsuario();
 		UsuarioDao dao = new UsuarioDao();
 		
-		usuario.setSenha(senha);
+		usuario.setSenha(usuarioNovaSenha.getSenha());
 		dadosPadraoVO.setUsuario(usuario);
 		try{
 			dao.update(usuario);			
