@@ -3,7 +3,8 @@ app.controller('RelatoriosController', ['$scope', '$http' , function($scope, $ht
 	$scope.screenData = [];
 	$scope.formData = {};
 	$scope.path = 'relatorios/';
-
+	$scope.showListOrcamentos = false;
+	$scope.showListOrdemServico = false;
 
 	$scope.init = function() {
 		$scope.screenData = RETORNO;
@@ -13,14 +14,20 @@ app.controller('RelatoriosController', ['$scope', '$http' , function($scope, $ht
 	$scope.atualizarFiltro = function(){
 			
 		var params = {
-				'idFuncionario' : $scope.formData.funcionario,
+				'id' : $scope.formData.funcionario,
 		}
 			
 			$http.post($scope.path + 'atualizarFiltroFuncionario?&idTarefa='+$scope.tarefa, params).then(
 					function(response) {
 						if (response.status === 200) {
-							
-							
+							if(response.data.x == 1){
+								$scope.showListOrcamentos = true;
+								$scope.showListOrdemServico = false;
+							}else if(response.data.x == 2){
+								$scope.showListOrdemServico = true;
+								$scope.showListOrcamentos = false;
+							}
+							$scope.screenData.resultadoPesquisa = response.data.resultadoPesquisa;
 							
 						}
 					}

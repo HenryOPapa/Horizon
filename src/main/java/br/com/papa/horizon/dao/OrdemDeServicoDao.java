@@ -32,6 +32,7 @@ public class OrdemDeServicoDao extends GenericDao<OrdemDeServico>{
 		ItensOrdemServicoDao dao = new ItensOrdemServicoDao();
 		dao.saveList(itensOrdemServico);
 	}
+
 	
 	public List<OrdemDeServicoVO> localizarOS(){
 		List<OrdemDeServico> resultOS = findAll();

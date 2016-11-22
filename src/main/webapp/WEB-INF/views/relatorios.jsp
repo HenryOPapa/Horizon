@@ -21,7 +21,7 @@
 						<option value="">...</option>
 						<option value="3">Ordem de Servico Na Fila</option>
 						<option value="4">Ordem de Servico Em Atendimento</option>
-						<option value="5">Ordem de Servico Em Atendimento</option>
+						<option value="5">Ordem de Servico Finalizados</option>
 
 					</select>
 				</div>
@@ -42,7 +42,7 @@
 				</div>
 
 
-				<div class="col-sm-12 form-group input">
+				<div class="col-sm-12 form-group input" ng-show="showListOrcamentos">
 					<table class="table">
 						<thead>
 							<tr>
@@ -53,12 +53,36 @@
 						</thead>
 						<tbody>
 							<tr class="clickable"
-								ng-repeat="row in screenData.orcamentos | filter:valorFiltro"
-								ng-click="detalharOrcamento(row)"
-								ng-show="row.statusOrcamento == 'EM_ABERTO'">
+								ng-repeat="row in screenData.resultadoPesquisa| filter:valorFiltro"
+								ng-click="detalharOrcamento(row)" >
 								<td scope="row">{{row.id_orcamento}}</td>
 								<td>{{row.relato}}</td>
 								<td>{{row.statusOrcamento}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				
+				<div class="col-sm-12 form-group input" ng-show="showListOrdemServico">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Código</th>
+								<th>Relato</th>
+								<th>Data Criação</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="clickable"
+								ng-repeat="row in screenData.resultadoPesquisa| filter:valorFiltro"
+								ng-click="detalharOrcamento(row)"
+								ng-show="row.idFuncionario == formData.funcionario" >
+								<td scope="row">{{row.idOrdemServico}}</td>
+								<td>{{row.relato}}</td>
+								<td>{{row.dataCriacao}}</td>
+								<td>{{row.statusOrdemServico}}</td>
 							</tr>
 						</tbody>
 					</table>
