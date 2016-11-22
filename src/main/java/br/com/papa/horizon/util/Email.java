@@ -24,7 +24,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
+		   email.setAuthentication("henrynpsii@gmail.com", "xxxxxxx");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
@@ -51,7 +51,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
+		   email.setAuthentication("henrynpsii@gmail.com", "xxxxxxx");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
@@ -75,7 +75,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
+		   email.setAuthentication("henrynpsii@gmail.com", "xxxxxxx");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
