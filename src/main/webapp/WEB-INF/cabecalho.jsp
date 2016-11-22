@@ -79,7 +79,7 @@ var RETORNO = ${result}
 					<li><a href="especialidade">Especialidades</a></li>
 					<li><a href="estoque">Estoque</a></li>
 					<li><a href="itensDeServico">Cadastrar Itens de Serviço</a></li>
-					<li><a href="#">Relatórios</a></li>
+					<li><a href="relatorios">Relatórios</a></li>
 				</ul></li>
 		</ul>
 
