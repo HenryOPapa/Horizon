@@ -48,13 +48,7 @@ public class LoginController {
 				gson.toJson(retorno));
 	}
 	
-	@RequestMapping(value="/primeiroAcesso")
-	public ModelAndView primeiroAcesso(HttpSession httpSession) throws Exception {
-		Gson gson = new Gson();
-		Map<String, Object> retorno = new HashMap<String, Object>();
-		return new ModelAndView("primeiroAcesso").addObject("result",
-				gson.toJson(retorno));
-	}
+	
 
 
 	/*

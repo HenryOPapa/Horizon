@@ -63,7 +63,7 @@ public class ListaClienteController {
 		}	
 
 		retorno.put("clientes", clientes);
-
+		retorno.put("dadosPadraoVO", dadosPadraoVO);
 
 
 		return new ModelAndView("cliente/listaCliente").addObject("result",

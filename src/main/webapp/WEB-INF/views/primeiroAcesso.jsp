@@ -4,14 +4,21 @@
 
 <%@ include file="../cabecalho.jsp"%>
 <body>
-	<div class="container" ng-controller="LoginController" ng-init="init()">
+	<div class="container" ng-controller="PrimeiroAcessoController" ng-init="init()">
 
+		
+		<div >
+			<label><strong>Olá {{screenData.dadosPadraoVO.funcionario.nome}}. 
+			Este é seu primeiro acesso. Favor alterar sua senha logo abaixo!!!</strong></label>
+		
+		</div>
+			
+		
 
 		<div class="panel panel-default">
 			<div class="panel-heading accordion-heading accordion-heading-sm">
 				Alterar Senha</div>
 			<div class="panel-body">
-			<div class="col-sm-12 form-group text-left alert alert-info" ng-cloak><strong>Este é seu primeiro acesso. Favor alterar sua senha logo abaixo!!!</strong></div>
 
 
 				<div class="col-sm-3 form-group">

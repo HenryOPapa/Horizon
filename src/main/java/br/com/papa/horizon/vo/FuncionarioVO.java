@@ -8,6 +8,7 @@ package br.com.papa.horizon.vo;
 public class FuncionarioVO extends PessoaVO{
 
 	public String especiliadade;
+	
 
 	public String getEspeciliadade() {
 		return especiliadade;

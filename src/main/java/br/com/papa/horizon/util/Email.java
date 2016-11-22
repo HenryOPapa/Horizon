@@ -24,7 +24,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "xxxxx");
+		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
@@ -42,14 +42,16 @@ public class Email {
 		   //assunto
 		   email.setSubject("Bem Vindo!!!");
 		   //Adicione a mensagem do email 
-		   email.setMsg("Seu cadastro foi efetuado com Sucesso!!! \n"
+		   email.setMsg("Olá " + funcionario.getNome() 
+				   + "\n" 
+				   +"Seu cadastro foi efetuado com Sucesso!!! \n"
 				   + "Seu login é: " + login
 				   + " \n Sua senha é: " + senha
 				   +"! \n  Favor Altera-la no primeiro login");
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "xxxxxx");
+		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
@@ -73,7 +75,7 @@ public class Email {
 		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
 		   System.out.println("autenticando...");
 		   email.setSSL(true);
-		   email.setAuthentication("henrynpsii@gmail.com", "xxxxxx");
+		   email.setAuthentication("henrynpsii@gmail.com", "11223344@a");
 		   System.out.println("enviando...");
 		   email.send();
 		   System.out.println("Email enviado!");
